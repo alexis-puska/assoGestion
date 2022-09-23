@@ -1,0 +1,35 @@
+{
+  "assoGestionApp": {
+    "chat": {
+      "home": {
+        "title": "Chats",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Chat",
+        "createOrEditLabel": "Créer ou éditer un Chat",
+        "notFound": "Aucun Chat trouvé"
+      },
+      "created": "Un nouveau Chat a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Chat avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Chat avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Chat {{ id }} ?"
+      },
+      "detail": {
+        "title": "Chat"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "typeIdentification": "Type Identification",
+      "identification": "Identification",
+      "dateNaissance": "Date Naissance",
+      "description": "Description",
+      "robe": "Robe",
+      "poil": "Poil",
+      "contrat": "Contrat",
+      "visite": "Visite",
+      "famille": "Famille",
+      "adresseCapture": "Adresse Capture",
+      "race": "Race"
+    }
+  }
+}

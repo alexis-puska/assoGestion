@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923160048",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "contact",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telMobile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telFixe",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Contact",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "familleAccueil",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "familleAccueil",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "pointNourrissage",
+      "otherEntityRelationshipName": "contact",
+      "relationshipName": "pointNourrissage",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

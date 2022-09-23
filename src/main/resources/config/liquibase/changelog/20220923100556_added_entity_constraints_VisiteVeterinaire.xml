@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity VisiteVeterinaire.
+    -->
+    <changeSet id="20220923100556-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="clinique_veterinaire_id"
+                                 baseTableName="visite_veterinaire"
+                                 constraintName="fk_visite_veterinaire__clinique_veterinaire_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="clinique_veterinaire"/>
+
+        <addForeignKeyConstraint baseColumnNames="chat_id"
+                                 baseTableName="visite_veterinaire"
+                                 constraintName="fk_visite_veterinaire__chat_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="chat"/>
+    </changeSet>
+</databaseChangeLog>

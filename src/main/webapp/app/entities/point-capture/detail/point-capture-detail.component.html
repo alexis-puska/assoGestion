@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pointCapture">
+      <h2 data-cy="pointCaptureDetailsHeading"><span jhiTranslate="assoGestionApp.pointCapture.detail.title">Point Capture</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pointCapture.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.pointCapture.nom">Nom</span></dt>
+        <dd>
+          <span>{{ pointCapture.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.pointCapture.adresseCapture">Adresse Capture</span></dt>
+        <dd>
+          <div *ngIf="pointCapture.adresseCapture">
+            <a [routerLink]="['/adresse', pointCapture.adresseCapture?.id, 'view']">{{ pointCapture.adresseCapture?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/point-capture', pointCapture.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

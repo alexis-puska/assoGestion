@@ -15,7 +15,32 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923100555_added_entity_Chat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923100556_added_entity_VisiteVeterinaire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923100557_added_entity_FamilleAccueil.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923100558_added_entity_Adresse.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923102606_added_entity_PointCapture.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923102607_added_entity_PointNourrissage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142517_added_entity_RaceChat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142518_added_entity_ActeVeterinaire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142519_added_entity_Contrat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142520_added_entity_ConfigurationDon.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142521_added_entity_ConfigurationContrat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142522_added_entity_CliniqueVeterinaire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142523_added_entity_Donateur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923160048_added_entity_Contact.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20220923100555_added_entity_constraints_Chat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923100556_added_entity_constraints_VisiteVeterinaire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923100557_added_entity_constraints_FamilleAccueil.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923102606_added_entity_constraints_PointCapture.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923102607_added_entity_constraints_PointNourrissage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142518_added_entity_constraints_ActeVeterinaire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142520_added_entity_constraints_ConfigurationDon.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142522_added_entity_constraints_CliniqueVeterinaire.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142523_added_entity_constraints_Donateur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923142519_added_entity_constraints_Contrat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220923160048_added_entity_constraints_Contact.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

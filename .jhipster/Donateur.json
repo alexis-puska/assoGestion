@@ -1,0 +1,55 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923142523",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "donateur",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "montant",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "sommeTouteLettre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "formeDon",
+      "fieldType": "FormeDonEnum",
+      "fieldValues": "ACTE_AUTHENTIQUE,ACTE_SOUS_SEIN_PRIVE,DON_MANUEL,AUTRES"
+    },
+    {
+      "fieldName": "natureDon",
+      "fieldType": "NatureDon",
+      "fieldValues": "NUMERAIRE,TITRE_SOCIETE_COTES,AUTRES"
+    },
+    {
+      "fieldName": "numeraireDon",
+      "fieldType": "NumeraireDonEnum",
+      "fieldValues": "ESPECE,CHEQUE,VIREMENT,CB"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Donateur",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "adresse",
+      "otherEntityRelationshipName": "donateur",
+      "ownerSide": true,
+      "relationshipName": "adresse",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

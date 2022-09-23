@@ -7,17 +7,25 @@ import fr.iocean.asso.service.MailService;
 import fr.iocean.asso.service.UserService;
 import fr.iocean.asso.service.dto.AdminUserDTO;
 import fr.iocean.asso.service.dto.PasswordChangeDTO;
-import fr.iocean.asso.web.rest.errors.*;
+import fr.iocean.asso.web.rest.errors.EmailAlreadyUsedException;
+import fr.iocean.asso.web.rest.errors.InvalidPasswordException;
+import fr.iocean.asso.web.rest.errors.LoginAlreadyUsedException;
 import fr.iocean.asso.web.rest.vm.KeyAndPasswordVM;
 import fr.iocean.asso.web.rest.vm.ManagedUserVM;
-import java.util.*;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller for managing the current user's account.
@@ -27,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 public class AccountResource {
 
     private static class AccountResourceException extends RuntimeException {
+
+        private static final long serialVersionUID = -1631651363876694866L;
 
         private AccountResourceException(String message) {
             super(message);

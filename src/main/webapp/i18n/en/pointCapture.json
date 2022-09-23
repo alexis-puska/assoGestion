@@ -1,0 +1,25 @@
+{
+  "assoGestionApp": {
+    "pointCapture": {
+      "home": {
+        "title": "Point Captures",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Point Capture",
+        "createOrEditLabel": "Create or edit a Point Capture",
+        "notFound": "No Point Captures found"
+      },
+      "created": "A new Point Capture is created with identifier {{ param }}",
+      "updated": "A Point Capture is updated with identifier {{ param }}",
+      "deleted": "A Point Capture is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Point Capture {{ id }}?"
+      },
+      "detail": {
+        "title": "Point Capture"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "adresseCapture": "Adresse Capture"
+    }
+  }
+}

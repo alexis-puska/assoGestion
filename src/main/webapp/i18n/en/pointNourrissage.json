@@ -1,0 +1,26 @@
+{
+  "assoGestionApp": {
+    "pointNourrissage": {
+      "home": {
+        "title": "Point Nourrissages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Point Nourrissage",
+        "createOrEditLabel": "Create or edit a Point Nourrissage",
+        "notFound": "No Point Nourrissages found"
+      },
+      "created": "A new Point Nourrissage is created with identifier {{ param }}",
+      "updated": "A Point Nourrissage is updated with identifier {{ param }}",
+      "deleted": "A Point Nourrissage is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Point Nourrissage {{ id }}?"
+      },
+      "detail": {
+        "title": "Point Nourrissage"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "adresse": "Adresse",
+      "contact": "Contact"
+    }
+  }
+}

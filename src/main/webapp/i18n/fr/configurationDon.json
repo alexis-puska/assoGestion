@@ -1,0 +1,27 @@
+{
+  "assoGestionApp": {
+    "configurationDon": {
+      "home": {
+        "title": "ConfigurationDons",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Configuration Don",
+        "createOrEditLabel": "Créer ou éditer un Configuration Don",
+        "notFound": "Aucun Configuration Don trouvé"
+      },
+      "created": "Un nouveau Configuration Don a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Configuration Don avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Configuration Don avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Configuration Don {{ id }} ?"
+      },
+      "detail": {
+        "title": "Configuration Don"
+      },
+      "id": "ID",
+      "denomination": "Denomination",
+      "objet": "Objet",
+      "signataire": "Signataire",
+      "adresse": "Adresse"
+    }
+  }
+}

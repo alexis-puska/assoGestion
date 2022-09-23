@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923102606",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "point_capture",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PointCapture",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "adresse",
+      "otherEntityRelationshipName": "pointCapture",
+      "ownerSide": true,
+      "relationshipName": "adresseCapture",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

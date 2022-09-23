@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="PointCaptureHeading">
+    <span jhiTranslate="assoGestionApp.pointCapture.home.title">Point Captures</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="assoGestionApp.pointCapture.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-point-capture"
+        [routerLink]="['/point-capture/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="assoGestionApp.pointCapture.home.createLabel"> Create a new Point Capture </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pointCaptures?.length === 0">
+    <span jhiTranslate="assoGestionApp.pointCapture.home.notFound">No pointCaptures found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="pointCaptures && pointCaptures.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nom">
+            <span jhiTranslate="assoGestionApp.pointCapture.nom">Nom</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="adresseCapture.id">
+            <span jhiTranslate="assoGestionApp.pointCapture.adresseCapture">Adresse Capture</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let pointCapture of pointCaptures; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/point-capture', pointCapture.id, 'view']">{{ pointCapture.id }}</a>
+          </td>
+          <td>{{ pointCapture.nom }}</td>
+          <td>
+            <div *ngIf="pointCapture.adresseCapture">
+              <a [routerLink]="['/adresse', pointCapture.adresseCapture?.id, 'view']">{{ pointCapture.adresseCapture?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/point-capture', pointCapture.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/point-capture', pointCapture.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(pointCapture)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

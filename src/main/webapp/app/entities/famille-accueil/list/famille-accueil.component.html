@@ -1,0 +1,104 @@
+<div>
+  <h2 id="page-heading" data-cy="FamilleAccueilHeading">
+    <span jhiTranslate="assoGestionApp.familleAccueil.home.title">Famille Accueils</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="assoGestionApp.familleAccueil.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-famille-accueil"
+        [routerLink]="['/famille-accueil/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="assoGestionApp.familleAccueil.home.createLabel"> Create a new Famille Accueil </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="familleAccueils?.length === 0">
+    <span jhiTranslate="assoGestionApp.familleAccueil.home.notFound">No familleAccueils found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="familleAccueils && familleAccueils.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nom">
+            <span jhiTranslate="assoGestionApp.familleAccueil.nom">Nom</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="typeLogement">
+            <span jhiTranslate="assoGestionApp.familleAccueil.typeLogement">Type Logement</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nombrePiece">
+            <span jhiTranslate="assoGestionApp.familleAccueil.nombrePiece">Nombre Piece</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nombreChat">
+            <span jhiTranslate="assoGestionApp.familleAccueil.nombreChat">Nombre Chat</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="nombreChien">
+            <span jhiTranslate="assoGestionApp.familleAccueil.nombreChien">Nombre Chien</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="adresse.id">
+            <span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let familleAccueil of familleAccueils; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/famille-accueil', familleAccueil.id, 'view']">{{ familleAccueil.id }}</a>
+          </td>
+          <td>{{ familleAccueil.nom }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.TypeLogementEnum.' + familleAccueil.typeLogement }}">{{ familleAccueil.typeLogement }}</td>
+          <td>{{ familleAccueil.nombrePiece }}</td>
+          <td>{{ familleAccueil.nombreChat }}</td>
+          <td>{{ familleAccueil.nombreChien }}</td>
+          <td>
+            <div *ngIf="familleAccueil.adresse">
+              <a [routerLink]="['/adresse', familleAccueil.adresse?.id, 'view']">{{ familleAccueil.adresse?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/famille-accueil', familleAccueil.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/famille-accueil', familleAccueil.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(familleAccueil)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

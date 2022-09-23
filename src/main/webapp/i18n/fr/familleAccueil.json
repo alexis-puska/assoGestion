@@ -1,0 +1,30 @@
+{
+  "assoGestionApp": {
+    "familleAccueil": {
+      "home": {
+        "title": "FamilleAccueils",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Famille Accueil",
+        "createOrEditLabel": "Créer ou éditer un Famille Accueil",
+        "notFound": "Aucun Famille Accueil trouvé"
+      },
+      "created": "Un nouveau Famille Accueil a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Famille Accueil avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Famille Accueil avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Famille Accueil {{ id }} ?"
+      },
+      "detail": {
+        "title": "Famille Accueil"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "typeLogement": "Type Logement",
+      "nombrePiece": "Nombre Piece",
+      "nombreChat": "Nombre Chat",
+      "nombreChien": "Nombre Chien",
+      "adresse": "Adresse",
+      "contact": "Contact"
+    }
+  }
+}

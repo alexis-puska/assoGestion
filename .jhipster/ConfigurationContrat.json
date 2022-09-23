@@ -1,0 +1,20 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923142521",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "configuration_contrat",
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ConfigurationContrat",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

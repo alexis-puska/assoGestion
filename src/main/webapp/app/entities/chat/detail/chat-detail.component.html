@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="chat">
+      <h2 data-cy="chatDetailsHeading"><span jhiTranslate="assoGestionApp.chat.detail.title">Chat</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ chat.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.nom">Nom</span></dt>
+        <dd>
+          <span>{{ chat.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.typeIdentification">Type Identification</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'assoGestionApp.TypeIdentificationEnum.' + chat.typeIdentification }}">{{ chat.typeIdentification }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.identification">Identification</span></dt>
+        <dd>
+          <span>{{ chat.identification }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.dateNaissance">Date Naissance</span></dt>
+        <dd>
+          <span>{{ chat.dateNaissance | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.description">Description</span></dt>
+        <dd>
+          <span>{{ chat.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.robe">Robe</span></dt>
+        <dd>
+          <span>{{ chat.robe }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.poil">Poil</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'assoGestionApp.PoilEnum.' + chat.poil }}">{{ chat.poil }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.contrat">Contrat</span></dt>
+        <dd>
+          <div *ngIf="chat.contrat">
+            <a [routerLink]="['/contrat', chat.contrat?.id, 'view']">{{ chat.contrat?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.famille">Famille</span></dt>
+        <dd>
+          <div *ngIf="chat.famille">
+            <a [routerLink]="['/famille-accueil', chat.famille?.id, 'view']">{{ chat.famille?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.adresseCapture">Adresse Capture</span></dt>
+        <dd>
+          <div *ngIf="chat.adresseCapture">
+            <a [routerLink]="['/point-capture', chat.adresseCapture?.id, 'view']">{{ chat.adresseCapture?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.race">Race</span></dt>
+        <dd>
+          <div *ngIf="chat.race">
+            <a [routerLink]="['/race-chat', chat.race?.id, 'view']">{{ chat.race?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/chat', chat.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

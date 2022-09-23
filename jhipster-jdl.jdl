@@ -1,0 +1,168 @@
+entity Chat {
+    nom String required
+    typeIdentification TypeIdentificationEnum
+    identification String
+    dateNaissance LocalDate required
+    description TextBlob
+    robe String required
+    poil PoilEnum required
+}
+
+entity RaceChat {
+    libelle String
+}
+
+entity ActeVeterinaire {
+    libelle String
+}
+
+entity FamilleAccueil {
+    nom String
+    typeLogement TypeLogementEnum
+    nombrePiece Integer
+    nombreChat Integer
+    nombreChien Integer
+}
+
+entity Contact {
+    nom String required
+    prenom String required
+    mail String 
+    telMobile String
+    telFixe String
+}
+
+entity Contrat{
+    nom String
+    prenom String
+    cout Double
+    paiement PaiementEnum
+    dateContrat LocalDate
+}
+
+entity PointCapture {
+    nom String
+}
+
+entity PointNourrissage {
+    nom String
+}
+
+entity Adresse {
+    numero Integer required 
+    rue String required
+    codePostale String required
+    ville String required
+}
+
+entity ConfigurationDon {
+    denomination String
+    objet String
+    signataire String
+}
+
+entity ConfigurationContrat {
+    content String
+}
+
+entity CliniqueVeterinaire {
+    nom String
+    actif Boolean
+}
+
+entity VisiteVeterinaire {
+    dateVisite LocalDate
+}
+
+entity Donateur {
+    nom String
+    prenom String
+    montant Double
+    sommeTouteLettre String
+    formeDon FormeDonEnum
+    natureDon NatureDon
+    numeraireDon NumeraireDonEnum
+}
+
+enum PaiementEnum {
+    ESPECE
+    CHEQUE
+    VIREMENT
+}
+
+enum FormeDonEnum {
+    ACTE_AUTHENTIQUE
+    ACTE_SOUS_SEIN_PRIVE
+    DON_MANUEL
+    AUTRES
+}
+
+enum NatureDon {
+    NUMERAIRE
+    TITRE_SOCIETE_COTES
+    AUTRES
+}
+
+enum NumeraireDonEnum {
+    ESPECE
+    CHEQUE
+    VIREMENT
+    CB
+}
+
+enum TypeLogementEnum {
+    MAISON
+    APPARTEMENT
+}
+
+enum StatusEnum {
+    ASSO
+    ADOPTE
+    DECEDE
+}
+
+enum PoilEnum {
+    SANS
+	COURT
+    MI_LONG
+    LONG
+}
+
+enum TypeIdentificationEnum {
+    PUCE
+    TATOUAGE
+}
+
+relationship OneToOne {
+    FamilleAccueil{adresse} to Adresse
+    PointCapture{adresseCapture} to Adresse
+    PointNourrissage{adresse} to Adresse
+    Donateur{adresse} to Adresse
+    ConfigurationDon{adresse} to Adresse
+    CliniqueVeterinaire{adresse} to Adresse
+    Contrat{adresseAdoptant} to Adresse
+    Chat{contrat} to Contrat
+}
+
+relationship OneToMany {
+    Chat{visite} to VisiteVeterinaire
+    VisiteVeterinaire{acte} to  ActeVeterinaire
+    FamilleAccueil{contact} to Contact
+    PointNourrissage{contact} to Contact
+}
+
+relationship ManyToOne {
+    Chat{famille(id)} to FamilleAccueil
+    Chat{adresseCapture(id)} to PointCapture
+    Chat{race(id)} to RaceChat
+    VisiteVeterinaire{cliniqueVeterinaire(id)} to CliniqueVeterinaire
+}
+
+// Set pagination options
+paginate * with infinite-scroll
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+// Set service options to all except few
+service all with serviceClass // except Employee, Job
+// Set an angular suffix
+// angularSuffix * with mySuffix

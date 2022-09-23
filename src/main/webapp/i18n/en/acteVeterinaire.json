@@ -1,0 +1,25 @@
+{
+  "assoGestionApp": {
+    "acteVeterinaire": {
+      "home": {
+        "title": "Acte Veterinaires",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Acte Veterinaire",
+        "createOrEditLabel": "Create or edit a Acte Veterinaire",
+        "notFound": "No Acte Veterinaires found"
+      },
+      "created": "A new Acte Veterinaire is created with identifier {{ param }}",
+      "updated": "A Acte Veterinaire is updated with identifier {{ param }}",
+      "deleted": "A Acte Veterinaire is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Acte Veterinaire {{ id }}?"
+      },
+      "detail": {
+        "title": "Acte Veterinaire"
+      },
+      "id": "ID",
+      "libelle": "Libelle",
+      "visiteVeterinaire": "Visite Veterinaire"
+    }
+  }
+}

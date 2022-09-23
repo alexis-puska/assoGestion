@@ -1,0 +1,34 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923102607",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "point_nourrissage",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "PointNourrissage",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "adresse",
+      "otherEntityRelationshipName": "pointNourrissage",
+      "ownerSide": true,
+      "relationshipName": "adresse",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "contact",
+      "otherEntityRelationshipName": "pointNourrissage",
+      "relationshipName": "contact",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

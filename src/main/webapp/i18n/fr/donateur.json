@@ -1,0 +1,31 @@
+{
+  "assoGestionApp": {
+    "donateur": {
+      "home": {
+        "title": "Donateurs",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Donateur",
+        "createOrEditLabel": "Créer ou éditer un Donateur",
+        "notFound": "Aucun Donateur trouvé"
+      },
+      "created": "Un nouveau Donateur a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Donateur avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Donateur avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Donateur {{ id }} ?"
+      },
+      "detail": {
+        "title": "Donateur"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "prenom": "Prenom",
+      "montant": "Montant",
+      "sommeTouteLettre": "Somme Toute Lettre",
+      "formeDon": "Forme Don",
+      "natureDon": "Nature Don",
+      "numeraireDon": "Numeraire Don",
+      "adresse": "Adresse"
+    }
+  }
+}

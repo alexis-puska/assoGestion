@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pointNourrissage">
+      <h2 data-cy="pointNourrissageDetailsHeading">
+        <span jhiTranslate="assoGestionApp.pointNourrissage.detail.title">Point Nourrissage</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pointNourrissage.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.pointNourrissage.nom">Nom</span></dt>
+        <dd>
+          <span>{{ pointNourrissage.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.pointNourrissage.adresse">Adresse</span></dt>
+        <dd>
+          <div *ngIf="pointNourrissage.adresse">
+            <a [routerLink]="['/adresse', pointNourrissage.adresse?.id, 'view']">{{ pointNourrissage.adresse?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/point-nourrissage', pointNourrissage.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="familleAccueil">
+      <h2 data-cy="familleAccueilDetailsHeading"><span jhiTranslate="assoGestionApp.familleAccueil.detail.title">Famille Accueil</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ familleAccueil.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.nom">Nom</span></dt>
+        <dd>
+          <span>{{ familleAccueil.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.typeLogement">Type Logement</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'assoGestionApp.TypeLogementEnum.' + familleAccueil.typeLogement }}">{{
+            familleAccueil.typeLogement
+          }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.nombrePiece">Nombre Piece</span></dt>
+        <dd>
+          <span>{{ familleAccueil.nombrePiece }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.nombreChat">Nombre Chat</span></dt>
+        <dd>
+          <span>{{ familleAccueil.nombreChat }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.nombreChien">Nombre Chien</span></dt>
+        <dd>
+          <span>{{ familleAccueil.nombreChien }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span></dt>
+        <dd>
+          <div *ngIf="familleAccueil.adresse">
+            <a [routerLink]="['/adresse', familleAccueil.adresse?.id, 'view']">{{ familleAccueil.adresse?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/famille-accueil', familleAccueil.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

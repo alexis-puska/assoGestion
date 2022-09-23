@@ -1,0 +1,102 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-famille-accueil-heading"
+        data-cy="FamilleAccueilCreateUpdateHeading"
+        jhiTranslate="assoGestionApp.familleAccueil.home.createOrEditLabel"
+      >
+        Create or edit a Famille Accueil
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.typeLogement" for="field_typeLogement">Type Logement</label>
+          <select class="form-control" name="typeLogement" formControlName="typeLogement" id="field_typeLogement" data-cy="typeLogement">
+            <option [ngValue]="null">{{ 'assoGestionApp.TypeLogementEnum.null' | translate }}</option>
+            <option *ngFor="let typeLogementEnum of typeLogementEnumValues" [value]="typeLogementEnum">
+              {{ 'assoGestionApp.TypeLogementEnum.' + typeLogementEnum | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombrePiece" for="field_nombrePiece">Nombre Piece</label>
+          <input
+            type="number"
+            class="form-control"
+            name="nombrePiece"
+            id="field_nombrePiece"
+            data-cy="nombrePiece"
+            formControlName="nombrePiece"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChat" for="field_nombreChat">Nombre Chat</label>
+          <input
+            type="number"
+            class="form-control"
+            name="nombreChat"
+            id="field_nombreChat"
+            data-cy="nombreChat"
+            formControlName="nombreChat"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChien" for="field_nombreChien">Nombre Chien</label>
+          <input
+            type="number"
+            class="form-control"
+            name="nombreChien"
+            id="field_nombreChien"
+            data-cy="nombreChien"
+            formControlName="nombreChien"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.adresse" for="field_adresse">Adresse</label>
+          <select class="form-control" id="field_adresse" data-cy="adresse" name="adresse" formControlName="adresse">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="adresseOption.id === editForm.get('adresse')!.value?.id ? editForm.get('adresse')!.value : adresseOption"
+              *ngFor="let adresseOption of adressesCollection; trackBy: trackAdresseById"
+            >
+              {{ adresseOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

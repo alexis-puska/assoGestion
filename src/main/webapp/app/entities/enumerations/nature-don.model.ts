@@ -1,0 +1,7 @@
+export enum NatureDon {
+  NUMERAIRE = 'NUMERAIRE',
+
+  TITRE_SOCIETE_COTES = 'TITRE_SOCIETE_COTES',
+
+  AUTRES = 'AUTRES',
+}

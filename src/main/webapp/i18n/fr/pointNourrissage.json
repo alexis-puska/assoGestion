@@ -1,0 +1,26 @@
+{
+  "assoGestionApp": {
+    "pointNourrissage": {
+      "home": {
+        "title": "PointNourrissages",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Point Nourrissage",
+        "createOrEditLabel": "Créer ou éditer un Point Nourrissage",
+        "notFound": "Aucun Point Nourrissage trouvé"
+      },
+      "created": "Un nouveau Point Nourrissage a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Point Nourrissage avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Point Nourrissage avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Point Nourrissage {{ id }} ?"
+      },
+      "detail": {
+        "title": "Point Nourrissage"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "adresse": "Adresse",
+      "contact": "Contact"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "assoGestionApp": {
+    "cliniqueVeterinaire": {
+      "home": {
+        "title": "Clinique Veterinaires",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Clinique Veterinaire",
+        "createOrEditLabel": "Create or edit a Clinique Veterinaire",
+        "notFound": "No Clinique Veterinaires found"
+      },
+      "created": "A new Clinique Veterinaire is created with identifier {{ param }}",
+      "updated": "A Clinique Veterinaire is updated with identifier {{ param }}",
+      "deleted": "A Clinique Veterinaire is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Clinique Veterinaire {{ id }}?"
+      },
+      "detail": {
+        "title": "Clinique Veterinaire"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "actif": "Actif",
+      "adresse": "Adresse"
+    }
+  }
+}

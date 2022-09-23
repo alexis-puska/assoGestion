@@ -1,0 +1,118 @@
+<div>
+  <h2 id="page-heading" data-cy="ChatHeading">
+    <span jhiTranslate="assoGestionApp.chat.home.title">Chats</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="assoGestionApp.chat.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-chat"
+        [routerLink]="['/chat/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="assoGestionApp.chat.home.createLabel"> Create a new Chat </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="chats?.length === 0">
+    <span jhiTranslate="assoGestionApp.chat.home.notFound">No chats found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="chats && chats.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nom"><span jhiTranslate="assoGestionApp.chat.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="typeIdentification">
+            <span jhiTranslate="assoGestionApp.chat.typeIdentification">Type Identification</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="identification">
+            <span jhiTranslate="assoGestionApp.chat.identification">Identification</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="dateNaissance">
+            <span jhiTranslate="assoGestionApp.chat.dateNaissance">Date Naissance</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <span jhiTranslate="assoGestionApp.chat.description">Description</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="robe"><span jhiTranslate="assoGestionApp.chat.robe">Robe</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="poil"><span jhiTranslate="assoGestionApp.chat.poil">Poil</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="contrat.id">
+            <span jhiTranslate="assoGestionApp.chat.contrat">Contrat</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="famille.id">
+            <span jhiTranslate="assoGestionApp.chat.famille">Famille</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="adresseCapture.id">
+            <span jhiTranslate="assoGestionApp.chat.adresseCapture">Adresse Capture</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="race.id"><span jhiTranslate="assoGestionApp.chat.race">Race</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let chat of chats; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/chat', chat.id, 'view']">{{ chat.id }}</a>
+          </td>
+          <td>{{ chat.nom }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.TypeIdentificationEnum.' + chat.typeIdentification }}">{{ chat.typeIdentification }}</td>
+          <td>{{ chat.identification }}</td>
+          <td>{{ chat.dateNaissance | formatMediumDate }}</td>
+          <td>{{ chat.description }}</td>
+          <td>{{ chat.robe }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.PoilEnum.' + chat.poil }}">{{ chat.poil }}</td>
+          <td>
+            <div *ngIf="chat.contrat">
+              <a [routerLink]="['/contrat', chat.contrat?.id, 'view']">{{ chat.contrat?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="chat.famille">
+              <a [routerLink]="['/famille-accueil', chat.famille?.id, 'view']">{{ chat.famille?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="chat.adresseCapture">
+              <a [routerLink]="['/point-capture', chat.adresseCapture?.id, 'view']">{{ chat.adresseCapture?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="chat.race">
+              <a [routerLink]="['/race-chat', chat.race?.id, 'view']">{{ chat.race?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/chat', chat.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/chat', chat.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(chat)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

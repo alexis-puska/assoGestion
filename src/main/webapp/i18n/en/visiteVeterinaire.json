@@ -1,0 +1,27 @@
+{
+  "assoGestionApp": {
+    "visiteVeterinaire": {
+      "home": {
+        "title": "Visite Veterinaires",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Visite Veterinaire",
+        "createOrEditLabel": "Create or edit a Visite Veterinaire",
+        "notFound": "No Visite Veterinaires found"
+      },
+      "created": "A new Visite Veterinaire is created with identifier {{ param }}",
+      "updated": "A Visite Veterinaire is updated with identifier {{ param }}",
+      "deleted": "A Visite Veterinaire is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Visite Veterinaire {{ id }}?"
+      },
+      "detail": {
+        "title": "Visite Veterinaire"
+      },
+      "id": "ID",
+      "dateVisite": "Date Visite",
+      "acte": "Acte",
+      "cliniqueVeterinaire": "Clinique Veterinaire",
+      "chat": "Chat"
+    }
+  }
+}

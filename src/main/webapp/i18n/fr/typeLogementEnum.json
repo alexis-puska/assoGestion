@@ -1,0 +1,9 @@
+{
+  "assoGestionApp": {
+    "TypeLogementEnum": {
+      "null": "",
+      "MAISON": "MAISON",
+      "APPARTEMENT": "APPARTEMENT"
+    }
+  }
+}

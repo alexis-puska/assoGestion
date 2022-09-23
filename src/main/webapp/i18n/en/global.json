@@ -7,6 +7,20 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "chat": "Chat",
+        "visiteVeterinaire": "Visite Veterinaire",
+        "familleAccueil": "Famille Accueil",
+        "adresse": "Adresse",
+        "pointCapture": "Point Capture",
+        "pointNourrissage": "Point Nourrissage",
+        "raceChat": "Race Chat",
+        "acteVeterinaire": "Acte Veterinaire",
+        "contrat": "Contrat",
+        "configurationDon": "Configuration Don",
+        "configurationContrat": "Configuration Contrat",
+        "cliniqueVeterinaire": "Clinique Veterinaire",
+        "donateur": "Donateur",
+        "contact": "Contact",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

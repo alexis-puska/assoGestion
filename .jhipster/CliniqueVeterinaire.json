@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923142522",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "clinique_veterinaire",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "actif",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "CliniqueVeterinaire",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "adresse",
+      "otherEntityRelationshipName": "cliniqueVeterinaire",
+      "ownerSide": true,
+      "relationshipName": "adresse",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

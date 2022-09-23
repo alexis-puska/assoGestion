@@ -1,0 +1,86 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923100555",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "chat",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "typeIdentification",
+      "fieldType": "TypeIdentificationEnum",
+      "fieldValues": "PUCE,TATOUAGE"
+    },
+    {
+      "fieldName": "identification",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateNaissance",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "robe",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "poil",
+      "fieldType": "PoilEnum",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SANS,COURT,MI_LONG,LONG"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Chat",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "contrat",
+      "otherEntityRelationshipName": "chat",
+      "ownerSide": true,
+      "relationshipName": "contrat",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "visiteVeterinaire",
+      "otherEntityRelationshipName": "chat",
+      "relationshipName": "visite",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "familleAccueil",
+      "otherEntityRelationshipName": "chat",
+      "relationshipName": "famille",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "pointCapture",
+      "otherEntityRelationshipName": "chat",
+      "relationshipName": "adresseCapture",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "raceChat",
+      "otherEntityRelationshipName": "chat",
+      "relationshipName": "race",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923100556",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "visite_veterinaire",
+  "fields": [
+    {
+      "fieldName": "dateVisite",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "VisiteVeterinaire",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "acteVeterinaire",
+      "otherEntityRelationshipName": "visiteVeterinaire",
+      "relationshipName": "acte",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "cliniqueVeterinaire",
+      "otherEntityRelationshipName": "visiteVeterinaire",
+      "relationshipName": "cliniqueVeterinaire",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "chat",
+      "otherEntityRelationshipName": "visite",
+      "relationshipName": "chat",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

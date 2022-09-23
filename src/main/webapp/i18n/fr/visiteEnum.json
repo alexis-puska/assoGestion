@@ -1,0 +1,13 @@
+{
+  "assoGestionApp": {
+    "VisiteEnum": {
+      "null": "",
+      "VACCIN_TL": "VACCIN_TL",
+      "VACCIN_TLC": "VACCIN_TLC",
+      "VACCIN_TLCR": "VACCIN_TLCR",
+      "DEPARASITAGE": "DEPARASITAGE",
+      "STERILISATION": "STERILISATION",
+      "OPERATION": "OPERATION"
+    }
+  }
+}

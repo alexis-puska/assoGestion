@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-donateur-heading" data-cy="DonateurCreateUpdateHeading" jhiTranslate="assoGestionApp.donateur.home.createOrEditLabel">
+        Create or edit a Donateur
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.prenom" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.montant" for="field_montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.sommeTouteLettre" for="field_sommeTouteLettre"
+            >Somme Toute Lettre</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="sommeTouteLettre"
+            id="field_sommeTouteLettre"
+            data-cy="sommeTouteLettre"
+            formControlName="sommeTouteLettre"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.formeDon" for="field_formeDon">Forme Don</label>
+          <select class="form-control" name="formeDon" formControlName="formeDon" id="field_formeDon" data-cy="formeDon">
+            <option [ngValue]="null">{{ 'assoGestionApp.FormeDonEnum.null' | translate }}</option>
+            <option *ngFor="let formeDonEnum of formeDonEnumValues" [value]="formeDonEnum">
+              {{ 'assoGestionApp.FormeDonEnum.' + formeDonEnum | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.natureDon" for="field_natureDon">Nature Don</label>
+          <select class="form-control" name="natureDon" formControlName="natureDon" id="field_natureDon" data-cy="natureDon">
+            <option [ngValue]="null">{{ 'assoGestionApp.NatureDon.null' | translate }}</option>
+            <option *ngFor="let natureDon of natureDonValues" [value]="natureDon">
+              {{ 'assoGestionApp.NatureDon.' + natureDon | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.numeraireDon" for="field_numeraireDon">Numeraire Don</label>
+          <select class="form-control" name="numeraireDon" formControlName="numeraireDon" id="field_numeraireDon" data-cy="numeraireDon">
+            <option [ngValue]="null">{{ 'assoGestionApp.NumeraireDonEnum.null' | translate }}</option>
+            <option *ngFor="let numeraireDonEnum of numeraireDonEnumValues" [value]="numeraireDonEnum">
+              {{ 'assoGestionApp.NumeraireDonEnum.' + numeraireDonEnum | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.donateur.adresse" for="field_adresse">Adresse</label>
+          <select class="form-control" id="field_adresse" data-cy="adresse" name="adresse" formControlName="adresse">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="adresseOption.id === editForm.get('adresse')!.value?.id ? editForm.get('adresse')!.value : adresseOption"
+              *ngFor="let adresseOption of adressesCollection; trackBy: trackAdresseById"
+            >
+              {{ adresseOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

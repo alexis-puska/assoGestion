@@ -1,0 +1,24 @@
+{
+  "assoGestionApp": {
+    "configurationContrat": {
+      "home": {
+        "title": "Configuration Contrats",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Configuration Contrat",
+        "createOrEditLabel": "Create or edit a Configuration Contrat",
+        "notFound": "No Configuration Contrats found"
+      },
+      "created": "A new Configuration Contrat is created with identifier {{ param }}",
+      "updated": "A Configuration Contrat is updated with identifier {{ param }}",
+      "deleted": "A Configuration Contrat is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Configuration Contrat {{ id }}?"
+      },
+      "detail": {
+        "title": "Configuration Contrat"
+      },
+      "id": "ID",
+      "content": "Content"
+    }
+  }
+}

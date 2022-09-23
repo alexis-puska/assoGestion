@@ -1,0 +1,10 @@
+{
+  "assoGestionApp": {
+    "PaiementEnum": {
+      "null": "",
+      "ESPECE": "ESPECE",
+      "CHEQUE": "CHEQUE",
+      "VIREMENT": "VIREMENT"
+    }
+  }
+}

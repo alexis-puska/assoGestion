@@ -1,0 +1,24 @@
+{
+  "assoGestionApp": {
+    "raceChat": {
+      "home": {
+        "title": "Race Chats",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Race Chat",
+        "createOrEditLabel": "Create or edit a Race Chat",
+        "notFound": "No Race Chats found"
+      },
+      "created": "A new Race Chat is created with identifier {{ param }}",
+      "updated": "A Race Chat is updated with identifier {{ param }}",
+      "deleted": "A Race Chat is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Race Chat {{ id }}?"
+      },
+      "detail": {
+        "title": "Race Chat"
+      },
+      "id": "ID",
+      "libelle": "Libelle"
+    }
+  }
+}

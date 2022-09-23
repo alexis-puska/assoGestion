@@ -1,0 +1,117 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-contact-heading" data-cy="ContactCreateUpdateHeading" jhiTranslate="assoGestionApp.contact.home.createOrEditLabel">
+        Create or edit a Contact
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.prenom" for="field_prenom">Prenom</label>
+          <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+          <div *ngIf="editForm.get('prenom')!.invalid && (editForm.get('prenom')!.dirty || editForm.get('prenom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('prenom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.mail" for="field_mail">Mail</label>
+          <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail" formControlName="mail" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.telMobile" for="field_telMobile">Tel Mobile</label>
+          <input type="text" class="form-control" name="telMobile" id="field_telMobile" data-cy="telMobile" formControlName="telMobile" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.telFixe" for="field_telFixe">Tel Fixe</label>
+          <input type="text" class="form-control" name="telFixe" id="field_telFixe" data-cy="telFixe" formControlName="telFixe" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.familleAccueil" for="field_familleAccueil">Famille Accueil</label>
+          <select
+            class="form-control"
+            id="field_familleAccueil"
+            data-cy="familleAccueil"
+            name="familleAccueil"
+            formControlName="familleAccueil"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                familleAccueilOption.id === editForm.get('familleAccueil')!.value?.id
+                  ? editForm.get('familleAccueil')!.value
+                  : familleAccueilOption
+              "
+              *ngFor="let familleAccueilOption of familleAccueilsSharedCollection; trackBy: trackFamilleAccueilById"
+            >
+              {{ familleAccueilOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.contact.pointNourrissage" for="field_pointNourrissage"
+            >Point Nourrissage</label
+          >
+          <select
+            class="form-control"
+            id="field_pointNourrissage"
+            data-cy="pointNourrissage"
+            name="pointNourrissage"
+            formControlName="pointNourrissage"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                pointNourrissageOption.id === editForm.get('pointNourrissage')!.value?.id
+                  ? editForm.get('pointNourrissage')!.value
+                  : pointNourrissageOption
+              "
+              *ngFor="let pointNourrissageOption of pointNourrissagesSharedCollection; trackBy: trackPointNourrissageById"
+            >
+              {{ pointNourrissageOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

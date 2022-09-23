@@ -48,6 +48,25 @@ public class CacheConfiguration {
             createCache(cm, fr.iocean.asso.domain.User.class.getName());
             createCache(cm, fr.iocean.asso.domain.Authority.class.getName());
             createCache(cm, fr.iocean.asso.domain.User.class.getName() + ".authorities");
+
+            createCache(cm, fr.iocean.asso.domain.Chat.class.getName());
+            createCache(cm, fr.iocean.asso.domain.Chat.class.getName() + ".visites");
+            createCache(cm, fr.iocean.asso.domain.VisiteVeterinaire.class.getName());
+            createCache(cm, fr.iocean.asso.domain.VisiteVeterinaire.class.getName() + ".actes");
+            createCache(cm, fr.iocean.asso.domain.FamilleAccueil.class.getName());
+            createCache(cm, fr.iocean.asso.domain.FamilleAccueil.class.getName() + ".contacts");
+            createCache(cm, fr.iocean.asso.domain.Adresse.class.getName());
+            createCache(cm, fr.iocean.asso.domain.PointCapture.class.getName());
+            createCache(cm, fr.iocean.asso.domain.PointNourrissage.class.getName());
+            createCache(cm, fr.iocean.asso.domain.PointNourrissage.class.getName() + ".contacts");
+            createCache(cm, fr.iocean.asso.domain.RaceChat.class.getName());
+            createCache(cm, fr.iocean.asso.domain.ActeVeterinaire.class.getName());
+            createCache(cm, fr.iocean.asso.domain.Contrat.class.getName());
+            createCache(cm, fr.iocean.asso.domain.ConfigurationDon.class.getName());
+            createCache(cm, fr.iocean.asso.domain.ConfigurationContrat.class.getName());
+            createCache(cm, fr.iocean.asso.domain.CliniqueVeterinaire.class.getName());
+            createCache(cm, fr.iocean.asso.domain.Donateur.class.getName());
+            createCache(cm, fr.iocean.asso.domain.Contact.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

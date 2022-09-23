@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="cliniqueVeterinaire">
+      <h2 data-cy="cliniqueVeterinaireDetailsHeading">
+        <span jhiTranslate="assoGestionApp.cliniqueVeterinaire.detail.title">Clinique Veterinaire</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ cliniqueVeterinaire.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.cliniqueVeterinaire.nom">Nom</span></dt>
+        <dd>
+          <span>{{ cliniqueVeterinaire.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.cliniqueVeterinaire.actif">Actif</span></dt>
+        <dd>
+          <span>{{ cliniqueVeterinaire.actif }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.cliniqueVeterinaire.adresse">Adresse</span></dt>
+        <dd>
+          <div *ngIf="cliniqueVeterinaire.adresse">
+            <a [routerLink]="['/adresse', cliniqueVeterinaire.adresse?.id, 'view']">{{ cliniqueVeterinaire.adresse?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/clinique-veterinaire', cliniqueVeterinaire.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="acteVeterinaire">
+      <h2 data-cy="acteVeterinaireDetailsHeading">
+        <span jhiTranslate="assoGestionApp.acteVeterinaire.detail.title">Acte Veterinaire</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ acteVeterinaire.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.acteVeterinaire.libelle">Libelle</span></dt>
+        <dd>
+          <span>{{ acteVeterinaire.libelle }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.acteVeterinaire.visiteVeterinaire">Visite Veterinaire</span></dt>
+        <dd>
+          <div *ngIf="acteVeterinaire.visiteVeterinaire">
+            <a [routerLink]="['/visite-veterinaire', acteVeterinaire.visiteVeterinaire?.id, 'view']">{{
+              acteVeterinaire.visiteVeterinaire?.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/acte-veterinaire', acteVeterinaire.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

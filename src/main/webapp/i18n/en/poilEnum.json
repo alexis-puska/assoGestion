@@ -1,0 +1,11 @@
+{
+  "assoGestionApp": {
+    "PoilEnum": {
+      "null": "",
+      "SANS": "SANS",
+      "COURT": "COURT",
+      "MI_LONG": "MI_LONG",
+      "LONG": "LONG"
+    }
+  }
+}

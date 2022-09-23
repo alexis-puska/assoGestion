@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="donateur">
+      <h2 data-cy="donateurDetailsHeading"><span jhiTranslate="assoGestionApp.donateur.detail.title">Donateur</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ donateur.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.nom">Nom</span></dt>
+        <dd>
+          <span>{{ donateur.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.prenom">Prenom</span></dt>
+        <dd>
+          <span>{{ donateur.prenom }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.montant">Montant</span></dt>
+        <dd>
+          <span>{{ donateur.montant }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.sommeTouteLettre">Somme Toute Lettre</span></dt>
+        <dd>
+          <span>{{ donateur.sommeTouteLettre }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.formeDon">Forme Don</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'assoGestionApp.FormeDonEnum.' + donateur.formeDon }}">{{ donateur.formeDon }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.natureDon">Nature Don</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'assoGestionApp.NatureDon.' + donateur.natureDon }}">{{ donateur.natureDon }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.numeraireDon">Numeraire Don</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'assoGestionApp.NumeraireDonEnum.' + donateur.numeraireDon }}">{{ donateur.numeraireDon }}</span>
+        </dd>
+        <dt><span jhiTranslate="assoGestionApp.donateur.adresse">Adresse</span></dt>
+        <dd>
+          <div *ngIf="donateur.adresse">
+            <a [routerLink]="['/adresse', donateur.adresse?.id, 'view']">{{ donateur.adresse?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/donateur', donateur.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

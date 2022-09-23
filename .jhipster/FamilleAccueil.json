@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923100557",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "famille_accueil",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "typeLogement",
+      "fieldType": "TypeLogementEnum",
+      "fieldValues": "MAISON,APPARTEMENT"
+    },
+    {
+      "fieldName": "nombrePiece",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombreChat",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombreChien",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "FamilleAccueil",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "adresse",
+      "otherEntityRelationshipName": "familleAccueil",
+      "ownerSide": true,
+      "relationshipName": "adresse",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "contact",
+      "otherEntityRelationshipName": "familleAccueil",
+      "relationshipName": "contact",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

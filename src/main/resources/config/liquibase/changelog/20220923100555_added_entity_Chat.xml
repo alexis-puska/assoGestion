@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Chat.
+    -->
+    <changeSet id="20220923100555-1" author="jhipster">
+        <createTable tableName="chat">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="chatPK"/>
+            </column>
+            <column name="nom" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="type_identification" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="identification" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="date_naissance" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="robe" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="poil" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="contrat_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_chat__contrat_id" />
+            </column>
+            <column name="famille_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="adresse_capture_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="race_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+</databaseChangeLog>

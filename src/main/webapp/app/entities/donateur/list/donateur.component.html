@@ -1,0 +1,110 @@
+<div>
+  <h2 id="page-heading" data-cy="DonateurHeading">
+    <span jhiTranslate="assoGestionApp.donateur.home.title">Donateurs</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="assoGestionApp.donateur.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-donateur"
+        [routerLink]="['/donateur/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="assoGestionApp.donateur.home.createLabel"> Create a new Donateur </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="donateurs?.length === 0">
+    <span jhiTranslate="assoGestionApp.donateur.home.notFound">No donateurs found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="donateurs && donateurs.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="nom"><span jhiTranslate="assoGestionApp.donateur.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="prenom">
+            <span jhiTranslate="assoGestionApp.donateur.prenom">Prenom</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="montant">
+            <span jhiTranslate="assoGestionApp.donateur.montant">Montant</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="sommeTouteLettre">
+            <span jhiTranslate="assoGestionApp.donateur.sommeTouteLettre">Somme Toute Lettre</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="formeDon">
+            <span jhiTranslate="assoGestionApp.donateur.formeDon">Forme Don</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="natureDon">
+            <span jhiTranslate="assoGestionApp.donateur.natureDon">Nature Don</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="numeraireDon">
+            <span jhiTranslate="assoGestionApp.donateur.numeraireDon">Numeraire Don</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="adresse.id">
+            <span jhiTranslate="assoGestionApp.donateur.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let donateur of donateurs; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/donateur', donateur.id, 'view']">{{ donateur.id }}</a>
+          </td>
+          <td>{{ donateur.nom }}</td>
+          <td>{{ donateur.prenom }}</td>
+          <td>{{ donateur.montant }}</td>
+          <td>{{ donateur.sommeTouteLettre }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.FormeDonEnum.' + donateur.formeDon }}">{{ donateur.formeDon }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.NatureDon.' + donateur.natureDon }}">{{ donateur.natureDon }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.NumeraireDonEnum.' + donateur.numeraireDon }}">{{ donateur.numeraireDon }}</td>
+          <td>
+            <div *ngIf="donateur.adresse">
+              <a [routerLink]="['/adresse', donateur.adresse?.id, 'view']">{{ donateur.adresse?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/donateur', donateur.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/donateur', donateur.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(donateur)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
