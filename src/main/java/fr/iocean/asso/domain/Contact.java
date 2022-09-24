@@ -26,8 +26,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@ToString(exclude = { "familleAccueil", "pointNourrissage" })
+@EqualsAndHashCode(exclude = { "familleAccueil", "pointNourrissage" })
 public class Contact implements Serializable {
 
     private static final long serialVersionUID = 4421469563359696801L;

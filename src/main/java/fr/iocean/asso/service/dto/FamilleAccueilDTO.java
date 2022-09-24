@@ -2,6 +2,8 @@ package fr.iocean.asso.service.dto;
 
 import fr.iocean.asso.domain.enumeration.TypeLogementEnum;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,4 +31,6 @@ public class FamilleAccueilDTO implements Serializable {
     private Integer nombreChien;
 
     private AdresseDTO adresse;
+
+    private Set<ContactDTO> contacts = new HashSet<>();
 }

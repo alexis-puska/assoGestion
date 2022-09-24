@@ -4,10 +4,12 @@ import fr.iocean.asso.domain.enumeration.TypeLogementEnum;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,11 +64,11 @@ public class FamilleAccueil implements Serializable {
     @Column(name = "nombre_chien")
     private Integer nombreChien;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
     private Adresse adresse;
 
-    @OneToMany(mappedBy = "familleAccueil")
+    @OneToMany(mappedBy = "familleAccueil", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Contact> contacts = new HashSet<>();
 

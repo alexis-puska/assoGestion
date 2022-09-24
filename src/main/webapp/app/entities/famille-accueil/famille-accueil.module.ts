@@ -5,9 +5,10 @@ import { FamilleAccueilDetailComponent } from './detail/famille-accueil-detail.c
 import { FamilleAccueilUpdateComponent } from './update/famille-accueil-update.component';
 import { FamilleAccueilDeleteDialogComponent } from './delete/famille-accueil-delete-dialog.component';
 import { FamilleAccueilRoutingModule } from './route/famille-accueil-routing.module';
+import { CommonsModule } from 'app/module/commons/commons.module';
 
 @NgModule({
-  imports: [SharedModule, FamilleAccueilRoutingModule],
+  imports: [SharedModule, FamilleAccueilRoutingModule, CommonsModule],
   declarations: [
     FamilleAccueilComponent,
     FamilleAccueilDetailComponent,

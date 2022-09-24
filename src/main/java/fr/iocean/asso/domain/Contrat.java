@@ -3,10 +3,12 @@ package fr.iocean.asso.domain;
 import fr.iocean.asso.domain.enumeration.PaiementEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,7 +59,7 @@ public class Contrat implements Serializable {
     @Column(name = "date_contrat")
     private LocalDate dateContrat;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
     private Adresse adresseAdoptant;
 

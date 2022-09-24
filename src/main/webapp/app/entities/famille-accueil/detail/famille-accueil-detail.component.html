@@ -37,11 +37,7 @@
           <span>{{ familleAccueil.nombreChien }}</span>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span></dt>
-        <dd>
-          <div *ngIf="familleAccueil.adresse">
-            <a [routerLink]="['/adresse', familleAccueil.adresse?.id, 'view']">{{ familleAccueil.adresse?.id }}</a>
-          </div>
-        </dd>
+        <jhi-adresse-view [adresse]="familleAccueil.adresse" *ngIf="familleAccueil.adresse"></jhi-adresse-view>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

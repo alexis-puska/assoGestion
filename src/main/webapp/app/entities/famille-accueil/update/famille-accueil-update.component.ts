@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
-import { IFamilleAccueil, FamilleAccueil } from '../famille-accueil.model';
-import { FamilleAccueilService } from '../service/famille-accueil.service';
 import { IAdresse } from 'app/entities/adresse/adresse.model';
 import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { TypeLogementEnum } from 'app/entities/enumerations/type-logement-enum.model';
+import { FamilleAccueil, IFamilleAccueil } from '../famille-accueil.model';
+import { FamilleAccueilService } from '../service/famille-accueil.service';
+import { Contact } from './../../contact/contact.model';
 
 @Component({
   selector: 'jhi-famille-accueil-update',
@@ -19,7 +20,7 @@ export class FamilleAccueilUpdateComponent implements OnInit {
   isSaving = false;
   typeLogementEnumValues = Object.keys(TypeLogementEnum);
 
-  adressesCollection: IAdresse[] = [];
+  contacts: Contact[] | null = [];
 
   editForm = this.fb.group({
     id: [],
@@ -28,7 +29,13 @@ export class FamilleAccueilUpdateComponent implements OnInit {
     nombrePiece: [],
     nombreChat: [],
     nombreChien: [],
-    adresse: [],
+    adresse: {
+      id: [],
+      numero: [],
+      rue: [],
+      codePostale: [],
+      ville: [],
+    },
   });
 
   constructor(
@@ -41,8 +48,6 @@ export class FamilleAccueilUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ familleAccueil }) => {
       this.updateForm(familleAccueil);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -91,20 +96,15 @@ export class FamilleAccueilUpdateComponent implements OnInit {
       nombrePiece: familleAccueil.nombrePiece,
       nombreChat: familleAccueil.nombreChat,
       nombreChien: familleAccueil.nombreChien,
-      adresse: familleAccueil.adresse,
+      adresse: {
+        id: familleAccueil.adresse ? familleAccueil.adresse.id : null,
+        numero: familleAccueil.adresse ? familleAccueil.adresse.numero : null,
+        rue: familleAccueil.adresse ? familleAccueil.adresse.rue : null,
+        codePostale: familleAccueil.adresse ? familleAccueil.adresse.codePostale : null,
+        ville: familleAccueil.adresse ? familleAccueil.adresse.ville : null,
+      },
     });
-
-    this.adressesCollection = this.adresseService.addAdresseToCollectionIfMissing(this.adressesCollection, familleAccueil.adresse);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.adresseService
-      .query({ filter: 'familleaccueil-is-null' })
-      .pipe(map((res: HttpResponse<IAdresse[]>) => res.body ?? []))
-      .pipe(
-        map((adresses: IAdresse[]) => this.adresseService.addAdresseToCollectionIfMissing(adresses, this.editForm.get('adresse')!.value))
-      )
-      .subscribe((adresses: IAdresse[]) => (this.adressesCollection = adresses));
+    this.contacts = familleAccueil.contacts ? familleAccueil.contacts : [];
   }
 
   protected createFromForm(): IFamilleAccueil {
@@ -117,6 +117,7 @@ export class FamilleAccueilUpdateComponent implements OnInit {
       nombreChat: this.editForm.get(['nombreChat'])!.value,
       nombreChien: this.editForm.get(['nombreChien'])!.value,
       adresse: this.editForm.get(['adresse'])!.value,
+      contacts: this.contacts,
     };
   }
 }

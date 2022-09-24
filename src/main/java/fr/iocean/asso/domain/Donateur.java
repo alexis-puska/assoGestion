@@ -4,10 +4,12 @@ import fr.iocean.asso.domain.enumeration.FormeDonEnum;
 import fr.iocean.asso.domain.enumeration.NatureDon;
 import fr.iocean.asso.domain.enumeration.NumeraireDonEnum;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -66,7 +68,7 @@ public class Donateur implements Serializable {
     @Column(name = "numeraire_don")
     private NumeraireDonEnum numeraireDon;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
     private Adresse adresse;
 

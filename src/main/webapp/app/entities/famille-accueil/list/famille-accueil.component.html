@@ -32,24 +32,32 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id">
+            <span jhiTranslate="global.field.id">ID</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="nom">
-            <span jhiTranslate="assoGestionApp.familleAccueil.nom">Nom</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="assoGestionApp.familleAccueil.nom">Nom</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="typeLogement">
-            <span jhiTranslate="assoGestionApp.familleAccueil.typeLogement">Type Logement</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="assoGestionApp.familleAccueil.typeLogement">Type Logement</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="nombrePiece">
-            <span jhiTranslate="assoGestionApp.familleAccueil.nombrePiece">Nombre Piece</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="assoGestionApp.familleAccueil.nombrePiece">Nombre Piece</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="nombreChat">
-            <span jhiTranslate="assoGestionApp.familleAccueil.nombreChat">Nombre Chat</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="assoGestionApp.familleAccueil.nombreChat">Nombre Chat</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="nombreChien">
-            <span jhiTranslate="assoGestionApp.familleAccueil.nombreChien">Nombre Chien</span> <fa-icon icon="sort"></fa-icon>
+            <span jhiTranslate="assoGestionApp.familleAccueil.nombreChien">Nombre Chien</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="adresse.id">
-            <span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span>
           </th>
           <th scope="col"></th>
         </tr>
@@ -65,9 +73,7 @@
           <td>{{ familleAccueil.nombreChat }}</td>
           <td>{{ familleAccueil.nombreChien }}</td>
           <td>
-            <div *ngIf="familleAccueil.adresse">
-              <a [routerLink]="['/adresse', familleAccueil.adresse?.id, 'view']">{{ familleAccueil.adresse?.id }}</a>
-            </div>
+            <jhi-adresse-view [adresse]="familleAccueil.adresse" *ngIf="familleAccueil.adresse"></jhi-adresse-view>
           </td>
           <td class="text-end">
             <div class="btn-group">

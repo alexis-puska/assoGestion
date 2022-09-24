@@ -1,12 +1,13 @@
 package fr.iocean.asso.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,17 +45,14 @@ public class VisiteVeterinaire implements Serializable {
     @Column(name = "date_visite")
     private LocalDate dateVisite;
 
-    @OneToMany(mappedBy = "visiteVeterinaire")
+    @OneToMany(mappedBy = "visiteVeterinaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "visiteVeterinaire" }, allowSetters = true)
     private Set<ActeVeterinaire> actes = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "adresse" }, allowSetters = true)
     private CliniqueVeterinaire cliniqueVeterinaire;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "contrat", "visites", "famille", "adresseCapture", "race" }, allowSetters = true)
     private Chat chat;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
