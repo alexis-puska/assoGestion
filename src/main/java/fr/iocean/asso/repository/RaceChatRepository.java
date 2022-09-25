@@ -1,7 +1,10 @@
 package fr.iocean.asso.repository;
 
+import fr.iocean.asso.domain.FamilleAccueil;
 import fr.iocean.asso.domain.RaceChat;
+import java.util.List;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +12,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface RaceChatRepository extends JpaRepository<RaceChat, Long> {}
+public interface RaceChatRepository extends JpaRepository<RaceChat, Long> {
+    @Query("FROM RaceChat f WHERE LOWER(f.libelle) like LOWER(:search)")
+    List<RaceChat> findAutocomplete(@Param("search") String search);
+}

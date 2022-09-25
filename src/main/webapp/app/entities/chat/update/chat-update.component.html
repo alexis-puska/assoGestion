@@ -18,7 +18,7 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col">
+                <div class="col-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.nom" for="field_nom">Nom</label>
                   <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
                   <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
@@ -31,10 +31,44 @@
                     </small>
                   </div>
                 </div>
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.chat.dateNaissance" for="field_dateNaissance"
+                    >Date Naissance</label
+                  >
+                  <div class="input-group">
+                    <input
+                      id="field_dateNaissance"
+                      data-cy="dateNaissance"
+                      type="text"
+                      class="form-control"
+                      name="dateNaissance"
+                      ngbDatepicker
+                      #dateNaissanceDp="ngbDatepicker"
+                      formControlName="dateNaissance"
+                    />
+                    <button type="button" class="btn btn-secondary" (click)="dateNaissanceDp.toggle()">
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      editForm.get('dateNaissance')!.invalid &&
+                      (editForm.get('dateNaissance')!.dirty || editForm.get('dateNaissance')!.touched)
+                    "
+                  >
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('dateNaissance')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      This field is required.
+                    </small>
+                  </div>
+                </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col">
+                <div class="col-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.typeIdentification" for="field_typeIdentification"
                     >Type Identification</label
                   >
@@ -51,10 +85,7 @@
                     </option>
                   </select>
                 </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
+                <div class="col-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.identification" for="field_identification"
                     >Identification</label
                   >
@@ -67,44 +98,60 @@
                     formControlName="identification"
                   />
                 </div>
+              </div>
 
-                <div class="row mb-3">
-                  <div class="col">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.dateNaissance" for="field_dateNaissance"
-                      >Date Naissance</label
+              <div class="row mb-3">
+                <div class="col-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.chat.robe" for="field_robe">Robe</label>
+                  <input type="text" class="form-control" name="robe" id="field_robe" data-cy="robe" formControlName="robe" />
+                  <div *ngIf="editForm.get('robe')!.invalid && (editForm.get('robe')!.dirty || editForm.get('robe')!.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('robe')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
                     >
-                    <div class="input-group">
-                      <input
-                        id="field_dateNaissance"
-                        data-cy="dateNaissance"
-                        type="text"
-                        class="form-control"
-                        name="dateNaissance"
-                        ngbDatepicker
-                        #dateNaissanceDp="ngbDatepicker"
-                        formControlName="dateNaissance"
-                      />
-                      <button type="button" class="btn btn-secondary" (click)="dateNaissanceDp.toggle()">
-                        <fa-icon icon="calendar-alt"></fa-icon>
-                      </button>
-                    </div>
-                    <div
-                      *ngIf="
-                        editForm.get('dateNaissance')!.invalid &&
-                        (editForm.get('dateNaissance')!.dirty || editForm.get('dateNaissance')!.touched)
-                      "
-                    >
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="editForm.get('dateNaissance')?.errors?.required"
-                        jhiTranslate="entity.validation.required"
-                      >
-                        This field is required.
-                      </small>
-                    </div>
+                      This field is required.
+                    </small>
                   </div>
                 </div>
+                <div class="col-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.chat.poil" for="field_poil">Poil</label>
+                  <select class="form-control" name="poil" formControlName="poil" id="field_poil" data-cy="poil">
+                    <option [ngValue]="null">{{ 'assoGestionApp.PoilEnum.null' | translate }}</option>
+                    <option *ngFor="let poilEnum of poilEnumValues" [value]="poilEnum">
+                      {{ 'assoGestionApp.PoilEnum.' + poilEnum | translate }}
+                    </option>
+                  </select>
+                  <div *ngIf="editForm.get('poil')!.invalid && (editForm.get('poil')!.dirty || editForm.get('poil')!.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('poil')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      This field is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.chat.race" for="field_race">Race</label>
+                  <jhi-race-chat-autocomplete-control formControlName="race"></jhi-race-chat-autocomplete-control>
+                </div>
+              </div>
 
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="form-label" jhiTranslate="assoGestionApp.chat.adresseCapture" for="field_adresseCapture"
+                    >Adresse Capture</label
+                  >
+                  <jhi-point-capture-autocomplete-control formControlName="adresseCapture"> </jhi-point-capture-autocomplete-control>
+                </div>
+                <div class="col-6">
+                  <label class="form-label" jhiTranslate="assoGestionApp.chat.famille" for="field_famille">Famille</label>
+                  <jhi-famille-accueil-autocomplete-control formControlName="famille"> </jhi-famille-accueil-autocomplete-control>
+                </div>
+              </div>
+
+              <div class="row mb-3">
                 <div class="row mb-3">
                   <div class="col">
                     <label class="form-label" jhiTranslate="assoGestionApp.chat.description" for="field_description">Description</label>
@@ -120,43 +167,6 @@
 
                 <div class="row mb-3">
                   <div class="col">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.robe" for="field_robe">Robe</label>
-                    <input type="text" class="form-control" name="robe" id="field_robe" data-cy="robe" formControlName="robe" />
-                    <div *ngIf="editForm.get('robe')!.invalid && (editForm.get('robe')!.dirty || editForm.get('robe')!.touched)">
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="editForm.get('robe')?.errors?.required"
-                        jhiTranslate="entity.validation.required"
-                      >
-                        This field is required.
-                      </small>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.poil" for="field_poil">Poil</label>
-                    <select class="form-control" name="poil" formControlName="poil" id="field_poil" data-cy="poil">
-                      <option [ngValue]="null">{{ 'assoGestionApp.PoilEnum.null' | translate }}</option>
-                      <option *ngFor="let poilEnum of poilEnumValues" [value]="poilEnum">
-                        {{ 'assoGestionApp.PoilEnum.' + poilEnum | translate }}
-                      </option>
-                    </select>
-                    <div *ngIf="editForm.get('poil')!.invalid && (editForm.get('poil')!.dirty || editForm.get('poil')!.touched)">
-                      <small
-                        class="form-text text-danger"
-                        *ngIf="editForm.get('poil')?.errors?.required"
-                        jhiTranslate="entity.validation.required"
-                      >
-                        This field is required.
-                      </small>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col">
                     <label class="form-label" jhiTranslate="assoGestionApp.chat.contrat" for="field_contrat">Contrat</label>
                     <select class="form-control" id="field_contrat" data-cy="contrat" name="contrat" formControlName="contrat">
                       <option [ngValue]="null"></option>
@@ -165,71 +175,6 @@
                         *ngFor="let contratOption of contratsCollection; trackBy: trackContratById"
                       >
                         {{ contratOption.id }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.famille" for="field_famille">Famille</label>
-                    <select class="form-control" id="field_famille" data-cy="famille" name="famille" formControlName="famille">
-                      <option [ngValue]="null"></option>
-                      <option
-                        [ngValue]="
-                          familleAccueilOption.id === editForm.get('famille')!.value?.id
-                            ? editForm.get('famille')!.value
-                            : familleAccueilOption
-                        "
-                        *ngFor="let familleAccueilOption of familleAccueilsSharedCollection; trackBy: trackFamilleAccueilById"
-                      >
-                        {{ familleAccueilOption.nom }} - {{ familleAccueilOption.typeLogement }}
-                      </option>
-                    </select>
-
-                    <!--  <jhi-famille-accueil-autocomplete-control></jhi-famille-accueil-autocomplete-control> -->
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.adresseCapture" for="field_adresseCapture"
-                      >Adresse Capture</label
-                    >
-                    <select
-                      class="form-control"
-                      id="field_adresseCapture"
-                      data-cy="adresseCapture"
-                      name="adresseCapture"
-                      formControlName="adresseCapture"
-                    >
-                      <option [ngValue]="null"></option>
-                      <option
-                        [ngValue]="
-                          pointCaptureOption.id === editForm.get('adresseCapture')!.value?.id
-                            ? editForm.get('adresseCapture')!.value
-                            : pointCaptureOption
-                        "
-                        *ngFor="let pointCaptureOption of pointCapturesSharedCollection; trackBy: trackPointCaptureById"
-                      >
-                        {{ pointCaptureOption.nom }} - {{ pointCaptureOption?.adresseCapture?.numero }}&nbsp;{{
-                          pointCaptureOption?.adresseCapture?.rue
-                        }}&nbsp;{{ pointCaptureOption?.adresseCapture?.codePostale }}&nbsp;{{ pointCaptureOption?.adresseCapture?.ville }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.race" for="field_race">Race</label>
-                    <select class="form-control" id="field_race" data-cy="race" name="race" formControlName="race">
-                      <option [ngValue]="null"></option>
-                      <option
-                        [ngValue]="raceChatOption.id === editForm.get('race')!.value?.id ? editForm.get('race')!.value : raceChatOption"
-                        *ngFor="let raceChatOption of raceChatsSharedCollection; trackBy: trackRaceChatById"
-                      >
-                        {{ raceChatOption.libelle }}
                       </option>
                     </select>
                   </div>

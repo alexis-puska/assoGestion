@@ -13,6 +13,12 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface FamilleAccueilRepository extends JpaRepository<FamilleAccueil, Long> {
-    @Query("FROM FamilleAccueil f WHERE LOWER(f.nom) like LOWER(:search)")
+    @Query(
+        "FROM FamilleAccueil f join f.adresse ad " +
+        "WHERE LOWER(f.nom) like LOWER(:search) " +
+        "OR LOWER(ad.rue) like LOWER(:search) " +
+        "OR LOWER(ad.codePostale) like LOWER(:search) " +
+        "OR LOWER(ad.ville) like LOWER(:search) "
+    )
     List<FamilleAccueil> findAutocomplete(@Param("search") String search);
 }

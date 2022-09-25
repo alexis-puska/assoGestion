@@ -8,6 +8,8 @@ import { ContactListEditComponent } from './contact-list-edit.component';
 import { ContactListComponent } from './contact-list.component';
 import { ContactUpdateDialogComponent } from './contact-update-dialog.component';
 import { FamilleAccueilAutocompleteControlComponent } from './famille-acceuil-autocomplete-control.component';
+import { PointCaptureAutocompleteControlComponent } from './point-capture-autocomplete-control.component';
+import { RaceChatAutocompleteControlComponent } from './race-chat-autocomplete-control.component';
 
 @NgModule({
   imports: [SharedModule, NgSelectModule],
@@ -19,6 +21,8 @@ import { FamilleAccueilAutocompleteControlComponent } from './famille-acceuil-au
     ContactUpdateDialogComponent,
     ContactDeleteDialogComponent,
     FamilleAccueilAutocompleteControlComponent,
+    RaceChatAutocompleteControlComponent,
+    PointCaptureAutocompleteControlComponent,
   ],
   exports: [
     AdresseEditComponent,
@@ -26,6 +30,8 @@ import { FamilleAccueilAutocompleteControlComponent } from './famille-acceuil-au
     ContactListComponent,
     ContactListEditComponent,
     FamilleAccueilAutocompleteControlComponent,
+    RaceChatAutocompleteControlComponent,
+    PointCaptureAutocompleteControlComponent,
   ],
   entryComponents: [ContactUpdateDialogComponent, ContactDeleteDialogComponent],
 })

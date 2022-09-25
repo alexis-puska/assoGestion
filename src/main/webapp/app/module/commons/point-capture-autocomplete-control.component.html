@@ -21,7 +21,8 @@
   </ng-template>
 
   <ng-template ng-label-tmp let-item="item" let-clear="clear" let-searchTerm="searchTerm">
-    {{ item.nom }} - {{ item.adresse.numero }} {{ item.adresse.rue }} {{ item.adresse.codePostale }} {{ item.adresse.ville }}
+    {{ item.nom }} - {{ item.adresseCapture.numero }} {{ item.adresseCapture.rue }} {{ item.adresseCapture.codePostale }}
+    {{ item.adresseCapture.ville }}
     <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
   </ng-template>
   <ng-template ng-option-tmp let-item="item" let-searchTerm="searchTerm">

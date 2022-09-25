@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IRaceChat, getRaceChatIdentifier } from '../race-chat.model';
+import { IRaceChat, getRaceChatIdentifier, RaceChat } from '../race-chat.model';
+import { FamilleAccueil } from 'app/entities/famille-accueil/famille-accueil.model';
 
 export type EntityResponseType = HttpResponse<IRaceChat>;
 export type EntityArrayResponseType = HttpResponse<IRaceChat[]>;
@@ -58,5 +59,13 @@ export class RaceChatService {
       return [...raceChatsToAdd, ...raceChatCollection];
     }
     return raceChatCollection;
+  }
+
+  findRaceChatAutocomplete(query: string): Observable<RaceChat[]> {
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append('query', query);
+    return this.http.get<RaceChat[]>(`${this.resourceUrl}/autocomplete`, {
+      params: queryParam,
+    });
   }
 }

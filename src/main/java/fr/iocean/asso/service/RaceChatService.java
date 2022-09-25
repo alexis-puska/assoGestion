@@ -4,6 +4,7 @@ import fr.iocean.asso.domain.RaceChat;
 import fr.iocean.asso.repository.RaceChatRepository;
 import fr.iocean.asso.service.dto.RaceChatDTO;
 import fr.iocean.asso.service.mapper.RaceChatMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,5 +96,9 @@ public class RaceChatService {
     public void delete(Long id) {
         log.debug("Request to delete RaceChat : {}", id);
         raceChatRepository.deleteById(id);
+    }
+
+    public List<RaceChatDTO> findAutocomplete(String query) {
+        return this.raceChatMapper.toDto(this.raceChatRepository.findAutocomplete("%" + query + "%"));
     }
 }

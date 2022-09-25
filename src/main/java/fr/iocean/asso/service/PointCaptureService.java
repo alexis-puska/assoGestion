@@ -4,6 +4,7 @@ import fr.iocean.asso.domain.PointCapture;
 import fr.iocean.asso.repository.PointCaptureRepository;
 import fr.iocean.asso.service.dto.PointCaptureDTO;
 import fr.iocean.asso.service.mapper.PointCaptureMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,5 +96,9 @@ public class PointCaptureService {
     public void delete(Long id) {
         log.debug("Request to delete PointCapture : {}", id);
         pointCaptureRepository.deleteById(id);
+    }
+
+    public List<PointCaptureDTO> findAutocomplete(String query) {
+        return this.pointCaptureMapper.toDto(this.pointCaptureRepository.findAutocomplete("%" + query + "%"));
     }
 }

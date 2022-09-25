@@ -35,7 +35,10 @@ export class FamilleAccueilAutocompleteControlComponent
 
   getHighlightedQueryInResult(item: FamilleAccueil, searchTerm: string): string {
     if (item.nom) {
-      return this.strUtils.highlightTermInString(item.nom, searchTerm);
+      return this.strUtils.highlightTermInString(
+        `${item.nom} - ${item?.adresse?.numero} ${item?.adresse?.rue} ${item?.adresse?.codePostale} ${item?.adresse?.ville} `,
+        searchTerm
+      );
     } else {
       return '';
     }
