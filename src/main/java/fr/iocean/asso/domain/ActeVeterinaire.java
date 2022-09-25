@@ -25,8 +25,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@ToString(exclude = { "visiteVeterinaire" })
+@EqualsAndHashCode(exclude = { "visiteVeterinaire" })
 public class ActeVeterinaire implements Serializable {
 
     private static final long serialVersionUID = 1L;

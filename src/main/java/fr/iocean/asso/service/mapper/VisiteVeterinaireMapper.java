@@ -1,20 +1,52 @@
 package fr.iocean.asso.service.mapper;
 
+import fr.iocean.asso.domain.ActeVeterinaire;
+import fr.iocean.asso.domain.Chat;
+import fr.iocean.asso.domain.CliniqueVeterinaire;
 import fr.iocean.asso.domain.VisiteVeterinaire;
 import fr.iocean.asso.service.dto.VisiteVeterinaireDTO;
-import org.mapstruct.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 /**
  * Mapper for the entity {@link VisiteVeterinaire} and its DTO {@link VisiteVeterinaireDTO}.
  */
 @Mapper(componentModel = "spring", uses = { CliniqueVeterinaireMapper.class, ChatMapper.class })
 public interface VisiteVeterinaireMapper extends EntityMapper<VisiteVeterinaireDTO, VisiteVeterinaire> {
-    @Mapping(target = "cliniqueVeterinaire", source = "cliniqueVeterinaire", qualifiedByName = "id")
-    @Mapping(target = "chat", source = "chat", qualifiedByName = "id")
+    @Mapping(target = "cliniqueVeterinaireId", source = "cliniqueVeterinaire.id")
+    @Mapping(target = "chatId", source = "chat.id")
     VisiteVeterinaireDTO toDto(VisiteVeterinaire s);
 
-    @Named("id")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    VisiteVeterinaireDTO toDtoId(VisiteVeterinaire visiteVeterinaire);
+    @Mapping(target = "cliniqueVeterinaire", source = "cliniqueVeterinaireId")
+    @Mapping(target = "chat", source = "chatId")
+    VisiteVeterinaire toEntity(VisiteVeterinaireDTO s);
+
+    default CliniqueVeterinaire fromCliniqueVeterinaireId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        CliniqueVeterinaire cliniqueVeterinaire = new CliniqueVeterinaire();
+        cliniqueVeterinaire.setId(id);
+        return cliniqueVeterinaire;
+    }
+
+    default Chat fromChatId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        Chat chat = new Chat();
+        chat.setId(id);
+        return chat;
+    }
+
+    @AfterMapping
+    default void after(@MappingTarget VisiteVeterinaire visite) {
+        if (visite.getActes() != null) {
+            for (ActeVeterinaire acte : visite.getActes()) {
+                acte.setVisiteVeterinaire(visite);
+            }
+        }
+    }
 }

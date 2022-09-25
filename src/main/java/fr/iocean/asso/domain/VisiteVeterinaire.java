@@ -31,8 +31,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@ToString(exclude = { "chat" })
+@EqualsAndHashCode(exclude = { "chat" })
 public class VisiteVeterinaire implements Serializable {
 
     private static final long serialVersionUID = 3994003078900804571L;

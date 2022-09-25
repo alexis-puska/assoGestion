@@ -2,15 +2,11 @@ package fr.iocean.asso.service.mapper;
 
 import fr.iocean.asso.domain.CliniqueVeterinaire;
 import fr.iocean.asso.service.dto.CliniqueVeterinaireDTO;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
 
 /**
- * Mapper for the entity {@link CliniqueVeterinaire} and its DTO {@link CliniqueVeterinaireDTO}.
+ * Mapper for the entity {@link CliniqueVeterinaire} and its DTO
+ * {@link CliniqueVeterinaireDTO}.
  */
 @Mapper(componentModel = "spring", uses = { AdresseMapper.class })
-public interface CliniqueVeterinaireMapper extends EntityMapper<CliniqueVeterinaireDTO, CliniqueVeterinaire> {
-    @Named("id")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    CliniqueVeterinaireDTO toDtoId(CliniqueVeterinaire cliniqueVeterinaire);
-}
+public interface CliniqueVeterinaireMapper extends EntityMapper<CliniqueVeterinaireDTO, CliniqueVeterinaire> {}

@@ -4,6 +4,8 @@ import fr.iocean.asso.domain.enumeration.PoilEnum;
 import fr.iocean.asso.domain.enumeration.TypeIdentificationEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -48,4 +50,6 @@ public class ChatDTO implements Serializable {
     private PointCaptureDTO adresseCapture;
 
     private RaceChatDTO race;
+
+    private Set<VisiteVeterinaireDTO> visites = new HashSet<>();
 }

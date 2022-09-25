@@ -24,17 +24,17 @@ public interface ContactMapper extends EntityMapper<ContactDTO, Contact> {
         if (id == null) {
             return null;
         }
-        FamilleAccueil unite = new FamilleAccueil();
-        unite.setId(id);
-        return unite;
+        FamilleAccueil familleAccueil = new FamilleAccueil();
+        familleAccueil.setId(id);
+        return familleAccueil;
     }
 
     default PointNourrissage fromPointNourrissageId(Long id) {
         if (id == null) {
             return null;
         }
-        PointNourrissage unite = new PointNourrissage();
-        unite.setId(id);
-        return unite;
+        PointNourrissage pointNourrissage = new PointNourrissage();
+        pointNourrissage.setId(id);
+        return pointNourrissage;
     }
 }

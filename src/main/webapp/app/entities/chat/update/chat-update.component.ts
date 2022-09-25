@@ -1,27 +1,25 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
-import { IChat, Chat } from '../chat.model';
-import { ChatService } from '../service/chat.service';
-import { AlertError } from 'app/shared/alert/alert-error.model';
-import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { IContrat } from 'app/entities/contrat/contrat.model';
 import { ContratService } from 'app/entities/contrat/service/contrat.service';
-import { IFamilleAccueil } from 'app/entities/famille-accueil/famille-accueil.model';
-import { FamilleAccueilService } from 'app/entities/famille-accueil/service/famille-accueil.service';
-import { IPointCapture } from 'app/entities/point-capture/point-capture.model';
-import { PointCaptureService } from 'app/entities/point-capture/service/point-capture.service';
-import { IRaceChat } from 'app/entities/race-chat/race-chat.model';
-import { RaceChatService } from 'app/entities/race-chat/service/race-chat.service';
-import { TypeIdentificationEnum } from 'app/entities/enumerations/type-identification-enum.model';
 import { PoilEnum } from 'app/entities/enumerations/poil-enum.model';
+import { TypeIdentificationEnum } from 'app/entities/enumerations/type-identification-enum.model';
+import { FamilleAccueilService } from 'app/entities/famille-accueil/service/famille-accueil.service';
+import { PointCaptureService } from 'app/entities/point-capture/service/point-capture.service';
+import { RaceChatService } from 'app/entities/race-chat/service/race-chat.service';
+import { VisiteVeterinaire } from 'app/entities/visite-veterinaire/visite-veterinaire.model';
+import { AlertError } from 'app/shared/alert/alert-error.model';
 import { MomentDateFormatter } from 'app/shared/util/dateformat';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { Chat, IChat } from '../chat.model';
+import { ChatService } from '../service/chat.service';
 
 @Component({
   selector: 'jhi-chat-update',
@@ -33,10 +31,8 @@ export class ChatUpdateComponent implements OnInit {
   typeIdentificationEnumValues = Object.keys(TypeIdentificationEnum);
   poilEnumValues = Object.keys(PoilEnum);
 
-  contratsCollection: IContrat[] = [];
-  familleAccueilsSharedCollection: IFamilleAccueil[] = [];
-  pointCapturesSharedCollection: IPointCapture[] = [];
-  raceChatsSharedCollection: IRaceChat[] = [];
+  visites: VisiteVeterinaire[] | null = [];
+  possedeContrat = false;
 
   editForm = this.fb.group({
     id: [],
@@ -47,7 +43,21 @@ export class ChatUpdateComponent implements OnInit {
     description: [],
     robe: [null, [Validators.required]],
     poil: [null, [Validators.required]],
-    contrat: [],
+    /*     contrat: {
+          id: [],
+          nom: [],
+          prenom: [],
+          cout: [],
+          paiement: [],
+          dateContrat: [],
+          adresseAdoptant: {
+            id: [],
+            numero: [],
+            rue: [],
+            codePostale: [],
+            ville: [],
+          },
+        }, */
     famille: [],
     adresseCapture: [],
     race: [],
@@ -68,8 +78,6 @@ export class ChatUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ chat }) => {
       this.updateForm(chat);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -95,7 +103,7 @@ export class ChatUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const chat = this.createFromForm();
-    if (chat.id !== undefined) {
+    if (chat.id !== undefined && chat.id !== null) {
       this.subscribeToSaveResponse(this.chatService.update(chat));
     } else {
       this.subscribeToSaveResponse(this.chatService.create(chat));
@@ -103,18 +111,6 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   trackContratById(index: number, item: IContrat): number {
-    return item.id!;
-  }
-
-  trackFamilleAccueilById(index: number, item: IFamilleAccueil): number {
-    return item.id!;
-  }
-
-  trackPointCaptureById(index: number, item: IPointCapture): number {
-    return item.id!;
-  }
-
-  trackRaceChatById(index: number, item: IRaceChat): number {
     return item.id!;
   }
 
@@ -147,64 +143,56 @@ export class ChatUpdateComponent implements OnInit {
       description: chat.description,
       robe: chat.robe,
       poil: chat.poil,
-      contrat: chat.contrat,
       famille: chat.famille,
       adresseCapture: chat.adresseCapture,
       race: chat.race,
     });
-
-    this.contratsCollection = this.contratService.addContratToCollectionIfMissing(this.contratsCollection, chat.contrat);
-    this.familleAccueilsSharedCollection = this.familleAccueilService.addFamilleAccueilToCollectionIfMissing(
-      this.familleAccueilsSharedCollection,
-      chat.famille
-    );
-    this.pointCapturesSharedCollection = this.pointCaptureService.addPointCaptureToCollectionIfMissing(
-      this.pointCapturesSharedCollection,
-      chat.adresseCapture
-    );
-    this.raceChatsSharedCollection = this.raceChatService.addRaceChatToCollectionIfMissing(this.raceChatsSharedCollection, chat.race);
+    if (chat.contrat) {
+      this.initContratControls();
+      this.editForm.patchValue({
+        contrat: {
+          id: chat.contrat?.id ? chat.contrat.id : null,
+          nom: chat.contrat ? chat.contrat.nom : null,
+          prenom: chat.contrat ? chat.contrat.prenom : null,
+          cout: chat.contrat ? chat.contrat.cout : null,
+          paiement: chat.contrat ? chat.contrat.paiement : null,
+          dateContrat: chat.contrat ? chat.contrat.dateContrat : null,
+          adresseAdoptant: {
+            id: chat.contrat?.adresseAdoptant ? chat.contrat?.adresseAdoptant.id : null,
+            numero: chat.contrat?.adresseAdoptant ? chat.contrat?.adresseAdoptant.numero : null,
+            rue: chat.contrat?.adresseAdoptant ? chat.contrat?.adresseAdoptant.rue : null,
+            codePostale: chat.contrat?.adresseAdoptant ? chat.contrat?.adresseAdoptant.codePostale : null,
+            ville: chat.contrat?.adresseAdoptant ? chat.contrat?.adresseAdoptant.ville : null,
+          },
+        },
+      });
+    }
+    this.visites = chat.visites ? chat.visites : [];
   }
 
-  protected loadRelationshipsOptions(): void {
-    this.contratService
-      .query({ filter: 'chat-is-null' })
-      .pipe(map((res: HttpResponse<IContrat[]>) => res.body ?? []))
-      .pipe(
-        map((contrats: IContrat[]) => this.contratService.addContratToCollectionIfMissing(contrats, this.editForm.get('contrat')!.value))
-      )
-      .subscribe((contrats: IContrat[]) => (this.contratsCollection = contrats));
-
-    this.familleAccueilService
-      .query()
-      .pipe(map((res: HttpResponse<IFamilleAccueil[]>) => res.body ?? []))
-      .pipe(
-        map((familleAccueils: IFamilleAccueil[]) =>
-          this.familleAccueilService.addFamilleAccueilToCollectionIfMissing(familleAccueils, this.editForm.get('famille')!.value)
-        )
-      )
-      .subscribe((familleAccueils: IFamilleAccueil[]) => (this.familleAccueilsSharedCollection = familleAccueils));
-
-    this.pointCaptureService
-      .query()
-      .pipe(map((res: HttpResponse<IPointCapture[]>) => res.body ?? []))
-      .pipe(
-        map((pointCaptures: IPointCapture[]) =>
-          this.pointCaptureService.addPointCaptureToCollectionIfMissing(pointCaptures, this.editForm.get('adresseCapture')!.value)
-        )
-      )
-      .subscribe((pointCaptures: IPointCapture[]) => (this.pointCapturesSharedCollection = pointCaptures));
-
-    this.raceChatService
-      .query()
-      .pipe(map((res: HttpResponse<IRaceChat[]>) => res.body ?? []))
-      .pipe(
-        map((raceChats: IRaceChat[]) => this.raceChatService.addRaceChatToCollectionIfMissing(raceChats, this.editForm.get('race')!.value))
-      )
-      .subscribe((raceChats: IRaceChat[]) => (this.raceChatsSharedCollection = raceChats));
+  protected initContratControls(): void {
+    this.editForm.addControl(
+      'contrat',
+      this.fb.group({
+        id: [],
+        nom: [],
+        prenom: [],
+        cout: [],
+        paiement: [],
+        dateContrat: [],
+        adresseAdoptant: {
+          id: [],
+          numero: [],
+          rue: [],
+          codePostale: [],
+          ville: [],
+        },
+      })
+    );
   }
 
   protected createFromForm(): IChat {
-    return {
+    let chat = {
       ...new Chat(),
       id: this.editForm.get(['id'])!.value,
       nom: this.editForm.get(['nom'])!.value,
@@ -214,10 +202,18 @@ export class ChatUpdateComponent implements OnInit {
       description: this.editForm.get(['description'])!.value,
       robe: this.editForm.get(['robe'])!.value,
       poil: this.editForm.get(['poil'])!.value,
-      contrat: this.editForm.get(['contrat'])!.value,
+
       famille: this.editForm.get(['famille'])!.value,
       adresseCapture: this.editForm.get(['adresseCapture'])!.value,
       race: this.editForm.get(['race'])!.value,
+      visites: this.visites,
     };
+    if (this.editForm.get(['contrat'])) {
+      chat = {
+        ...chat,
+        contrat: this.editForm.get(['contrat'])!.value,
+      };
+    }
+    return chat;
   }
 }

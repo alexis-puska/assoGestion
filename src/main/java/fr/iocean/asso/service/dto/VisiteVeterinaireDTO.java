@@ -2,6 +2,8 @@ package fr.iocean.asso.service.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +25,9 @@ public class VisiteVeterinaireDTO implements Serializable {
 
     private LocalDate dateVisite;
 
-    private CliniqueVeterinaireDTO cliniqueVeterinaire;
+    private long cliniqueVeterinaireId;
 
-    private ChatDTO chat;
+    private Long chatId;
+
+    private Set<ActeVeterinaireDTO> actes = new HashSet<>();
 }

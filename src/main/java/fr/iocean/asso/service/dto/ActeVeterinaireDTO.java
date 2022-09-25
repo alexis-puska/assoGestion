@@ -19,5 +19,5 @@ public class ActeVeterinaireDTO implements Serializable {
 
     private String libelle;
 
-    private VisiteVeterinaireDTO visiteVeterinaire;
+    private long visiteVeterinaireId;
 }

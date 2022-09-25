@@ -80,7 +80,7 @@ public class Chat implements Serializable {
     @Column(name = "poil", nullable = false)
     private PoilEnum poil;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
     private Contrat contrat;
 
