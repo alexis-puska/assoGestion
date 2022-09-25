@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
+  <div class="col-10">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2
         id="jhi-point-capture-heading"
@@ -15,14 +15,14 @@
           <div class="card">
             <div class="card-body">
               <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-                <div class="col">
+                <div class="col-md-12">
                   <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
                   <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
                 </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-12">
                   <label class="form-label" jhiTranslate="assoGestionApp.pointCapture.nom" for="field_nom">Nom</label>
                   <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
                 </div>

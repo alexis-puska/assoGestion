@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
+  <div class="col-10">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-chat-heading" data-cy="ChatCreateUpdateHeading" jhiTranslate="assoGestionApp.chat.home.createOrEditLabel">
         Create or edit a Chat
@@ -11,14 +11,14 @@
           <div class="card">
             <div class="card-body">
               <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-                <div class="col">
+                <div class="col-md-12">
                   <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
                   <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
                 </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.nom" for="field_nom">Nom</label>
                   <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
                   <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
@@ -31,7 +31,7 @@
                     </small>
                   </div>
                 </div>
-                <div class="col">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.dateNaissance" for="field_dateNaissance"
                     >Date Naissance</label
                   >
@@ -68,7 +68,7 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.typeIdentification" for="field_typeIdentification"
                     >Type Identification</label
                   >
@@ -85,7 +85,7 @@
                     </option>
                   </select>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.identification" for="field_identification"
                     >Identification</label
                   >
@@ -101,7 +101,7 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col-4">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.robe" for="field_robe">Robe</label>
                   <input type="text" class="form-control" name="robe" id="field_robe" data-cy="robe" formControlName="robe" />
                   <div *ngIf="editForm.get('robe')!.invalid && (editForm.get('robe')!.dirty || editForm.get('robe')!.touched)">
@@ -114,7 +114,7 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.poil" for="field_poil">Poil</label>
                   <select class="form-control" name="poil" formControlName="poil" id="field_poil" data-cy="poil">
                     <option [ngValue]="null">{{ 'assoGestionApp.PoilEnum.null' | translate }}</option>
@@ -132,20 +132,20 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.race" for="field_race">Race</label>
                   <jhi-race-chat-autocomplete-control formControlName="race"></jhi-race-chat-autocomplete-control>
                 </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.adresseCapture" for="field_adresseCapture"
                     >Adresse Capture</label
                   >
                   <jhi-point-capture-autocomplete-control formControlName="adresseCapture"> </jhi-point-capture-autocomplete-control>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.chat.famille" for="field_famille">Famille</label>
                   <jhi-famille-accueil-autocomplete-control formControlName="famille"> </jhi-famille-accueil-autocomplete-control>
                 </div>
@@ -153,7 +153,7 @@
 
               <div class="row mb-3">
                 <div class="row mb-3">
-                  <div class="col">
+                  <div class="col-md-12">
                     <label class="form-label" jhiTranslate="assoGestionApp.chat.description" for="field_description">Description</label>
                     <textarea
                       class="form-control"
@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="row mb-3">
-                  <div class="col">
+                  <div class="col-md-12">
                     <label class="form-label" jhiTranslate="assoGestionApp.chat.contrat" for="field_contrat">Contrat</label>
                     <select class="form-control" id="field_contrat" data-cy="contrat" name="contrat" formControlName="contrat">
                       <option [ngValue]="null"></option>

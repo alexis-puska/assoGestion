@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
+  <div class="col-10">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-donateur-heading" data-cy="DonateurCreateUpdateHeading" jhiTranslate="assoGestionApp.donateur.home.createOrEditLabel">
         Create or edit a Donateur
@@ -11,35 +11,29 @@
           <div class="card">
             <div class="card-body">
               <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-                <div class="col">
+                <div class="col-md-12">
                   <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
                   <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
                 </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.nom" for="field_nom">Nom</label>
                   <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
                 </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.prenom" for="field_prenom">Prenom</label>
                   <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
                 </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.montant" for="field_montant">Montant</label>
                   <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
                 </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-8">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.sommeTouteLettre" for="field_sommeTouteLettre"
                     >Somme Toute Lettre</label
                   >
@@ -55,7 +49,7 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.formeDon" for="field_formeDon">Forme Don</label>
                   <select class="form-control" name="formeDon" formControlName="formeDon" id="field_formeDon" data-cy="formeDon">
                     <option [ngValue]="null">{{ 'assoGestionApp.FormeDonEnum.null' | translate }}</option>
@@ -64,10 +58,7 @@
                     </option>
                   </select>
                 </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.natureDon" for="field_natureDon">Nature Don</label>
                   <select class="form-control" name="natureDon" formControlName="natureDon" id="field_natureDon" data-cy="natureDon">
                     <option [ngValue]="null">{{ 'assoGestionApp.NatureDon.null' | translate }}</option>
@@ -76,10 +67,7 @@
                     </option>
                   </select>
                 </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.numeraireDon" for="field_numeraireDon"
                     >Numeraire Don</label
                   >

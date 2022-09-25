@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center">
-  <div class="col-8">
+  <div class="col-10">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2
         id="jhi-famille-accueil-heading"
@@ -15,18 +15,18 @@
           <div class="card">
             <div class="card-body">
               <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-                <div class="col">
+                <div class="col-md-12">
                   <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
                   <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
                 </div>
               </div>
 
               <div class="row mb-3">
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nom" for="field_nom">Nom</label>
                   <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.typeLogement" for="field_typeLogement"
                     >Type Logement</label
                   >
@@ -46,7 +46,7 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col-4">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombrePiece" for="field_nombrePiece"
                     >Nombre Piece</label
                   >
@@ -59,7 +59,7 @@
                     formControlName="nombrePiece"
                   />
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChat" for="field_nombreChat"
                     >Nombre Chat</label
                   >
@@ -72,7 +72,7 @@
                     formControlName="nombreChat"
                   />
                 </div>
-                <div class="col-4">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChien" for="field_nombreChien"
                     >Nombre Chien</label
                   >
