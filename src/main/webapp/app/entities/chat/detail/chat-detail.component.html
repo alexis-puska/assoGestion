@@ -51,19 +51,26 @@
         <dt><span jhiTranslate="assoGestionApp.chat.famille">Famille</span></dt>
         <dd>
           <div *ngIf="chat.famille">
-            <a [routerLink]="['/famille-accueil', chat.famille?.id, 'view']">{{ chat.famille?.id }}</a>
+            <span
+              >{{ chat.famille.nom }} - {{ chat.famille?.adresse?.numero }} {{ chat.famille?.adresse?.rue }}
+              {{ chat.famille?.adresse?.codePostale }} {{ chat.famille?.adresse?.ville }}</span
+            >
           </div>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.chat.adresseCapture">Adresse Capture</span></dt>
         <dd>
           <div *ngIf="chat.adresseCapture">
-            <a [routerLink]="['/point-capture', chat.adresseCapture?.id, 'view']">{{ chat.adresseCapture?.id }}</a>
+            <span
+              >{{ chat.adresseCapture.nom }} - {{ chat.adresseCapture?.adresseCapture?.numero }}
+              {{ chat.adresseCapture?.adresseCapture?.rue }} {{ chat.adresseCapture?.adresseCapture?.codePostale }}
+              {{ chat.adresseCapture?.adresseCapture?.ville }}</span
+            >
           </div>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.chat.race">Race</span></dt>
         <dd>
           <div *ngIf="chat.race">
-            <a [routerLink]="['/race-chat', chat.race?.id, 'view']">{{ chat.race?.id }}</a>
+            <span>{{ chat.race?.libelle }}</span>
           </div>
         </dd>
       </dl>

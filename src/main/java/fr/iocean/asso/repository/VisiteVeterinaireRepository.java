@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data SQL repository for the VisiteVeterinaire entity.
  */
-@SuppressWarnings("unused")
 @Repository
 public interface VisiteVeterinaireRepository extends JpaRepository<VisiteVeterinaire, Long> {}
