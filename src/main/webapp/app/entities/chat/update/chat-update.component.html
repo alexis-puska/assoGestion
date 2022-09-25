@@ -144,7 +144,7 @@
               "
               *ngFor="let familleAccueilOption of familleAccueilsSharedCollection; trackBy: trackFamilleAccueilById"
             >
-              {{ familleAccueilOption.id }}
+              {{ familleAccueilOption.nom }} - {{ familleAccueilOption.typeLogement }}
             </option>
           </select>
         </div>
@@ -167,7 +167,9 @@
               "
               *ngFor="let pointCaptureOption of pointCapturesSharedCollection; trackBy: trackPointCaptureById"
             >
-              {{ pointCaptureOption.id }}
+              {{ pointCaptureOption.nom }} - {{ pointCaptureOption?.adresseCapture?.numero }}&nbsp;{{
+                pointCaptureOption?.adresseCapture?.rue
+              }}&nbsp;{{ pointCaptureOption?.adresseCapture?.codePostale }}&nbsp;{{ pointCaptureOption?.adresseCapture?.ville }}
             </option>
           </select>
         </div>
@@ -180,7 +182,7 @@
               [ngValue]="raceChatOption.id === editForm.get('race')!.value?.id ? editForm.get('race')!.value : raceChatOption"
               *ngFor="let raceChatOption of raceChatsSharedCollection; trackBy: trackRaceChatById"
             >
-              {{ raceChatOption.id }}
+              {{ raceChatOption.libelle }}
             </option>
           </select>
         </div>

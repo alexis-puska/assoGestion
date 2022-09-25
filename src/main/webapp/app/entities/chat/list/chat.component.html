@@ -80,17 +80,21 @@
           </td>
           <td>
             <div *ngIf="chat.famille">
-              <a [routerLink]="['/famille-accueil', chat.famille?.id, 'view']">{{ chat.famille?.id }}</a>
+              <a [routerLink]="['/famille-accueil', chat.famille?.id, 'view']">{{ chat.famille?.nom }}</a>
+              <br />
+              {{ chat.famille?.typeLogement }}
             </div>
           </td>
           <td>
             <div *ngIf="chat.adresseCapture">
-              <a [routerLink]="['/point-capture', chat.adresseCapture?.id, 'view']">{{ chat.adresseCapture?.id }}</a>
+              <a [routerLink]="['/point-capture', chat.adresseCapture?.id, 'view']"> {{ chat.adresseCapture.nom }}<br /> </a>
+              <jhi-adresse-view [adresse]="chat.adresseCapture.adresseCapture" *ngIf="chat.adresseCapture.adresseCapture"></jhi-adresse-view
+              ><!--  -->
             </div>
           </td>
           <td>
             <div *ngIf="chat.race">
-              <a [routerLink]="['/race-chat', chat.race?.id, 'view']">{{ chat.race?.id }}</a>
+              <span>{{ chat.race?.libelle }}</span>
             </div>
           </td>
           <td class="text-end">

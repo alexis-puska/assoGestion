@@ -9,9 +9,6 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = { AdresseMapper.class })
 public interface ContratMapper extends EntityMapper<ContratDTO, Contrat> {
-    @Mapping(target = "adresseAdoptant", source = "adresseAdoptant", qualifiedByName = "id")
-    ContratDTO toDto(Contrat s);
-
     @Named("id")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
