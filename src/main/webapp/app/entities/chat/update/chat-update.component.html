@@ -167,16 +167,8 @@
 
                 <!-- <div class="row mb-3">
                   <div class="col-md-12">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.contrat" for="field_contrat">Contrat</label>
-                    <select class="form-control" id="field_contrat" data-cy="contrat" name="contrat" formControlName="contrat">
-                      <option [ngValue]="null"></option>
-                      <option
-                        [ngValue]="contratOption.id === editForm.get('contrat')!.value?.id ? editForm.get('contrat')!.value : contratOption"
-                        *ngFor="let contratOption of contratsCollection; trackBy: trackContratById"
-                      >
-                        {{ contratOption.id }}
-                      </option>
-                    </select>
+                    <button type="button" (click)="initContrat()" *ngIf="!editForm.get('contrat')">initContrat</button>
+                    <button type="button" (click)="deleteContrat()" *ngIf="editForm.get('contrat')">removeContrat</button>
                   </div>
                 </div> -->
               </div>

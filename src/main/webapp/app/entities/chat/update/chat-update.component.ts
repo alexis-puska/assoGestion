@@ -43,21 +43,6 @@ export class ChatUpdateComponent implements OnInit {
     description: [],
     robe: [null, [Validators.required]],
     poil: [null, [Validators.required]],
-    /*     contrat: {
-          id: [],
-          nom: [],
-          prenom: [],
-          cout: [],
-          paiement: [],
-          dateContrat: [],
-          adresseAdoptant: {
-            id: [],
-            numero: [],
-            rue: [],
-            codePostale: [],
-            ville: [],
-          },
-        }, */
     famille: [],
     adresseCapture: [],
     race: [],
@@ -114,6 +99,31 @@ export class ChatUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  initContrat(): void {
+    this.editForm.addControl(
+      'contrat',
+      this.fb.group({
+        id: [],
+        nom: [],
+        prenom: [],
+        cout: [],
+        paiement: [],
+        dateContrat: [],
+        adresseAdoptant: {
+          id: null,
+          numero: 42,
+          rue: 'e',
+          codePostale: 'e',
+          ville: 'e',
+        },
+      })
+    );
+  }
+
+  deleteContrat(): void {
+    this.editForm.removeControl('contrat');
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IChat>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -148,7 +158,7 @@ export class ChatUpdateComponent implements OnInit {
       race: chat.race,
     });
     if (chat.contrat) {
-      this.initContratControls();
+      this.initContrat();
       this.editForm.patchValue({
         contrat: {
           id: chat.contrat?.id ? chat.contrat.id : null,
@@ -170,27 +180,6 @@ export class ChatUpdateComponent implements OnInit {
     this.visites = chat.visites ? chat.visites : [];
   }
 
-  protected initContratControls(): void {
-    this.editForm.addControl(
-      'contrat',
-      this.fb.group({
-        id: [],
-        nom: [],
-        prenom: [],
-        cout: [],
-        paiement: [],
-        dateContrat: [],
-        adresseAdoptant: {
-          id: [],
-          numero: [],
-          rue: [],
-          codePostale: [],
-          ville: [],
-        },
-      })
-    );
-  }
-
   protected createFromForm(): IChat {
     let chat = {
       ...new Chat(),
@@ -202,7 +191,6 @@ export class ChatUpdateComponent implements OnInit {
       description: this.editForm.get(['description'])!.value,
       robe: this.editForm.get(['robe'])!.value,
       poil: this.editForm.get(['poil'])!.value,
-
       famille: this.editForm.get(['famille'])!.value,
       adresseCapture: this.editForm.get(['adresseCapture'])!.value,
       race: this.editForm.get(['race'])!.value,
@@ -211,7 +199,15 @@ export class ChatUpdateComponent implements OnInit {
     if (this.editForm.get(['contrat'])) {
       chat = {
         ...chat,
-        contrat: this.editForm.get(['contrat'])!.value,
+        contrat: {
+          id: this.editForm.get(['contrat', 'id'])!.value,
+          nom: this.editForm.get(['contrat', 'nom'])!.value,
+          prenom: this.editForm.get(['contrat', 'prenom'])!.value,
+          paiement: this.editForm.get(['contrat', 'paiement'])!.value,
+          cout: this.editForm.get(['contrat', 'cout'])!.value,
+          dateContrat: this.editForm.get(['contrat', 'dateContrat'])!.value,
+          adresseAdoptant: this.editForm.get(['contrat', 'adresseAdoptant'])!.value,
+        },
       };
     }
     return chat;

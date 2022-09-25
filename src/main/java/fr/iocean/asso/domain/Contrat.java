@@ -43,23 +43,23 @@ public class Contrat implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nom")
+    @Column(name = "nom", nullable = false)
     private String nom;
 
-    @Column(name = "prenom")
+    @Column(name = "prenom", nullable = false)
     private String prenom;
 
-    @Column(name = "cout")
+    @Column(name = "cout", nullable = false)
     private Double cout;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "paiement")
+    @Column(name = "paiement", nullable = false)
     private PaiementEnum paiement;
 
-    @Column(name = "date_contrat")
+    @Column(name = "date_contrat", nullable = false)
     private LocalDate dateContrat;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
     private Adresse adresseAdoptant;
 
