@@ -20,10 +20,13 @@ import { IRaceChat } from 'app/entities/race-chat/race-chat.model';
 import { RaceChatService } from 'app/entities/race-chat/service/race-chat.service';
 import { TypeIdentificationEnum } from 'app/entities/enumerations/type-identification-enum.model';
 import { PoilEnum } from 'app/entities/enumerations/poil-enum.model';
+import { MomentDateFormatter } from 'app/shared/util/dateformat';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'jhi-chat-update',
   templateUrl: './chat-update.component.html',
+  providers: [{ provide: NgbDateParserFormatter, useClass: MomentDateFormatter }],
 })
 export class ChatUpdateComponent implements OnInit {
   isSaving = false;

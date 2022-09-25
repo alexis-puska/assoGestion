@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IFamilleAccueil, getFamilleAccueilIdentifier } from '../famille-accueil.model';
+import { IFamilleAccueil, getFamilleAccueilIdentifier, FamilleAccueil } from '../famille-accueil.model';
 
 export type EntityResponseType = HttpResponse<IFamilleAccueil>;
 export type EntityArrayResponseType = HttpResponse<IFamilleAccueil[]>;
@@ -45,6 +45,14 @@ export class FamilleAccueilService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  findFamilleAccueilAutocomplete(query: string): Observable<FamilleAccueil[]> {
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append('query', query);
+    return this.http.get<FamilleAccueil[]>(`${this.resourceUrl}/autocomplete`, {
+      params: queryParam,
+    });
   }
 
   addFamilleAccueilToCollectionIfMissing(

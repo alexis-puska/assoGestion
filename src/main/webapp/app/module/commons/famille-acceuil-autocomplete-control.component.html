@@ -1,0 +1,30 @@
+<ng-select
+  [(ngModel)]="item"
+  [loading]="isListItemLoading"
+  [items]="items$ | async"
+  [typeahead]="itemQuery$"
+  [multiple]="multiple"
+  [disabled]="disabled"
+>
+  <ng-template ng-typetosearch-tmp>
+    <div class="ng-option disabled">
+      <ng-container *ngIf="numberOfChars > 0">
+        Veuillez saisir au moins {{ numberOfChars }} caractère{{ numberOfChars === 1 ? '' : 's' }}.
+      </ng-container>
+    </div>
+  </ng-template>
+  <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+    <div class="ng-option disabled">Pas de résultat pour "{{ searchTerm }}"</div>
+  </ng-template>
+  <ng-template ng-loadingtext-tmp let-searchTerm="searchTerm">
+    <div class="ng-option disabled">Récupération des données pour "{{ searchTerm }}"…</div>
+  </ng-template>
+
+  <ng-template ng-label-tmp let-item="item" let-clear="clear" let-searchTerm="searchTerm">
+    {{ item.nom }}
+    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+  </ng-template>
+  <ng-template ng-option-tmp let-item="item" let-searchTerm="searchTerm">
+    <div [innerHtml]="getHighlightedQueryInResult(item, searchTerm)"></div>
+  </ng-template>
+</ng-select>

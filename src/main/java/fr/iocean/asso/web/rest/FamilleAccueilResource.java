@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
@@ -185,5 +186,11 @@ public class FamilleAccueilResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/famille-accueils/autocomplete")
+    public ResponseEntity<List<FamilleAccueilDTO>> findAutocomplete(@RequestParam(value = "query", required = false) String query) {
+        List<FamilleAccueilDTO> result = familleAccueilService.findAutocomplete(query);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
 }

@@ -4,6 +4,7 @@ import fr.iocean.asso.domain.FamilleAccueil;
 import fr.iocean.asso.repository.FamilleAccueilRepository;
 import fr.iocean.asso.service.dto.FamilleAccueilDTO;
 import fr.iocean.asso.service.mapper.FamilleAccueilMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,5 +96,9 @@ public class FamilleAccueilService {
     public void delete(Long id) {
         log.debug("Request to delete FamilleAccueil : {}", id);
         familleAccueilRepository.deleteById(id);
+    }
+
+    public List<FamilleAccueilDTO> findAutocomplete(String query) {
+        return this.familleAccueilMapper.toDto(this.familleAccueilRepository.findAutocomplete("%" + query + "%"));
     }
 }
