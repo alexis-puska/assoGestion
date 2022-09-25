@@ -5,9 +5,10 @@ import { PointCaptureDetailComponent } from './detail/point-capture-detail.compo
 import { PointCaptureUpdateComponent } from './update/point-capture-update.component';
 import { PointCaptureDeleteDialogComponent } from './delete/point-capture-delete-dialog.component';
 import { PointCaptureRoutingModule } from './route/point-capture-routing.module';
+import { CommonsModule } from 'app/module/commons/commons.module';
 
 @NgModule({
-  imports: [SharedModule, PointCaptureRoutingModule],
+  imports: [SharedModule, PointCaptureRoutingModule, CommonsModule],
   declarations: [PointCaptureComponent, PointCaptureDetailComponent, PointCaptureUpdateComponent, PointCaptureDeleteDialogComponent],
   entryComponents: [PointCaptureDeleteDialogComponent],
 })

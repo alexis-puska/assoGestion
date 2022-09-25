@@ -9,9 +9,6 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = { AdresseMapper.class })
 public interface PointCaptureMapper extends EntityMapper<PointCaptureDTO, PointCapture> {
-    @Mapping(target = "adresseCapture", source = "adresseCapture", qualifiedByName = "id")
-    PointCaptureDTO toDto(PointCapture s);
-
     @Named("id")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")

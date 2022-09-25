@@ -19,11 +19,7 @@
           <span>{{ pointCapture.nom }}</span>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.pointCapture.adresseCapture">Adresse Capture</span></dt>
-        <dd>
-          <div *ngIf="pointCapture.adresseCapture">
-            <a [routerLink]="['/adresse', pointCapture.adresseCapture?.id, 'view']">{{ pointCapture.adresseCapture?.id }}</a>
-          </div>
-        </dd>
+        <jhi-adresse-view [adresse]="pointCapture.adresseCapture" *ngIf="pointCapture.adresseCapture"></jhi-adresse-view>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

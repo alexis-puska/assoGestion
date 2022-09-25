@@ -59,6 +59,9 @@
           <th scope="col">
             <span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span>
           </th>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.familleAccueil.contact">Contact</span>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -74,6 +77,12 @@
           <td>{{ familleAccueil.nombreChien }}</td>
           <td>
             <jhi-adresse-view [adresse]="familleAccueil.adresse" *ngIf="familleAccueil.adresse"></jhi-adresse-view>
+          </td>
+          <td>
+            <ng-container *ngIf="familleAccueil.contacts">
+              <span class="badge bg-success" *ngIf="familleAccueil.contacts.length > 0">{{ familleAccueil.contacts.length }}</span>
+              <span class="badge bg-danger" *ngIf="familleAccueil.contacts.length === 0">{{ familleAccueil.contacts.length }}</span>
+            </ng-container>
           </td>
           <td class="text-end">
             <div class="btn-group">

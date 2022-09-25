@@ -5,9 +5,10 @@ import { PointNourrissageDetailComponent } from './detail/point-nourrissage-deta
 import { PointNourrissageUpdateComponent } from './update/point-nourrissage-update.component';
 import { PointNourrissageDeleteDialogComponent } from './delete/point-nourrissage-delete-dialog.component';
 import { PointNourrissageRoutingModule } from './route/point-nourrissage-routing.module';
+import { CommonsModule } from 'app/module/commons/commons.module';
 
 @NgModule({
-  imports: [SharedModule, PointNourrissageRoutingModule],
+  imports: [SharedModule, PointNourrissageRoutingModule, CommonsModule],
   declarations: [
     PointNourrissageComponent,
     PointNourrissageDetailComponent,

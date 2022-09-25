@@ -39,8 +39,8 @@
           <th scope="col" jhiSortBy="actif">
             <span jhiTranslate="assoGestionApp.cliniqueVeterinaire.actif">Actif</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="adresse.id">
-            <span jhiTranslate="assoGestionApp.cliniqueVeterinaire.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.cliniqueVeterinaire.adresse">Adresse</span>
           </th>
           <th scope="col"></th>
         </tr>
@@ -51,11 +51,12 @@
             <a [routerLink]="['/clinique-veterinaire', cliniqueVeterinaire.id, 'view']">{{ cliniqueVeterinaire.id }}</a>
           </td>
           <td>{{ cliniqueVeterinaire.nom }}</td>
-          <td>{{ cliniqueVeterinaire.actif }}</td>
           <td>
-            <div *ngIf="cliniqueVeterinaire.adresse">
-              <a [routerLink]="['/adresse', cliniqueVeterinaire.adresse?.id, 'view']">{{ cliniqueVeterinaire.adresse?.id }}</a>
-            </div>
+            <fa-icon icon="check" class="text-success" *ngIf="cliniqueVeterinaire.actif === true"></fa-icon>
+            <fa-icon icon="times" class="text-danger" *ngIf="cliniqueVeterinaire.actif === false"></fa-icon>
+          </td>
+          <td>
+            <jhi-adresse-view [adresse]="cliniqueVeterinaire.adresse" *ngIf="cliniqueVeterinaire.adresse"></jhi-adresse-view>
           </td>
           <td class="text-end">
             <div class="btn-group">

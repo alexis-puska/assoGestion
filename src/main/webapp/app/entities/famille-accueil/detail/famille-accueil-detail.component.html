@@ -38,6 +38,12 @@
         </dd>
         <dt><span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span></dt>
         <jhi-adresse-view [adresse]="familleAccueil.adresse" *ngIf="familleAccueil.adresse"></jhi-adresse-view>
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.contact">Contact</span></dt>
+        <jhi-contact-list
+          [contacts]="familleAccueil.contacts"
+          [editMode]="false"
+          *ngIf="familleAccueil && familleAccueil.contacts"
+        ></jhi-contact-list>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

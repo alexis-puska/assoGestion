@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
-import { IDonateur, Donateur } from '../donateur.model';
-import { DonateurService } from '../service/donateur.service';
 import { IAdresse } from 'app/entities/adresse/adresse.model';
 import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { FormeDonEnum } from 'app/entities/enumerations/forme-don-enum.model';
 import { NatureDon } from 'app/entities/enumerations/nature-don.model';
 import { NumeraireDonEnum } from 'app/entities/enumerations/numeraire-don-enum.model';
+import { Donateur, IDonateur } from '../donateur.model';
+import { DonateurService } from '../service/donateur.service';
 
 @Component({
   selector: 'jhi-donateur-update',
@@ -34,7 +34,13 @@ export class DonateurUpdateComponent implements OnInit {
     formeDon: [],
     natureDon: [],
     numeraireDon: [],
-    adresse: [],
+    adresse: {
+      id: [],
+      numero: [],
+      rue: [],
+      codePostale: [],
+      ville: [],
+    },
   });
 
   constructor(
@@ -47,8 +53,6 @@ export class DonateurUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ donateur }) => {
       this.updateForm(donateur);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -99,20 +103,14 @@ export class DonateurUpdateComponent implements OnInit {
       formeDon: donateur.formeDon,
       natureDon: donateur.natureDon,
       numeraireDon: donateur.numeraireDon,
-      adresse: donateur.adresse,
+      adresse: {
+        id: donateur.adresse ? donateur.adresse.id : null,
+        numero: donateur.adresse ? donateur.adresse.numero : null,
+        rue: donateur.adresse ? donateur.adresse.rue : null,
+        codePostale: donateur.adresse ? donateur.adresse.codePostale : null,
+        ville: donateur.adresse ? donateur.adresse.ville : null,
+      },
     });
-
-    this.adressesCollection = this.adresseService.addAdresseToCollectionIfMissing(this.adressesCollection, donateur.adresse);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.adresseService
-      .query({ filter: 'donateur-is-null' })
-      .pipe(map((res: HttpResponse<IAdresse[]>) => res.body ?? []))
-      .pipe(
-        map((adresses: IAdresse[]) => this.adresseService.addAdresseToCollectionIfMissing(adresses, this.editForm.get('adresse')!.value))
-      )
-      .subscribe((adresses: IAdresse[]) => (this.adressesCollection = adresses));
   }
 
   protected createFromForm(): IDonateur {

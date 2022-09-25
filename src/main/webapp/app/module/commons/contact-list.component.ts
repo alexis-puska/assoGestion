@@ -12,6 +12,9 @@ export class ContactListComponent {
   @Input()
   contacts: IContact[] | null = [];
 
+  @Input()
+  editMode = false;
+
   constructor(private modalService: NgbModal) {}
 
   createContact(): void {

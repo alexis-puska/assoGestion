@@ -43,11 +43,7 @@
           <span jhiTranslate="{{ 'assoGestionApp.NumeraireDonEnum.' + donateur.numeraireDon }}">{{ donateur.numeraireDon }}</span>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.donateur.adresse">Adresse</span></dt>
-        <dd>
-          <div *ngIf="donateur.adresse">
-            <a [routerLink]="['/adresse', donateur.adresse?.id, 'view']">{{ donateur.adresse?.id }}</a>
-          </div>
-        </dd>
+        <jhi-adresse-view [adresse]="donateur.adresse" *ngIf="donateur.adresse"></jhi-adresse-view>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

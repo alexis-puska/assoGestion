@@ -32,12 +32,19 @@
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
-          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="nom">
-            <span jhiTranslate="assoGestionApp.pointNourrissage.nom">Nom</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="id">
+            <span jhiTranslate="global.field.id">ID</span>
+            <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="adresse.id">
-            <span jhiTranslate="assoGestionApp.pointNourrissage.adresse">Adresse</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="nom">
+            <span jhiTranslate="assoGestionApp.pointNourrissage.nom">Nom</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.pointNourrissage.adresse">Adresse</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.pointNourrissage.contact">Contact</span>
           </th>
           <th scope="col"></th>
         </tr>
@@ -49,9 +56,13 @@
           </td>
           <td>{{ pointNourrissage.nom }}</td>
           <td>
-            <div *ngIf="pointNourrissage.adresse">
-              <a [routerLink]="['/adresse', pointNourrissage.adresse?.id, 'view']">{{ pointNourrissage.adresse?.id }}</a>
-            </div>
+            <jhi-adresse-view [adresse]="pointNourrissage.adresse" *ngIf="pointNourrissage.adresse"></jhi-adresse-view>
+          </td>
+          <td>
+            <ng-container *ngIf="pointNourrissage.contacts">
+              <span class="badge bg-success" *ngIf="pointNourrissage.contacts.length > 0">{{ pointNourrissage.contacts.length }}</span>
+              <span class="badge bg-danger" *ngIf="pointNourrissage.contacts.length === 0">{{ pointNourrissage.contacts.length }}</span>
+            </ng-container>
           </td>
           <td class="text-end">
             <div class="btn-group">

@@ -25,11 +25,7 @@
           <span>{{ cliniqueVeterinaire.actif }}</span>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.cliniqueVeterinaire.adresse">Adresse</span></dt>
-        <dd>
-          <div *ngIf="cliniqueVeterinaire.adresse">
-            <a [routerLink]="['/adresse', cliniqueVeterinaire.adresse?.id, 'view']">{{ cliniqueVeterinaire.adresse?.id }}</a>
-          </div>
-        </dd>
+        <jhi-adresse-view [adresse]="cliniqueVeterinaire.adresse" *ngIf="cliniqueVeterinaire.adresse"></jhi-adresse-view>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

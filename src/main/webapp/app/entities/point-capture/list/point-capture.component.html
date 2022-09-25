@@ -36,8 +36,8 @@
           <th scope="col" jhiSortBy="nom">
             <span jhiTranslate="assoGestionApp.pointCapture.nom">Nom</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="adresseCapture.id">
-            <span jhiTranslate="assoGestionApp.pointCapture.adresseCapture">Adresse Capture</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.pointCapture.adresseCapture">Adresse Capture</span>
           </th>
           <th scope="col"></th>
         </tr>
@@ -49,9 +49,7 @@
           </td>
           <td>{{ pointCapture.nom }}</td>
           <td>
-            <div *ngIf="pointCapture.adresseCapture">
-              <a [routerLink]="['/adresse', pointCapture.adresseCapture?.id, 'view']">{{ pointCapture.adresseCapture?.id }}</a>
-            </div>
+            <jhi-adresse-view [adresse]="pointCapture.adresseCapture" *ngIf="pointCapture.adresseCapture"></jhi-adresse-view>
           </td>
           <td class="text-end">
             <div class="btn-group">

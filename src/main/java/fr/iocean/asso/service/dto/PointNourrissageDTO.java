@@ -1,6 +1,8 @@
 package fr.iocean.asso.service.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,4 +22,6 @@ public class PointNourrissageDTO implements Serializable {
     private String nom;
 
     private AdresseDTO adresse;
+
+    private Set<ContactDTO> contacts = new HashSet<>();
 }

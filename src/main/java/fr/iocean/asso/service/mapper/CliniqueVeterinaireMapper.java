@@ -9,9 +9,6 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = { AdresseMapper.class })
 public interface CliniqueVeterinaireMapper extends EntityMapper<CliniqueVeterinaireDTO, CliniqueVeterinaire> {
-    @Mapping(target = "adresse", source = "adresse", qualifiedByName = "id")
-    CliniqueVeterinaireDTO toDto(CliniqueVeterinaire s);
-
     @Named("id")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")

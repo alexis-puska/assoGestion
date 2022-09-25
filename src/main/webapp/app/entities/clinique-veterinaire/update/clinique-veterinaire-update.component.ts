@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
-import { ICliniqueVeterinaire, CliniqueVeterinaire } from '../clinique-veterinaire.model';
-import { CliniqueVeterinaireService } from '../service/clinique-veterinaire.service';
 import { IAdresse } from 'app/entities/adresse/adresse.model';
 import { AdresseService } from 'app/entities/adresse/service/adresse.service';
+import { CliniqueVeterinaire, ICliniqueVeterinaire } from '../clinique-veterinaire.model';
+import { CliniqueVeterinaireService } from '../service/clinique-veterinaire.service';
 
 @Component({
   selector: 'jhi-clinique-veterinaire-update',
@@ -17,13 +17,17 @@ import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 export class CliniqueVeterinaireUpdateComponent implements OnInit {
   isSaving = false;
 
-  adressesCollection: IAdresse[] = [];
-
   editForm = this.fb.group({
     id: [],
     nom: [],
     actif: [],
-    adresse: [],
+    adresse: {
+      id: [],
+      numero: [],
+      rue: [],
+      codePostale: [],
+      ville: [],
+    },
   });
 
   constructor(
@@ -36,8 +40,6 @@ export class CliniqueVeterinaireUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ cliniqueVeterinaire }) => {
       this.updateForm(cliniqueVeterinaire);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -83,20 +85,14 @@ export class CliniqueVeterinaireUpdateComponent implements OnInit {
       id: cliniqueVeterinaire.id,
       nom: cliniqueVeterinaire.nom,
       actif: cliniqueVeterinaire.actif,
-      adresse: cliniqueVeterinaire.adresse,
+      adresse: {
+        id: cliniqueVeterinaire.adresse ? cliniqueVeterinaire.adresse.id : null,
+        numero: cliniqueVeterinaire.adresse ? cliniqueVeterinaire.adresse.numero : null,
+        rue: cliniqueVeterinaire.adresse ? cliniqueVeterinaire.adresse.rue : null,
+        codePostale: cliniqueVeterinaire.adresse ? cliniqueVeterinaire.adresse.codePostale : null,
+        ville: cliniqueVeterinaire.adresse ? cliniqueVeterinaire.adresse.ville : null,
+      },
     });
-
-    this.adressesCollection = this.adresseService.addAdresseToCollectionIfMissing(this.adressesCollection, cliniqueVeterinaire.adresse);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.adresseService
-      .query({ filter: 'cliniqueveterinaire-is-null' })
-      .pipe(map((res: HttpResponse<IAdresse[]>) => res.body ?? []))
-      .pipe(
-        map((adresses: IAdresse[]) => this.adresseService.addAdresseToCollectionIfMissing(adresses, this.editForm.get('adresse')!.value))
-      )
-      .subscribe((adresses: IAdresse[]) => (this.adressesCollection = adresses));
   }
 
   protected createFromForm(): ICliniqueVeterinaire {

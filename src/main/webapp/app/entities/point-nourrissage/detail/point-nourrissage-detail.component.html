@@ -21,11 +21,13 @@
           <span>{{ pointNourrissage.nom }}</span>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.pointNourrissage.adresse">Adresse</span></dt>
-        <dd>
-          <div *ngIf="pointNourrissage.adresse">
-            <a [routerLink]="['/adresse', pointNourrissage.adresse?.id, 'view']">{{ pointNourrissage.adresse?.id }}</a>
-          </div>
-        </dd>
+        <jhi-adresse-view [adresse]="pointNourrissage.adresse" *ngIf="pointNourrissage.adresse"></jhi-adresse-view>
+        <dt><span jhiTranslate="assoGestionApp.pointNourrissage.contact">Contact</span></dt>
+        <jhi-contact-list
+          [contacts]="pointNourrissage.contacts"
+          [editMode]="false"
+          *ngIf="pointNourrissage && pointNourrissage.contacts"
+        ></jhi-contact-list>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

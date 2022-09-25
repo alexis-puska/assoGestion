@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
-import { IPointCapture, PointCapture } from '../point-capture.model';
-import { PointCaptureService } from '../service/point-capture.service';
 import { IAdresse } from 'app/entities/adresse/adresse.model';
 import { AdresseService } from 'app/entities/adresse/service/adresse.service';
+import { IPointCapture, PointCapture } from '../point-capture.model';
+import { PointCaptureService } from '../service/point-capture.service';
 
 @Component({
   selector: 'jhi-point-capture-update',
@@ -17,12 +17,16 @@ import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 export class PointCaptureUpdateComponent implements OnInit {
   isSaving = false;
 
-  adresseCapturesCollection: IAdresse[] = [];
-
   editForm = this.fb.group({
     id: [],
     nom: [],
-    adresseCapture: [],
+    adresseCapture: {
+      id: [],
+      numero: [],
+      rue: [],
+      codePostale: [],
+      ville: [],
+    },
   });
 
   constructor(
@@ -35,8 +39,6 @@ export class PointCaptureUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ pointCapture }) => {
       this.updateForm(pointCapture);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -78,28 +80,18 @@ export class PointCaptureUpdateComponent implements OnInit {
   }
 
   protected updateForm(pointCapture: IPointCapture): void {
+    console.log(pointCapture);
     this.editForm.patchValue({
       id: pointCapture.id,
       nom: pointCapture.nom,
-      adresseCapture: pointCapture.adresseCapture,
+      adresseCapture: {
+        id: pointCapture.adresseCapture ? pointCapture.adresseCapture.id : null,
+        numero: pointCapture.adresseCapture ? pointCapture.adresseCapture.numero : null,
+        rue: pointCapture.adresseCapture ? pointCapture.adresseCapture.rue : null,
+        codePostale: pointCapture.adresseCapture ? pointCapture.adresseCapture.codePostale : null,
+        ville: pointCapture.adresseCapture ? pointCapture.adresseCapture.ville : null,
+      },
     });
-
-    this.adresseCapturesCollection = this.adresseService.addAdresseToCollectionIfMissing(
-      this.adresseCapturesCollection,
-      pointCapture.adresseCapture
-    );
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.adresseService
-      .query({ filter: 'pointcapture-is-null' })
-      .pipe(map((res: HttpResponse<IAdresse[]>) => res.body ?? []))
-      .pipe(
-        map((adresses: IAdresse[]) =>
-          this.adresseService.addAdresseToCollectionIfMissing(adresses, this.editForm.get('adresseCapture')!.value)
-        )
-      )
-      .subscribe((adresses: IAdresse[]) => (this.adresseCapturesCollection = adresses));
   }
 
   protected createFromForm(): IPointCapture {

@@ -23,16 +23,12 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.pointNourrissage.adresse" for="field_adresse">Adresse</label>
-          <select class="form-control" id="field_adresse" data-cy="adresse" name="adresse" formControlName="adresse">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="adresseOption.id === editForm.get('adresse')!.value?.id ? editForm.get('adresse')!.value : adresseOption"
-              *ngFor="let adresseOption of adressesCollection; trackBy: trackAdresseById"
-            >
-              {{ adresseOption.id }}
-            </option>
-          </select>
+          <jhi-adresse-edit formControlName="adresse"></jhi-adresse-edit>
+        </div>
+
+        <div class="row mb-3">
+          <h2 id="jhi-adresse-heading" jhiTranslate="assoGestionApp.contact.home.title">Create or edit a Adress</h2>
+          <jhi-contact-list [contacts]="contacts" [editMode]="true"></jhi-contact-list>
         </div>
       </div>
 
