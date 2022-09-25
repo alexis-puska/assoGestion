@@ -23,11 +23,7 @@
         <dt><span jhiTranslate="assoGestionApp.pointNourrissage.adresse">Adresse</span></dt>
         <jhi-adresse-view [adresse]="pointNourrissage.adresse" *ngIf="pointNourrissage.adresse"></jhi-adresse-view>
         <dt><span jhiTranslate="assoGestionApp.pointNourrissage.contact">Contact</span></dt>
-        <jhi-contact-list
-          [contacts]="pointNourrissage.contacts"
-          [editMode]="false"
-          *ngIf="pointNourrissage && pointNourrissage.contacts"
-        ></jhi-contact-list>
+        <jhi-contact-list [contacts]="pointNourrissage.contacts" *ngIf="pointNourrissage && pointNourrissage.contacts"></jhi-contact-list>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

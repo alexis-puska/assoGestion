@@ -1,60 +1,64 @@
 <form name="editForm" role="form" novalidate [formGroup]="editForm">
-  <h2 id="jhi-adresse-heading" data-cy="AdresseCreateUpdateHeading" jhiTranslate="assoGestionApp.adresse.home.title">
-    Create or edit a Adresse
-  </h2>
-
-  <div>
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.adresse.numero" for="field_numero">Numero</label>
-      <input type="number" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
-      <div *ngIf="editForm.get('numero')!.invalid && (editForm.get('numero')!.dirty || editForm.get('numero')!.touched)">
-        <small class="form-text text-danger" *ngIf="editForm.get('numero')?.errors?.required" jhiTranslate="entity.validation.required">
-          This field is required.
-        </small>
-        <small class="form-text text-danger" [hidden]="!editForm.get('numero')?.errors?.number" jhiTranslate="entity.validation.number">
-          This field should be a number.
-        </small>
-      </div>
+  <div class="card">
+    <div class="card-header">
+      <h2 id="jhi-adresse-heading" data-cy="AdresseCreateUpdateHeading" jhiTranslate="assoGestionApp.adresse.home.title">
+        Create or edit a Adresse
+      </h2>
     </div>
-
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.adresse.rue" for="field_rue">Rue</label>
-      <input type="text" class="form-control" name="rue" id="field_rue" data-cy="rue" formControlName="rue" />
-      <div *ngIf="editForm.get('rue')!.invalid && (editForm.get('rue')!.dirty || editForm.get('rue')!.touched)">
-        <small class="form-text text-danger" *ngIf="editForm.get('rue')?.errors?.required" jhiTranslate="entity.validation.required">
-          This field is required.
-        </small>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.adresse.numero" for="field_numero">Numero</label>
+          <input type="number" class="form-control" name="numero" id="field_numero" data-cy="numero" formControlName="numero" />
+          <div *ngIf="editForm.get('numero')!.invalid && (editForm.get('numero')!.dirty || editForm.get('numero')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('numero')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('numero')?.errors?.number" jhiTranslate="entity.validation.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+        <div class="col-9">
+          <label class="form-label" jhiTranslate="assoGestionApp.adresse.rue" for="field_rue">Rue</label>
+          <input type="text" class="form-control" name="rue" id="field_rue" data-cy="rue" formControlName="rue" />
+          <div *ngIf="editForm.get('rue')!.invalid && (editForm.get('rue')!.dirty || editForm.get('rue')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('rue')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.adresse.codePostale" for="field_codePostale">Code Postale</label>
-      <input
-        type="text"
-        class="form-control"
-        name="codePostale"
-        id="field_codePostale"
-        data-cy="codePostale"
-        formControlName="codePostale"
-      />
-      <div *ngIf="editForm.get('codePostale')!.invalid && (editForm.get('codePostale')!.dirty || editForm.get('codePostale')!.touched)">
-        <small
-          class="form-text text-danger"
-          *ngIf="editForm.get('codePostale')?.errors?.required"
-          jhiTranslate="entity.validation.required"
-        >
-          This field is required.
-        </small>
-      </div>
-    </div>
-
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.adresse.ville" for="field_ville">Ville</label>
-      <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
-      <div *ngIf="editForm.get('ville')!.invalid && (editForm.get('ville')!.dirty || editForm.get('ville')!.touched)">
-        <small class="form-text text-danger" *ngIf="editForm.get('ville')?.errors?.required" jhiTranslate="entity.validation.required">
-          This field is required.
-        </small>
+      <div class="row mb-3">
+        <div class="col-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.adresse.codePostale" for="field_codePostale">Code Postale</label>
+          <input
+            type="text"
+            class="form-control"
+            name="codePostale"
+            id="field_codePostale"
+            data-cy="codePostale"
+            formControlName="codePostale"
+          />
+          <div *ngIf="editForm.get('codePostale')!.invalid && (editForm.get('codePostale')!.dirty || editForm.get('codePostale')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('codePostale')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+        <div class="col-9">
+          <label class="form-label" jhiTranslate="assoGestionApp.adresse.ville" for="field_ville">Ville</label>
+          <input type="text" class="form-control" name="ville" id="field_ville" data-cy="ville" formControlName="ville" />
+          <div *ngIf="editForm.get('ville')!.invalid && (editForm.get('ville')!.dirty || editForm.get('ville')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('ville')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
       </div>
     </div>
   </div>

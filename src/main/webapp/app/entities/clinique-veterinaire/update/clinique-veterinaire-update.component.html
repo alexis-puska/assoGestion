@@ -9,43 +9,54 @@
         Create or edit a Clinique Veterinaire
       </h2>
 
+      <jhi-alert-error></jhi-alert-error>
       <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.cliniqueVeterinaire.nom" for="field_nom">Nom</label>
-          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                  <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.cliniqueVeterinaire.nom" for="field_nom">Nom</label>
+                  <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.cliniqueVeterinaire.actif" for="field_actif">Actif</label>
+                  <input type="checkbox" class="form-check" name="actif" id="field_actif" data-cy="actif" formControlName="actif" />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <jhi-adresse-edit formControlName="adresse"></jhi-adresse-edit>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.cliniqueVeterinaire.actif" for="field_actif">Actif</label>
-          <input type="checkbox" class="form-check" name="actif" id="field_actif" data-cy="actif" formControlName="actif" />
+        <div>
+          <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+          </button>
+
+          <button
+            type="submit"
+            id="save-entity"
+            data-cy="entityCreateSaveButton"
+            [disabled]="editForm.invalid || isSaving"
+            class="btn btn-primary"
+          >
+            <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+          </button>
         </div>
-
-        <div class="row mb-3">
-          <jhi-adresse-edit formControlName="adresse"></jhi-adresse-edit>
-        </div>
-      </div>
-
-      <div>
-        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
-          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-        </button>
       </div>
     </form>
   </div>

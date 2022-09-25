@@ -1,14 +1,3 @@
-<button
-  type="button"
-  id="jh-create-entity"
-  class="btn btn-primary jh-create-entity create-famille-accueil"
-  (click)="createContact()"
-  *ngIf="editMode === true"
->
-  <fa-icon icon="plus"></fa-icon>
-  <span jhiTranslate="assoGestionApp.contact.home.createLabel"> Create a new Contact </span>
-</button>
-
 <table class="table table-striped" aria-describedby="page-heading">
   <thead>
     <tr>
@@ -18,7 +7,6 @@
       <th scope="col"><span jhiTranslate="assoGestionApp.contact.mail">Mail</span></th>
       <th scope="col"><span jhiTranslate="assoGestionApp.contact.telMobile">Tel Mobile</span></th>
       <th scope="col"><span jhiTranslate="assoGestionApp.contact.telFixe">Tel Fixe</span></th>
-      <th scope="col" *ngIf="editMode === true"></th>
     </tr>
   </thead>
   <tbody>
@@ -29,18 +17,6 @@
       <td>{{ contact.mail }}</td>
       <td>{{ contact.telMobile }}</td>
       <td>{{ contact.telFixe }}</td>
-      <td class="text-end" *ngIf="editMode === true">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary btn-sm" (click)="updateContact(contact)">
-            <fa-icon icon="pencil-alt"></fa-icon>
-            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-          </button>
-          <button type="button" class="btn btn-danger btn-sm" (click)="deleteContact(contact)">
-            <fa-icon icon="times"></fa-icon>
-            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-          </button>
-        </div>
-      </td>
     </tr>
   </tbody>
 </table>

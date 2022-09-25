@@ -8,73 +8,93 @@
       >
         Create or edit a Famille Accueil
       </h2>
+      <jhi-alert-error></jhi-alert-error>
 
       <div>
-        <jhi-alert-error></jhi-alert-error>
-
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div>
-
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nom" for="field_nom">Nom</label>
-          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
-        </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                  <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+                </div>
+              </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.typeLogement" for="field_typeLogement">Type Logement</label>
-          <select class="form-control" name="typeLogement" formControlName="typeLogement" id="field_typeLogement" data-cy="typeLogement">
-            <option [ngValue]="null">{{ 'assoGestionApp.TypeLogementEnum.null' | translate }}</option>
-            <option *ngFor="let typeLogementEnum of typeLogementEnumValues" [value]="typeLogementEnum">
-              {{ 'assoGestionApp.TypeLogementEnum.' + typeLogementEnum | translate }}
-            </option>
-          </select>
-        </div>
+              <div class="row mb-3">
+                <div class="col-6">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nom" for="field_nom">Nom</label>
+                  <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+                </div>
+                <div class="col-6">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.typeLogement" for="field_typeLogement"
+                    >Type Logement</label
+                  >
+                  <select
+                    class="form-control"
+                    name="typeLogement"
+                    formControlName="typeLogement"
+                    id="field_typeLogement"
+                    data-cy="typeLogement"
+                  >
+                    <option [ngValue]="null">{{ 'assoGestionApp.TypeLogementEnum.null' | translate }}</option>
+                    <option *ngFor="let typeLogementEnum of typeLogementEnumValues" [value]="typeLogementEnum">
+                      {{ 'assoGestionApp.TypeLogementEnum.' + typeLogementEnum | translate }}
+                    </option>
+                  </select>
+                </div>
+              </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombrePiece" for="field_nombrePiece">Nombre Piece</label>
-          <input
-            type="number"
-            class="form-control"
-            name="nombrePiece"
-            id="field_nombrePiece"
-            data-cy="nombrePiece"
-            formControlName="nombrePiece"
-          />
-        </div>
+              <div class="row mb-3">
+                <div class="col-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombrePiece" for="field_nombrePiece"
+                    >Nombre Piece</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="nombrePiece"
+                    id="field_nombrePiece"
+                    data-cy="nombrePiece"
+                    formControlName="nombrePiece"
+                  />
+                </div>
+                <div class="col-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChat" for="field_nombreChat"
+                    >Nombre Chat</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="nombreChat"
+                    id="field_nombreChat"
+                    data-cy="nombreChat"
+                    formControlName="nombreChat"
+                  />
+                </div>
+                <div class="col-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChien" for="field_nombreChien"
+                    >Nombre Chien</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="nombreChien"
+                    id="field_nombreChien"
+                    data-cy="nombreChien"
+                    formControlName="nombreChien"
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <jhi-adresse-edit formControlName="adresse"></jhi-adresse-edit>
+              </div>
 
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChat" for="field_nombreChat">Nombre Chat</label>
-          <input
-            type="number"
-            class="form-control"
-            name="nombreChat"
-            id="field_nombreChat"
-            data-cy="nombreChat"
-            formControlName="nombreChat"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nombreChien" for="field_nombreChien">Nombre Chien</label>
-          <input
-            type="number"
-            class="form-control"
-            name="nombreChien"
-            id="field_nombreChien"
-            data-cy="nombreChien"
-            formControlName="nombreChien"
-          />
-        </div>
-
-        <div class="row mb-3">
-          <jhi-adresse-edit formControlName="adresse"></jhi-adresse-edit>
-        </div>
-
-        <div class="row mb-3">
-          <h2 id="jhi-adresse-heading" jhiTranslate="assoGestionApp.contact.home.title">Create or edit a Adress</h2>
-          <jhi-contact-list [contacts]="contacts" [editMode]="true"></jhi-contact-list>
+              <div class="row mb-3">
+                <jhi-contact-list-edit [contacts]="contacts"></jhi-contact-list-edit>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -5,10 +5,10 @@ import { ContactUpdateDialogComponent } from './contact-update-dialog.component'
 import { ContactDeleteDialogComponent } from './contact-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-contact-list',
-  templateUrl: './contact-list.component.html',
+  selector: 'jhi-contact-list-edit',
+  templateUrl: './contact-list-edit.component.html',
 })
-export class ContactListComponent {
+export class ContactListEditComponent {
   @Input()
   contacts: IContact[] | null = [];
 
