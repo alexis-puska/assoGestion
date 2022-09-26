@@ -6,9 +6,10 @@ import { DonateurUpdateComponent } from './update/donateur-update.component';
 import { DonateurDeleteDialogComponent } from './delete/donateur-delete-dialog.component';
 import { DonateurRoutingModule } from './route/donateur-routing.module';
 import { CommonsModule } from 'app/module/commons/commons.module';
+import { AdresseModule } from 'app/module/adresse/adresse.module';
 
 @NgModule({
-  imports: [SharedModule, DonateurRoutingModule, CommonsModule],
+  imports: [SharedModule, DonateurRoutingModule, CommonsModule, AdresseModule],
   declarations: [DonateurComponent, DonateurDetailComponent, DonateurUpdateComponent, DonateurDeleteDialogComponent],
   entryComponents: [DonateurDeleteDialogComponent],
 })

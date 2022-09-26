@@ -6,9 +6,10 @@ import { CliniqueVeterinaireUpdateComponent } from './update/clinique-veterinair
 import { CliniqueVeterinaireDeleteDialogComponent } from './delete/clinique-veterinaire-delete-dialog.component';
 import { CliniqueVeterinaireRoutingModule } from './route/clinique-veterinaire-routing.module';
 import { CommonsModule } from 'app/module/commons/commons.module';
+import { AdresseModule } from 'app/module/adresse/adresse.module';
 
 @NgModule({
-  imports: [SharedModule, CliniqueVeterinaireRoutingModule, CommonsModule],
+  imports: [SharedModule, CliniqueVeterinaireRoutingModule, CommonsModule, AdresseModule],
   declarations: [
     CliniqueVeterinaireComponent,
     CliniqueVeterinaireDetailComponent,

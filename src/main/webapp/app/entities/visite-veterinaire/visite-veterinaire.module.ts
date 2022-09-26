@@ -5,9 +5,10 @@ import { VisiteVeterinaireDetailComponent } from './detail/visite-veterinaire-de
 import { VisiteVeterinaireUpdateComponent } from './update/visite-veterinaire-update.component';
 import { VisiteVeterinaireDeleteDialogComponent } from './delete/visite-veterinaire-delete-dialog.component';
 import { VisiteVeterinaireRoutingModule } from './route/visite-veterinaire-routing.module';
+import { AdresseModule } from 'app/module/adresse/adresse.module';
 
 @NgModule({
-  imports: [SharedModule, VisiteVeterinaireRoutingModule],
+  imports: [SharedModule, VisiteVeterinaireRoutingModule, AdresseModule],
   declarations: [
     VisiteVeterinaireComponent,
     VisiteVeterinaireDetailComponent,
