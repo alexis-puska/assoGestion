@@ -30,9 +30,10 @@
         </dd>
         <dt><span jhiTranslate="assoGestionApp.visiteVeterinaire.chat">Chat</span></dt>
         <dd>
-          <div *ngIf="visiteVeterinaire.chat">
+          {{ visiteVeterinaire.chatId }}
+          <!-- <div *ngIf="visiteVeterinaire.chat">
             <a [routerLink]="['/chat', visiteVeterinaire.chat?.id, 'view']">{{ visiteVeterinaire.chat?.id }}</a>
-          </div>
+          </div> -->
         </dd>
       </dl>
 

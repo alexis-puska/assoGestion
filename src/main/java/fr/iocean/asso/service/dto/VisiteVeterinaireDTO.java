@@ -25,7 +25,7 @@ public class VisiteVeterinaireDTO implements Serializable {
 
     private LocalDate dateVisite;
 
-    private long cliniqueVeterinaireId;
+    private CliniqueVeterinaireDTO cliniqueVeterinaire;
 
     private Long chatId;
 

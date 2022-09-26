@@ -91,14 +91,14 @@ export class VisiteVeterinaireUpdateComponent implements OnInit {
       id: visiteVeterinaire.id,
       dateVisite: visiteVeterinaire.dateVisite,
       cliniqueVeterinaire: visiteVeterinaire.cliniqueVeterinaire,
-      chat: visiteVeterinaire.chat,
+      chatId: visiteVeterinaire.chatId,
     });
 
     this.cliniqueVeterinairesSharedCollection = this.cliniqueVeterinaireService.addCliniqueVeterinaireToCollectionIfMissing(
       this.cliniqueVeterinairesSharedCollection,
       visiteVeterinaire.cliniqueVeterinaire
     );
-    this.chatsSharedCollection = this.chatService.addChatToCollectionIfMissing(this.chatsSharedCollection, visiteVeterinaire.chat);
+    /* this.chatsSharedCollection = this.chatService.addChatToCollectionIfMissing(this.chatsSharedCollection, visiteVeterinaire.chatId); */
   }
 
   protected loadRelationshipsOptions(): void {
@@ -128,7 +128,7 @@ export class VisiteVeterinaireUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       dateVisite: this.editForm.get(['dateVisite'])!.value,
       cliniqueVeterinaire: this.editForm.get(['cliniqueVeterinaire'])!.value,
-      chat: this.editForm.get(['chat'])!.value,
+      chatId: this.editForm.get(['chat'])!.value,
     };
   }
 }

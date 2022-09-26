@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Contact, IContact } from 'app/entities/contact/contact.model';
+import { VisiteVeterinaire, IVisiteVeterinaire } from 'app/entities/visite-veterinaire/visite-veterinaire.model';
 
 @Component({
   selector: 'jhi-visite-veterinaire-update-dialog',
@@ -12,22 +12,21 @@ export class VisiteVeterinaireUpdateDialogComponent implements OnInit {
   isSaving = false;
 
   // needed to open modal
-  contact: Contact | null = null;
+  visiteVeterinaire: VisiteVeterinaire | null = null;
 
   editForm = this.fb.group({
     id: [],
-    nom: [null, [Validators.required]],
-    prenom: [null, [Validators.required]],
-    mail: [],
-    telMobile: [],
-    telFixe: [],
+    chatId: [null, [Validators.required]],
+    cliniqueVeterinaire: [null, [Validators.required]],
+    dateVisite: [null, [Validators.required]],
+    actes: [],
   });
 
   constructor(protected fb: FormBuilder, public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {
-    if (this.contact) {
-      this.updateForm(this.contact);
+    if (this.visiteVeterinaire) {
+      this.updateForm(this.visiteVeterinaire);
     }
   }
 
@@ -40,26 +39,24 @@ export class VisiteVeterinaireUpdateDialogComponent implements OnInit {
     this.activeModal.dismiss();
   }
 
-  protected updateForm(contact: IContact): void {
+  protected updateForm(visiteVeterinaire: IVisiteVeterinaire): void {
     this.editForm.patchValue({
-      id: contact.id,
-      nom: contact.nom,
-      prenom: contact.prenom,
-      mail: contact.mail,
-      telMobile: contact.telMobile,
-      telFixe: contact.telFixe,
+      id: visiteVeterinaire.id,
+      chatId: visiteVeterinaire.chatId,
+      cliniqueVeterinaire: visiteVeterinaire.cliniqueVeterinaire,
+      dateVisite: visiteVeterinaire.dateVisite,
+      actes: visiteVeterinaire.actes,
     });
   }
 
-  protected createFromForm(): IContact {
+  protected createFromForm(): IVisiteVeterinaire {
     return {
-      ...new Contact(),
+      ...new VisiteVeterinaire(),
       id: this.editForm.get(['id'])!.value,
-      nom: this.editForm.get(['nom'])!.value,
-      prenom: this.editForm.get(['prenom'])!.value,
-      mail: this.editForm.get(['mail'])!.value,
-      telMobile: this.editForm.get(['telMobile'])!.value,
-      telFixe: this.editForm.get(['telFixe'])!.value,
+      chatId: this.editForm.get(['chatId'])!.value,
+      cliniqueVeterinaire: this.editForm.get(['cliniqueVeterinaire'])!.value,
+      dateVisite: this.editForm.get(['dateVisite'])!.value,
+      actes: this.editForm.get(['actes'])!.value,
     };
   }
 }

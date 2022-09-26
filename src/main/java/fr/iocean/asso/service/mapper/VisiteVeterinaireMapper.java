@@ -2,7 +2,6 @@ package fr.iocean.asso.service.mapper;
 
 import fr.iocean.asso.domain.ActeVeterinaire;
 import fr.iocean.asso.domain.Chat;
-import fr.iocean.asso.domain.CliniqueVeterinaire;
 import fr.iocean.asso.domain.VisiteVeterinaire;
 import fr.iocean.asso.service.dto.VisiteVeterinaireDTO;
 import org.mapstruct.AfterMapping;
@@ -15,22 +14,11 @@ import org.mapstruct.MappingTarget;
  */
 @Mapper(componentModel = "spring", uses = { CliniqueVeterinaireMapper.class, ChatMapper.class })
 public interface VisiteVeterinaireMapper extends EntityMapper<VisiteVeterinaireDTO, VisiteVeterinaire> {
-    @Mapping(target = "cliniqueVeterinaireId", source = "cliniqueVeterinaire.id")
     @Mapping(target = "chatId", source = "chat.id")
     VisiteVeterinaireDTO toDto(VisiteVeterinaire s);
 
-    @Mapping(target = "cliniqueVeterinaire", source = "cliniqueVeterinaireId")
     @Mapping(target = "chat", source = "chatId")
     VisiteVeterinaire toEntity(VisiteVeterinaireDTO s);
-
-    default CliniqueVeterinaire fromCliniqueVeterinaireId(Long id) {
-        if (id == null) {
-            return null;
-        }
-        CliniqueVeterinaire cliniqueVeterinaire = new CliniqueVeterinaire();
-        cliniqueVeterinaire.setId(id);
-        return cliniqueVeterinaire;
-    }
 
     default Chat fromChatId(Long id) {
         if (id == null) {

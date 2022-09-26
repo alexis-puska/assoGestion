@@ -22,7 +22,7 @@ export class ActeVeterinaireUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     libelle: [],
-    visiteVeterinaire: [],
+    visiteVeterinaireId: [],
   });
 
   constructor(
@@ -81,13 +81,13 @@ export class ActeVeterinaireUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: acteVeterinaire.id,
       libelle: acteVeterinaire.libelle,
-      visiteVeterinaire: acteVeterinaire.visiteVeterinaire,
+      visiteVeterinaireId: acteVeterinaire.visiteVeterinaireId,
     });
 
-    this.visiteVeterinairesSharedCollection = this.visiteVeterinaireService.addVisiteVeterinaireToCollectionIfMissing(
+    /* this.visiteVeterinairesSharedCollection = this.visiteVeterinaireService.addVisiteVeterinaireToCollectionIfMissing(
       this.visiteVeterinairesSharedCollection,
       acteVeterinaire.visiteVeterinaire
-    );
+    ); */
   }
 
   protected loadRelationshipsOptions(): void {
@@ -98,7 +98,7 @@ export class ActeVeterinaireUpdateComponent implements OnInit {
         map((visiteVeterinaires: IVisiteVeterinaire[]) =>
           this.visiteVeterinaireService.addVisiteVeterinaireToCollectionIfMissing(
             visiteVeterinaires,
-            this.editForm.get('visiteVeterinaire')!.value
+            this.editForm.get('visiteVeterinaireId')!.value
           )
         )
       )
@@ -110,7 +110,7 @@ export class ActeVeterinaireUpdateComponent implements OnInit {
       ...new ActeVeterinaire(),
       id: this.editForm.get(['id'])!.value,
       libelle: this.editForm.get(['libelle'])!.value,
-      visiteVeterinaire: this.editForm.get(['visiteVeterinaire'])!.value,
+      visiteVeterinaireId: this.editForm.get(['visiteVeterinaireId'])!.value,
     };
   }
 }

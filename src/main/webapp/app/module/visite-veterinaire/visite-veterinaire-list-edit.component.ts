@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { Contact, IContact } from 'app/entities/contact/contact.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { VisiteVeterinaireUpdateDialogComponent } from './visite-veterinaire-update-dialog.component';
+import { IVisiteVeterinaire, VisiteVeterinaire } from 'app/entities/visite-veterinaire/visite-veterinaire.model';
 import { VisiteVeterinaireDeleteDialogComponent } from './visite-veterinaire-delete-dialog.component';
+import { VisiteVeterinaireUpdateDialogComponent } from './visite-veterinaire-update-dialog.component';
 
 @Component({
   selector: 'jhi-visite-veterinaire-list-edit',
@@ -10,31 +10,31 @@ import { VisiteVeterinaireDeleteDialogComponent } from './visite-veterinaire-del
 })
 export class VisiteVeterinaireListEditComponent {
   @Input()
-  contacts: IContact[] | null = [];
+  visiteVeterinaires: IVisiteVeterinaire[] | null = [];
 
   constructor(private modalService: NgbModal) {}
 
-  createContact(): void {
+  createVisiteVeterinaire(): void {
     this.openModal();
   }
 
-  updateContact(contact: Contact): void {
-    this.openModal(contact);
+  updateVisiteVeterinaire(visiteVeterinaire: VisiteVeterinaire): void {
+    this.openModal(visiteVeterinaire);
   }
 
-  deleteContact(contact: Contact): void {
+  deleteVisiteVeterinaire(visiteVeterinaire: VisiteVeterinaire): void {
     const ngbModal = this.modalService.open(VisiteVeterinaireDeleteDialogComponent as Component, {
       size: 'lg',
       backdrop: 'static',
     });
 
-    ngbModal.componentInstance.contact = contact;
+    ngbModal.componentInstance.visiteVeterinaire = visiteVeterinaire;
     ngbModal.result.then(
       () => {
-        if (this.contacts) {
-          const index = this.contacts.indexOf(contact, 0);
+        if (this.visiteVeterinaires) {
+          const index = this.visiteVeterinaires.indexOf(visiteVeterinaire, 0);
           if (index > -1) {
-            this.contacts.splice(index, 1);
+            this.visiteVeterinaires.splice(index, 1);
           }
         }
       },
@@ -42,30 +42,30 @@ export class VisiteVeterinaireListEditComponent {
     );
   }
 
-  private openModal(contact?: Contact): void {
-    if (this.contacts) {
+  private openModal(visiteVeterinaire?: VisiteVeterinaire): void {
+    if (this.visiteVeterinaires) {
       let isNew = false;
-      let con: Contact;
+      let con: VisiteVeterinaire;
       let index: number;
-      if (!contact) {
+      if (!visiteVeterinaire) {
         isNew = true;
-        con = new Contact();
+        con = new VisiteVeterinaire();
       } else {
-        con = Object.assign({}, contact);
-        index = this.contacts.indexOf(contact);
+        con = Object.assign({}, visiteVeterinaire);
+        index = this.visiteVeterinaires.indexOf(visiteVeterinaire);
       }
       const ngbModal = this.modalService.open(VisiteVeterinaireUpdateDialogComponent as Component, {
         size: 'lg',
         backdrop: 'static',
       });
-      ngbModal.componentInstance.contact = con;
+      ngbModal.componentInstance.visiteVeterinaire = con;
       ngbModal.result.then(
         c => {
-          if (this.contacts) {
+          if (this.visiteVeterinaires) {
             if (isNew) {
-              this.contacts.push(c);
+              this.visiteVeterinaires.push(c);
             } else {
-              this.contacts[index] = c;
+              this.visiteVeterinaires[index] = c;
             }
           }
         },

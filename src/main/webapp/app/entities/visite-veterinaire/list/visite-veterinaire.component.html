@@ -60,9 +60,10 @@
             </div>
           </td>
           <td>
-            <div *ngIf="visiteVeterinaire.chat">
+            {{ visiteVeterinaire.chatId }}
+            <!-- <div *ngIf="visiteVeterinaire.chat">
               <a [routerLink]="['/chat', visiteVeterinaire.chat?.id, 'view']">{{ visiteVeterinaire.chat?.id }}</a>
-            </div>
+            </div> -->
           </td>
           <td class="text-end">
             <div class="btn-group">

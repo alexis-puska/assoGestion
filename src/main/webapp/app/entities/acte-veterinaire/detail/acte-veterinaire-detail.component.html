@@ -22,11 +22,12 @@
         </dd>
         <dt><span jhiTranslate="assoGestionApp.acteVeterinaire.visiteVeterinaire">Visite Veterinaire</span></dt>
         <dd>
-          <div *ngIf="acteVeterinaire.visiteVeterinaire">
+          {{ acteVeterinaire.visiteVeterinaireId }}
+          <!-- <div *ngIf="acteVeterinaire.visiteVeterinaire">
             <a [routerLink]="['/visite-veterinaire', acteVeterinaire.visiteVeterinaire?.id, 'view']">{{
               acteVeterinaire.visiteVeterinaire?.id
             }}</a>
-          </div>
+          </div> -->
         </dd>
       </dl>
 

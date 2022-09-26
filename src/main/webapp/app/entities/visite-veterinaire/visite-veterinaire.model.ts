@@ -1,14 +1,13 @@
-import dayjs from 'dayjs/esm';
 import { IActeVeterinaire } from 'app/entities/acte-veterinaire/acte-veterinaire.model';
-import { ICliniqueVeterinaire } from 'app/entities/clinique-veterinaire/clinique-veterinaire.model';
-import { IChat } from 'app/entities/chat/chat.model';
+import dayjs from 'dayjs/esm';
+import { CliniqueVeterinaire } from '../clinique-veterinaire/clinique-veterinaire.model';
 
 export interface IVisiteVeterinaire {
   id?: number;
   dateVisite?: dayjs.Dayjs | null;
   actes?: IActeVeterinaire[] | null;
-  cliniqueVeterinaire?: ICliniqueVeterinaire | null;
-  chat?: IChat | null;
+  cliniqueVeterinaire?: CliniqueVeterinaire | null;
+  chatId?: number | null;
 }
 
 export class VisiteVeterinaire implements IVisiteVeterinaire {
@@ -16,8 +15,8 @@ export class VisiteVeterinaire implements IVisiteVeterinaire {
     public id?: number,
     public dateVisite?: dayjs.Dayjs | null,
     public actes?: IActeVeterinaire[] | null,
-    public cliniqueVeterinaire?: ICliniqueVeterinaire | null,
-    public chat?: IChat | null
+    public cliniqueVeterinaireId?: CliniqueVeterinaire | null,
+    public chatId?: number | null
   ) {}
 }
 
