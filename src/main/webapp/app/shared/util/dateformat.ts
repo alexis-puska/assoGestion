@@ -1,5 +1,5 @@
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable } from '@angular/core';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -21,14 +21,16 @@ export class MomentDateFormatter extends NgbDateParserFormatter {
     return null;
   }
   format(date: NgbDateStruct | null): string {
+    let value;
     if (date) {
       this.mdt = dayjs(`${date.year}-${date.month}-${date.day}`);
       if (!this.mdt.isValid()) {
-        return '';
+        value = '';
       }
-      return this.mdt.format(this.DT_FORMAT);
+      value = this.mdt.format(this.DT_FORMAT);
     } else {
-      return '';
+      value = '';
     }
+    return value;
   }
 }

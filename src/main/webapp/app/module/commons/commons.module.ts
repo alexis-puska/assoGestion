@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from 'app/shared/shared.module';
-import { AdresseEditComponent } from './adresse-edit.component';
+import { AdresseEdit2Component } from './adresse-edit2.component';
 import { AdresseViewComponent } from './adresse-view.component';
 import { ContactDeleteDialogComponent } from './contact-delete-dialog.component';
 import { ContactListEditComponent } from './contact-list-edit.component';
@@ -14,7 +14,6 @@ import { RaceChatAutocompleteControlComponent } from './race-chat-autocomplete-c
 @NgModule({
   imports: [SharedModule, NgSelectModule],
   declarations: [
-    AdresseEditComponent,
     AdresseViewComponent,
     ContactListComponent,
     ContactListEditComponent,
@@ -23,15 +22,16 @@ import { RaceChatAutocompleteControlComponent } from './race-chat-autocomplete-c
     FamilleAccueilAutocompleteControlComponent,
     RaceChatAutocompleteControlComponent,
     PointCaptureAutocompleteControlComponent,
+    AdresseEdit2Component,
   ],
   exports: [
-    AdresseEditComponent,
     AdresseViewComponent,
     ContactListComponent,
     ContactListEditComponent,
     FamilleAccueilAutocompleteControlComponent,
     RaceChatAutocompleteControlComponent,
     PointCaptureAutocompleteControlComponent,
+    AdresseEdit2Component,
   ],
   entryComponents: [ContactUpdateDialogComponent, ContactDeleteDialogComponent],
 })

@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import dayjs from 'dayjs/esm';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import dayjs from 'dayjs/esm';
 
-import { isPresent } from 'app/core/util/operators';
 import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { IChat, getChatIdentifier } from '../chat.model';
+import { isPresent } from 'app/core/util/operators';
+import { Contrat } from 'app/entities/contrat/contrat.model';
+import { getChatIdentifier, IChat } from '../chat.model';
 
 export type EntityResponseType = HttpResponse<IChat>;
 export type EntityArrayResponseType = HttpResponse<IChat[]>;
@@ -75,14 +76,21 @@ export class ChatService {
   }
 
   protected convertDateFromClient(chat: IChat): IChat {
-    return Object.assign({}, chat, {
+    const tmp = Object.assign({}, chat, {
       dateNaissance: chat.dateNaissance?.isValid() ? chat.dateNaissance.format(DATE_FORMAT) : undefined,
     });
+    if (chat.contrat) {
+      tmp.contrat = this.convertContrat(chat.contrat);
+    }
+    return tmp;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.dateNaissance = res.body.dateNaissance ? dayjs(res.body.dateNaissance) : undefined;
+      if (res.body.contrat) {
+        res.body.contrat.dateContrat = res.body.contrat.dateContrat ? dayjs(res.body.contrat.dateContrat) : undefined;
+      }
     }
     return res;
   }
@@ -91,8 +99,17 @@ export class ChatService {
     if (res.body) {
       res.body.forEach((chat: IChat) => {
         chat.dateNaissance = chat.dateNaissance ? dayjs(chat.dateNaissance) : undefined;
+        if (chat.contrat) {
+          chat.contrat.dateContrat = chat.contrat.dateContrat ? dayjs(chat.contrat.dateContrat) : undefined;
+        }
       });
     }
     return res;
+  }
+
+  private convertContrat(contrat: Contrat): Contrat {
+    return Object.assign({}, contrat, {
+      dateContrat: contrat.dateContrat?.isValid() ? contrat.dateContrat.format(DATE_FORMAT) : undefined,
+    });
   }
 }

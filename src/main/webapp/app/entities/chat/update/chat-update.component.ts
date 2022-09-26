@@ -10,6 +10,7 @@ import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { IContrat } from 'app/entities/contrat/contrat.model';
 import { ContratService } from 'app/entities/contrat/service/contrat.service';
+import { PaiementEnum } from 'app/entities/enumerations/paiement-enum.model';
 import { PoilEnum } from 'app/entities/enumerations/poil-enum.model';
 import { TypeIdentificationEnum } from 'app/entities/enumerations/type-identification-enum.model';
 import { FamilleAccueilService } from 'app/entities/famille-accueil/service/famille-accueil.service';
@@ -30,6 +31,7 @@ export class ChatUpdateComponent implements OnInit {
   isSaving = false;
   typeIdentificationEnumValues = Object.keys(TypeIdentificationEnum);
   poilEnumValues = Object.keys(PoilEnum);
+  paiementEnumValues = Object.keys(PaiementEnum);
 
   visites: VisiteVeterinaire[] | null = [];
   possedeContrat = false;
@@ -46,6 +48,21 @@ export class ChatUpdateComponent implements OnInit {
     famille: [],
     adresseCapture: [],
     race: [],
+    contrat: this.fb.group({
+      id: [],
+      nom: [],
+      prenom: [],
+      cout: [],
+      paiement: [],
+      dateContrat: [],
+      adresseAdoptant: this.fb.group({
+        id: [],
+        numero: [],
+        rue: [],
+        codePostale: [],
+        ville: [],
+      }),
+    }),
   });
 
   constructor(
@@ -99,29 +116,44 @@ export class ChatUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  initContrat(): void {
-    this.editForm.addControl(
-      'contrat',
-      this.fb.group({
-        id: [],
-        nom: [],
-        prenom: [],
-        cout: [],
-        paiement: [],
-        dateContrat: [],
-        adresseAdoptant: {
-          id: null,
-          numero: 42,
-          rue: 'e',
-          codePostale: 'e',
-          ville: 'e',
-        },
-      })
-    );
+  addValidatorContrat(): void {
+    this.editForm.get('contrat.nom')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.prenom')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.cout')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.paiement')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.dateContrat')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.adresseAdoptant.numero')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.adresseAdoptant.rue')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.adresseAdoptant.codePostale')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.adresseAdoptant.ville')?.setValidators([Validators.required]);
+    this.refreshValueAndValidity();
+    this.possedeContrat = true;
   }
 
-  deleteContrat(): void {
-    this.editForm.removeControl('contrat');
+  removeValidatorContrat(): void {
+    this.editForm.get('contrat.nom')?.clearValidators();
+    this.editForm.get('contrat.prenom')?.clearValidators();
+    this.editForm.get('contrat.cout')?.clearValidators();
+    this.editForm.get('contrat.paiement')?.clearValidators();
+    this.editForm.get('contrat.dateContrat')?.clearValidators();
+    this.editForm.get('contrat.adresseAdoptant.numero')?.clearValidators();
+    this.editForm.get('contrat.adresseAdoptant.rue')?.clearValidators();
+    this.editForm.get('contrat.adresseAdoptant.codePostale')?.clearValidators();
+    this.editForm.get('contrat.adresseAdoptant.ville')?.clearValidators();
+    this.refreshValueAndValidity();
+    this.possedeContrat = false;
+  }
+
+  refreshValueAndValidity(): void {
+    this.editForm.get('contrat.nom')?.updateValueAndValidity();
+    this.editForm.get('contrat.prenom')?.updateValueAndValidity();
+    this.editForm.get('contrat.cout')?.updateValueAndValidity();
+    this.editForm.get('contrat.paiement')?.updateValueAndValidity();
+    this.editForm.get('contrat.dateContrat')?.updateValueAndValidity();
+    this.editForm.get('contrat.adresseAdoptant.numero')?.updateValueAndValidity();
+    this.editForm.get('contrat.adresseAdoptant.rue')?.updateValueAndValidity();
+    this.editForm.get('contrat.adresseAdoptant.codePostale')?.updateValueAndValidity();
+    this.editForm.get('contrat.adresseAdoptant.ville')?.updateValueAndValidity();
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IChat>>): void {
@@ -144,22 +176,35 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   protected updateForm(chat: IChat): void {
-    this.editForm.patchValue({
-      id: chat.id,
-      nom: chat.nom,
-      typeIdentification: chat.typeIdentification,
-      identification: chat.identification,
-      dateNaissance: chat.dateNaissance,
-      description: chat.description,
-      robe: chat.robe,
-      poil: chat.poil,
-      famille: chat.famille,
-      adresseCapture: chat.adresseCapture,
-      race: chat.race,
-    });
-    if (chat.contrat) {
-      this.initContrat();
+    if (!chat.contrat) {
+      this.possedeContrat = false;
+      this.removeValidatorContrat();
       this.editForm.patchValue({
+        id: chat.id,
+        nom: chat.nom,
+        typeIdentification: chat.typeIdentification,
+        identification: chat.identification,
+        dateNaissance: chat.dateNaissance,
+        description: chat.description,
+        robe: chat.robe,
+        poil: chat.poil,
+        famille: chat.famille,
+        adresseCapture: chat.adresseCapture,
+        race: chat.race,
+      });
+    } else {
+      this.editForm.patchValue({
+        id: chat.id,
+        nom: chat.nom,
+        typeIdentification: chat.typeIdentification,
+        identification: chat.identification,
+        dateNaissance: chat.dateNaissance,
+        description: chat.description,
+        robe: chat.robe,
+        poil: chat.poil,
+        famille: chat.famille,
+        adresseCapture: chat.adresseCapture,
+        race: chat.race,
         contrat: {
           id: chat.contrat?.id ? chat.contrat.id : null,
           nom: chat.contrat ? chat.contrat.nom : null,
@@ -176,6 +221,8 @@ export class ChatUpdateComponent implements OnInit {
           },
         },
       });
+      this.possedeContrat = true;
+      this.addValidatorContrat();
     }
     this.visites = chat.visites ? chat.visites : [];
   }
@@ -196,7 +243,7 @@ export class ChatUpdateComponent implements OnInit {
       race: this.editForm.get(['race'])!.value,
       visites: this.visites,
     };
-    if (this.editForm.get(['contrat'])) {
+    if (this.possedeContrat === true) {
       chat = {
         ...chat,
         contrat: {

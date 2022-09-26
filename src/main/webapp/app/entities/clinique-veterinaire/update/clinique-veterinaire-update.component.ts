@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -19,15 +19,15 @@ export class CliniqueVeterinaireUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    nom: [],
+    nom: [null, [Validators.required]],
     actif: [],
-    adresse: {
+    adresse: this.fb.group({
       id: [],
-      numero: [],
-      rue: [],
-      codePostale: [],
-      ville: [],
-    },
+      numero: [null, [Validators.required]],
+      rue: [null, [Validators.required]],
+      codePostale: [null, [Validators.required]],
+      ville: [null, [Validators.required]],
+    }),
   });
 
   constructor(

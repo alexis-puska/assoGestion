@@ -25,6 +25,15 @@
                 <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.nom" for="field_nom">Nom</label>
                   <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+                  <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('nom')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      This field is required.
+                    </small>
+                  </div>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.typeLogement" for="field_typeLogement"
@@ -87,7 +96,7 @@
                 </div>
               </div>
               <div class="row mb-3">
-                <jhi-adresse-edit formControlName="adresse"></jhi-adresse-edit>
+                <jhi-adresse-edit2 formGroupName="adresse"></jhi-adresse-edit2>
               </div>
 
               <div class="row mb-3">
