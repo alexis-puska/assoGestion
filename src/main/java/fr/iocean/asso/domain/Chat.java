@@ -1,6 +1,7 @@
 package fr.iocean.asso.domain;
 
 import fr.iocean.asso.domain.enumeration.PoilEnum;
+import fr.iocean.asso.domain.enumeration.SexeEnum;
 import fr.iocean.asso.domain.enumeration.TypeIdentificationEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -79,6 +80,13 @@ public class Chat implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "poil", nullable = false)
     private PoilEnum poil;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexe")
+    private SexeEnum sexe;
+
+    @Column(name = "sterilise")
+    private Boolean sterilise;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)

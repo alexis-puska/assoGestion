@@ -69,6 +69,28 @@
                     </div>
 
                     <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.sexe" for="field_sexe">Type Identification</label>
+                      <select class="form-control" name="sexe" formControlName="sexe" id="field_sexe" data-cy="sexe">
+                        <option [ngValue]="null">{{ 'assoGestionApp.SexeEnum.null' | translate }}</option>
+                        <option *ngFor="let sexeEnum of sexeEnumValues" [value]="sexeEnum">
+                          {{ 'assoGestionApp.SexeEnum.' + sexeEnum | translate }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.sterilise" for="field_sterilise">Stérilisé</label>
+                      <input
+                        type="checkbox"
+                        class="form-check"
+                        name="sterilise"
+                        id="field_sterilise"
+                        data-cy="sterilise"
+                        formControlName="sterilise"
+                      />
+                    </div>
+
+                    <div class="col-md-6">
                       <label class="form-label" jhiTranslate="assoGestionApp.chat.typeIdentification" for="field_typeIdentification"
                         >Type Identification</label
                       >
@@ -161,7 +183,7 @@
 
                 <!-- PHOTO -->
                 <div class="col-md-2 row align-items-center">
-                  <img [src]="url" *ngIf="hasPhoto || this.selectedFile" />
+                  <img [src]="url" *ngIf="(hasPhoto || this.selectedFile) && this.url" />
                   <div class="text-center">
                     <button
                       type="button"

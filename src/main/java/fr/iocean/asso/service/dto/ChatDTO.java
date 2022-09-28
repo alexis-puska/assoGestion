@@ -1,6 +1,7 @@
 package fr.iocean.asso.service.dto;
 
 import fr.iocean.asso.domain.enumeration.PoilEnum;
+import fr.iocean.asso.domain.enumeration.SexeEnum;
 import fr.iocean.asso.domain.enumeration.TypeIdentificationEnum;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -42,6 +43,10 @@ public class ChatDTO implements Serializable {
 
     @NotNull
     private PoilEnum poil;
+
+    private SexeEnum sexe;
+
+    private Boolean sterilise;
 
     private ContratDTO contrat;
 

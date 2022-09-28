@@ -39,7 +39,7 @@ public class FileService {
 
     private final Logger log = LoggerFactory.getLogger(FileService.class);
 
-    private static final String[] IMAGE_EXTENSIONS = { "png" };
+    private static final String[] IMAGE_EXTENSIONS = { "png", "jpg", "jpeg" };
 
     public FileService(ApplicationProperties applicationProperties) {
         this.applicationProperties = applicationProperties;

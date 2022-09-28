@@ -57,8 +57,8 @@ public class ChatService {
             this.deletePhoto(chatDTO.getId());
         }
         if (photo != null) {
-            this.deletePhoto(chatDTO.getId());
-            this.fileService.saveFiles(FileEnum.PHOTO_CHAT, chatDTO.getId(), true, photo);
+            this.deletePhoto(chat.getId());
+            this.fileService.saveFiles(FileEnum.PHOTO_CHAT, chat.getId(), true, photo);
         }
         return chatMapper.toDto(chat);
     }
@@ -133,6 +133,7 @@ public class ChatService {
     public void delete(Long id) {
         log.debug("Request to delete Chat : {}", id);
         chatRepository.deleteById(id);
+        this.fileService.deleteFolder(FileEnum.PHOTO_CHAT, id, true);
     }
 
     public void getPhoto(HttpServletResponse response, long id) {

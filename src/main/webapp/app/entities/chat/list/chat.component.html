@@ -34,6 +34,10 @@
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
           <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="nom"><span jhiTranslate="assoGestionApp.chat.nom">Nom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="sexe"><span jhiTranslate="assoGestionApp.chat.sexe">Sexe</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="sterilise">
+            <span jhiTranslate="assoGestionApp.chat.sterilise">Sterilise</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col" jhiSortBy="typeIdentification">
             <span jhiTranslate="assoGestionApp.chat.typeIdentification">Type Identification</span> <fa-icon icon="sort"></fa-icon>
           </th>
@@ -67,6 +71,12 @@
             <a [routerLink]="['/chat', chat.id, 'view']">{{ chat.id }}</a>
           </td>
           <td>{{ chat.nom }}</td>
+          <td jhiTranslate="{{ 'assoGestionApp.SexeEnum.' + chat.sexe }}">{{ chat.sexe }}</td>
+          <td>
+            <fa-icon icon="check" class="text-success" *ngIf="chat.sterilise === true"></fa-icon>
+            <fa-icon icon="times" class="text-danger" *ngIf="chat.sterilise === false"></fa-icon>
+            <fa-icon icon="question" class="text-warning" *ngIf="chat.sterilise === null"></fa-icon>
+          </td>
           <td jhiTranslate="{{ 'assoGestionApp.TypeIdentificationEnum.' + chat.typeIdentification }}">{{ chat.typeIdentification }}</td>
           <td>{{ chat.identification }}</td>
           <td>{{ chat.dateNaissance | formatMediumDate }}</td>

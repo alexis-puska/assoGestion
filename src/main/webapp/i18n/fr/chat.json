@@ -25,6 +25,8 @@
       "description": "Description",
       "robe": "Robe",
       "poil": "Poil",
+      "sexe": "Sexe",
+      "sterilise": "Stérilisé",
       "contrat": "Contrat",
       "visite": "Visite",
       "famille": "Famille",

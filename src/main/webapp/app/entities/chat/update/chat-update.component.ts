@@ -22,6 +22,7 @@ import { MomentDateFormatter } from 'app/shared/util/dateformat';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Chat, IChat } from '../chat.model';
 import { ChatService } from '../service/chat.service';
+import { SexeEnum } from 'app/entities/enumerations/sexe-enum.model';
 
 @Component({
   selector: 'jhi-chat-update',
@@ -32,6 +33,7 @@ export class ChatUpdateComponent implements OnInit {
   isSaving = false;
   typeIdentificationEnumValues = Object.keys(TypeIdentificationEnum);
   poilEnumValues = Object.keys(PoilEnum);
+  sexeEnumValues = Object.keys(SexeEnum);
   paiementEnumValues = Object.keys(PaiementEnum);
 
   visiteVeterinaires: VisiteVeterinaire[] | null = [];
@@ -50,6 +52,8 @@ export class ChatUpdateComponent implements OnInit {
     description: [],
     robe: [null, [Validators.required]],
     poil: [null, [Validators.required]],
+    sexe: [],
+    sterilise: [],
     famille: [],
     adresseCapture: [],
     race: [],
@@ -170,11 +174,12 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   onFileSelected($event: any): void {
+    this.url = null;
     this.selectedFile = $event?.target?.files[0];
     if ($event?.target?.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL($event?.target?.files[0]);
-      reader.onload = _event => {
+      reader.onload = () => {
         this.url = reader.result;
       };
     }
@@ -218,6 +223,8 @@ export class ChatUpdateComponent implements OnInit {
         description: chat.description,
         robe: chat.robe,
         poil: chat.poil,
+        sexe: chat.sexe,
+        sterilise: chat.sterilise,
         famille: chat.famille,
         adresseCapture: chat.adresseCapture,
         race: chat.race,
@@ -232,6 +239,8 @@ export class ChatUpdateComponent implements OnInit {
         description: chat.description,
         robe: chat.robe,
         poil: chat.poil,
+        sexe: chat.sexe,
+        sterilise: chat.sterilise,
         famille: chat.famille,
         adresseCapture: chat.adresseCapture,
         race: chat.race,
@@ -268,6 +277,8 @@ export class ChatUpdateComponent implements OnInit {
       description: this.editForm.get(['description'])!.value,
       robe: this.editForm.get(['robe'])!.value,
       poil: this.editForm.get(['poil'])!.value,
+      sexe: this.editForm.get(['sexe'])!.value,
+      sterilise: this.editForm.get(['sterilise'])!.value,
       famille: this.editForm.get(['famille'])!.value,
       adresseCapture: this.editForm.get(['adresseCapture'])!.value,
       race: this.editForm.get(['race'])!.value,

@@ -6,6 +6,7 @@ import { IPointCapture } from 'app/entities/point-capture/point-capture.model';
 import { IRaceChat } from 'app/entities/race-chat/race-chat.model';
 import { TypeIdentificationEnum } from 'app/entities/enumerations/type-identification-enum.model';
 import { PoilEnum } from 'app/entities/enumerations/poil-enum.model';
+import { SexeEnum } from 'app/entities/enumerations/sexe-enum.model';
 
 export interface IChat {
   id?: number;
@@ -16,6 +17,8 @@ export interface IChat {
   description?: string | null;
   robe?: string;
   poil?: PoilEnum;
+  sexe?: SexeEnum;
+  sterilise?: boolean | null;
   contrat?: IContrat | null;
   visites?: IVisiteVeterinaire[] | null;
   famille?: IFamilleAccueil | null;
@@ -35,6 +38,8 @@ export class Chat implements IChat {
     public description?: string | null,
     public robe?: string,
     public poil?: PoilEnum,
+    public sexe?: SexeEnum,
+    public sterilise?: boolean | null,
     public contrat?: IContrat | null,
     public visites?: IVisiteVeterinaire[] | null,
     public famille?: IFamilleAccueil | null,

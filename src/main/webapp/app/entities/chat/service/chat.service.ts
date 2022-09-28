@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import dayjs from 'dayjs/esm';
 import { Observable } from 'rxjs';
@@ -9,9 +9,9 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { isPresent } from 'app/core/util/operators';
 import { Contrat } from 'app/entities/contrat/contrat.model';
-import { getChatIdentifier, IChat } from '../chat.model';
 import { VisiteVeterinaire } from 'app/entities/visite-veterinaire/visite-veterinaire.model';
 import { FileUtilsService } from 'app/shared/util/file-utils.service';
+import { getChatIdentifier, IChat } from '../chat.model';
 
 export type EntityResponseType = HttpResponse<IChat>;
 export type EntityArrayResponseType = HttpResponse<IChat[]>;
