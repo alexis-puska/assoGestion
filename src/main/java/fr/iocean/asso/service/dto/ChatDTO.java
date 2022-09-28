@@ -52,4 +52,7 @@ public class ChatDTO implements Serializable {
     private RaceChatDTO race;
 
     private Set<VisiteVeterinaireDTO> visites = new HashSet<>();
+
+    private boolean hasPhoto;
+    private boolean deletePhoto;
 }

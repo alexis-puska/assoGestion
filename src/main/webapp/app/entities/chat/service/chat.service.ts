@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import dayjs from 'dayjs/esm';
 import { Observable } from 'rxjs';
@@ -10,6 +10,8 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { isPresent } from 'app/core/util/operators';
 import { Contrat } from 'app/entities/contrat/contrat.model';
 import { getChatIdentifier, IChat } from '../chat.model';
+import { VisiteVeterinaire } from 'app/entities/visite-veterinaire/visite-veterinaire.model';
+import { FileUtilsService } from 'app/shared/util/file-utils.service';
 
 export type EntityResponseType = HttpResponse<IChat>;
 export type EntityArrayResponseType = HttpResponse<IChat[]>;
@@ -20,17 +22,36 @@ export class ChatService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(chat: IChat): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(chat);
+  create(chat: IChat, photo?: File): Observable<EntityResponseType> {
+    const fd = new FormData();
+    fd.append(
+      'chat',
+      new Blob([JSON.stringify(this.convertDateFromClient(chat))], {
+        type: 'application/json',
+      })
+    );
+    if (photo) {
+      fd.append('photo', photo, FileUtilsService.encodeFileName(photo.name));
+    }
     return this.http
-      .post<IChat>(this.resourceUrl, copy, { observe: 'response' })
+      .post<IChat>(this.resourceUrl, fd, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  update(chat: IChat): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(chat);
+  update(chat: IChat, photo?: File): Observable<EntityResponseType> {
+    console.log(chat, photo);
+    const fd = new FormData();
+    fd.append(
+      'chat',
+      new Blob([JSON.stringify(this.convertDateFromClient(chat))], {
+        type: 'application/json',
+      })
+    );
+    if (photo) {
+      fd.append('photo', photo, FileUtilsService.encodeFileName(photo.name));
+    }
     return this.http
-      .put<IChat>(`${this.resourceUrl}/${getChatIdentifier(chat) as number}`, copy, { observe: 'response' })
+      .put<IChat>(`${this.resourceUrl}/${getChatIdentifier(chat) as number}`, fd, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -82,6 +103,13 @@ export class ChatService {
     if (chat.contrat) {
       tmp.contrat = this.convertContrat(chat.contrat);
     }
+    if (chat.visites) {
+      const copyVisites: VisiteVeterinaire[] = [];
+      chat.visites.forEach(v => {
+        copyVisites.push(this.convertVisiteVeterinaireFromClient(v));
+      });
+      tmp.visites = copyVisites;
+    }
     return tmp;
   }
 
@@ -90,6 +118,17 @@ export class ChatService {
       res.body.dateNaissance = res.body.dateNaissance ? dayjs(res.body.dateNaissance) : undefined;
       if (res.body.contrat) {
         res.body.contrat.dateContrat = res.body.contrat.dateContrat ? dayjs(res.body.contrat.dateContrat) : undefined;
+      }
+      if (res.body.visites) {
+        const visitesCopy: VisiteVeterinaire[] = [];
+        res.body.visites.forEach(p => {
+          visitesCopy.push(
+            Object.assign({}, p, {
+              dateVisite: p.dateVisite !== null ? dayjs(p.dateVisite) : undefined,
+            })
+          );
+        });
+        res.body.visites = visitesCopy;
       }
     }
     return res;
@@ -102,6 +141,17 @@ export class ChatService {
         if (chat.contrat) {
           chat.contrat.dateContrat = chat.contrat.dateContrat ? dayjs(chat.contrat.dateContrat) : undefined;
         }
+        if (chat.visites) {
+          const visitesCopy: VisiteVeterinaire[] = [];
+          chat.visites.forEach(p => {
+            visitesCopy.push(
+              Object.assign({}, p, {
+                dateVisite: p.dateVisite !== null ? dayjs(p.dateVisite) : undefined,
+              })
+            );
+          });
+          chat.visites = visitesCopy;
+        }
       });
     }
     return res;
@@ -110,6 +160,12 @@ export class ChatService {
   private convertContrat(contrat: Contrat): Contrat {
     return Object.assign({}, contrat, {
       dateContrat: contrat.dateContrat?.isValid() ? contrat.dateContrat.format(DATE_FORMAT) : undefined,
+    });
+  }
+
+  private convertVisiteVeterinaireFromClient(visiteVeterinaire: VisiteVeterinaire): VisiteVeterinaire {
+    return Object.assign({}, visiteVeterinaire, {
+      dateVisite: visiteVeterinaire.dateVisite?.isValid() ? visiteVeterinaire.dateVisite.format(DATE_FORMAT) : undefined,
     });
   }
 }

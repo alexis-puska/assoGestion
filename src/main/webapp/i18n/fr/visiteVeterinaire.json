@@ -21,7 +21,8 @@
       "dateVisite": "Date Visite",
       "acte": "Acte",
       "cliniqueVeterinaire": "Clinique Veterinaire",
-      "chat": "Chat"
+      "chat": "Chat",
+      "actes": "Actes vétérinaire"
     }
   }
 }

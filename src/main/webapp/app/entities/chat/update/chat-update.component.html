@@ -18,303 +18,334 @@
               </div>
 
               <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.nom" for="field_nom">Nom</label>
-                  <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
-                  <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
-                    <small
-                      class="form-text text-danger"
-                      *ngIf="editForm.get('nom')?.errors?.required"
-                      jhiTranslate="entity.validation.required"
-                    >
-                      This field is required.
-                    </small>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.dateNaissance" for="field_dateNaissance"
-                    >Date Naissance</label
-                  >
-                  <div class="input-group">
-                    <input
-                      id="field_dateNaissance"
-                      data-cy="dateNaissance"
-                      type="text"
-                      class="form-control"
-                      name="dateNaissance"
-                      ngbDatepicker
-                      #dateNaissanceDp="ngbDatepicker"
-                      formControlName="dateNaissance"
-                    />
-                    <button type="button" class="btn btn-secondary" (click)="dateNaissanceDp.toggle()">
-                      <fa-icon icon="calendar-alt"></fa-icon>
-                    </button>
-                  </div>
-                  <div
-                    *ngIf="
-                      editForm.get('dateNaissance')!.invalid &&
-                      (editForm.get('dateNaissance')!.dirty || editForm.get('dateNaissance')!.touched)
-                    "
-                  >
-                    <small
-                      class="form-text text-danger"
-                      *ngIf="editForm.get('dateNaissance')?.errors?.required"
-                      jhiTranslate="entity.validation.required"
-                    >
-                      This field is required.
-                    </small>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.typeIdentification" for="field_typeIdentification"
-                    >Type Identification</label
-                  >
-                  <select
-                    class="form-control"
-                    name="typeIdentification"
-                    formControlName="typeIdentification"
-                    id="field_typeIdentification"
-                    data-cy="typeIdentification"
-                  >
-                    <option [ngValue]="null">{{ 'assoGestionApp.TypeIdentificationEnum.null' | translate }}</option>
-                    <option *ngFor="let typeIdentificationEnum of typeIdentificationEnumValues" [value]="typeIdentificationEnum">
-                      {{ 'assoGestionApp.TypeIdentificationEnum.' + typeIdentificationEnum | translate }}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.identification" for="field_identification"
-                    >Identification</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="identification"
-                    id="field_identification"
-                    data-cy="identification"
-                    formControlName="identification"
-                  />
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-4">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.robe" for="field_robe">Robe</label>
-                  <input type="text" class="form-control" name="robe" id="field_robe" data-cy="robe" formControlName="robe" />
-                  <div *ngIf="editForm.get('robe')!.invalid && (editForm.get('robe')!.dirty || editForm.get('robe')!.touched)">
-                    <small
-                      class="form-text text-danger"
-                      *ngIf="editForm.get('robe')?.errors?.required"
-                      jhiTranslate="entity.validation.required"
-                    >
-                      This field is required.
-                    </small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.poil" for="field_poil">Poil</label>
-                  <select class="form-control" name="poil" formControlName="poil" id="field_poil" data-cy="poil">
-                    <option [ngValue]="null">{{ 'assoGestionApp.PoilEnum.null' | translate }}</option>
-                    <option *ngFor="let poilEnum of poilEnumValues" [value]="poilEnum">
-                      {{ 'assoGestionApp.PoilEnum.' + poilEnum | translate }}
-                    </option>
-                  </select>
-                  <div *ngIf="editForm.get('poil')!.invalid && (editForm.get('poil')!.dirty || editForm.get('poil')!.touched)">
-                    <small
-                      class="form-text text-danger"
-                      *ngIf="editForm.get('poil')?.errors?.required"
-                      jhiTranslate="entity.validation.required"
-                    >
-                      This field is required.
-                    </small>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.race" for="field_race">Race</label>
-                  <jhi-race-chat-autocomplete-control formControlName="race"></jhi-race-chat-autocomplete-control>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.adresseCapture" for="field_adresseCapture"
-                    >Adresse Capture</label
-                  >
-                  <jhi-point-capture-autocomplete-control formControlName="adresseCapture"> </jhi-point-capture-autocomplete-control>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label" jhiTranslate="assoGestionApp.chat.famille" for="field_famille">Famille</label>
-                  <jhi-famille-accueil-autocomplete-control formControlName="famille"> </jhi-famille-accueil-autocomplete-control>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="row mb-3">
-                  <div class="col-md-12">
-                    <label class="form-label" jhiTranslate="assoGestionApp.chat.description" for="field_description">Description</label>
-                    <textarea
-                      class="form-control"
-                      name="description"
-                      id="field_description"
-                      data-cy="description"
-                      formControlName="description"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <div class="col-md-12">
-                    <button type="button" class="btn btn-success" (click)="addValidatorContrat()" *ngIf="!possedeContrat">
-                      Créer le contrat
-                    </button>
-                    <button type="button" class="btn btn-danger" (click)="removeValidatorContrat()" *ngIf="possedeContrat">
-                      Supprimer le contrat
-                    </button>
-                  </div>
-                </div>
-
-                <div formGroupName="contrat" [hidden]="!possedeContrat">
-                  <div class="card">
-                    <div class="card-header">
-                      <h2
-                        id="jhi-contrat-heading"
-                        data-cy="ContratCreateUpdateHeading"
-                        jhiTranslate="assoGestionApp.contrat.home.createOrEditLabel"
-                      >
-                        Create or edit a Contrat
-                      </h2>
+                <div class="col-md-10">
+                  <div class="row mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.nom" for="field_nom">Nom</label>
+                      <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+                      <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="editForm.get('nom')?.errors?.required"
+                          jhiTranslate="entity.validation.required"
+                        >
+                          This field is required.
+                        </small>
+                      </div>
                     </div>
-                    <div class="card-body">
-                      <div class="row mb-3">
-                        <div class="col-md-6">
-                          <label class="form-label" jhiTranslate="assoGestionApp.contrat.nom" for="field_nom">Nom</label>
-                          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
-                          <div
-                            *ngIf="
-                              editForm.get('contrat.nom')!.invalid &&
-                              (editForm.get('contrat.nom')!.dirty || editForm.get('contrat.nom')!.touched)
-                            "
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.dateNaissance" for="field_dateNaissance"
+                        >Date Naissance</label
+                      >
+                      <div class="input-group">
+                        <input
+                          id="field_dateNaissance"
+                          data-cy="dateNaissance"
+                          type="text"
+                          class="form-control"
+                          name="dateNaissance"
+                          ngbDatepicker
+                          #dateNaissanceDp="ngbDatepicker"
+                          formControlName="dateNaissance"
+                        />
+                        <button type="button" class="btn btn-secondary" (click)="dateNaissanceDp.toggle()">
+                          <fa-icon icon="calendar-alt"></fa-icon>
+                        </button>
+                      </div>
+                      <div
+                        *ngIf="
+                          editForm.get('dateNaissance')!.invalid &&
+                          (editForm.get('dateNaissance')!.dirty || editForm.get('dateNaissance')!.touched)
+                        "
+                      >
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="editForm.get('dateNaissance')?.errors?.required"
+                          jhiTranslate="entity.validation.required"
+                        >
+                          This field is required.
+                        </small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.typeIdentification" for="field_typeIdentification"
+                        >Type Identification</label
+                      >
+                      <select
+                        class="form-control"
+                        name="typeIdentification"
+                        formControlName="typeIdentification"
+                        id="field_typeIdentification"
+                        data-cy="typeIdentification"
+                      >
+                        <option [ngValue]="null">{{ 'assoGestionApp.TypeIdentificationEnum.null' | translate }}</option>
+                        <option *ngFor="let typeIdentificationEnum of typeIdentificationEnumValues" [value]="typeIdentificationEnum">
+                          {{ 'assoGestionApp.TypeIdentificationEnum.' + typeIdentificationEnum | translate }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.identification" for="field_identification"
+                        >Identification</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="identification"
+                        id="field_identification"
+                        data-cy="identification"
+                        formControlName="identification"
+                      />
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.robe" for="field_robe">Robe</label>
+                      <input type="text" class="form-control" name="robe" id="field_robe" data-cy="robe" formControlName="robe" />
+                      <div *ngIf="editForm.get('robe')!.invalid && (editForm.get('robe')!.dirty || editForm.get('robe')!.touched)">
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="editForm.get('robe')?.errors?.required"
+                          jhiTranslate="entity.validation.required"
+                        >
+                          This field is required.
+                        </small>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.poil" for="field_poil">Poil</label>
+                      <select class="form-control" name="poil" formControlName="poil" id="field_poil" data-cy="poil">
+                        <option [ngValue]="null">{{ 'assoGestionApp.PoilEnum.null' | translate }}</option>
+                        <option *ngFor="let poilEnum of poilEnumValues" [value]="poilEnum">
+                          {{ 'assoGestionApp.PoilEnum.' + poilEnum | translate }}
+                        </option>
+                      </select>
+                      <div *ngIf="editForm.get('poil')!.invalid && (editForm.get('poil')!.dirty || editForm.get('poil')!.touched)">
+                        <small
+                          class="form-text text-danger"
+                          *ngIf="editForm.get('poil')?.errors?.required"
+                          jhiTranslate="entity.validation.required"
+                        >
+                          This field is required.
+                        </small>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.race" for="field_race">Race</label>
+                      <jhi-race-chat-autocomplete-control formControlName="race"></jhi-race-chat-autocomplete-control>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.adresseCapture" for="field_adresseCapture"
+                        >Adresse Capture</label
+                      >
+                      <jhi-point-capture-autocomplete-control formControlName="adresseCapture"> </jhi-point-capture-autocomplete-control>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.famille" for="field_famille">Famille</label>
+                      <jhi-famille-accueil-autocomplete-control formControlName="famille"> </jhi-famille-accueil-autocomplete-control>
+                    </div>
+
+                    <div class="col-md-12">
+                      <label class="form-label" jhiTranslate="assoGestionApp.chat.description" for="field_description">Description</label>
+                      <textarea
+                        class="form-control"
+                        name="description"
+                        id="field_description"
+                        data-cy="description"
+                        formControlName="description"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PHOTO -->
+                <div class="col-md-2 row align-items-center">
+                  <img [src]="url" *ngIf="hasPhoto || this.selectedFile" />
+                  <div class="text-center">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="removePhoto()"
+                      jhiTranslate="assoGestionApp.chat.removePhoto"
+                      *ngIf="hasPhoto"
+                    >
+                      Supprimer la photo
+                    </button>
+                    <a *ngIf="!hasPhoto">
+                      <label class="btn btn-success">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span jhiTranslate="assoGestionApp.chat.addPhoto"></span>
+                        <input name="addPhoto" type="file" accept=".png,.jpg" style="display: none" (change)="onFileSelected($event)" />
+                      </label>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VISITE VETERINAIRE -->
+
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <jhi-visite-veterinaire-list-edit [visiteVeterinaires]="visiteVeterinaires"> </jhi-visite-veterinaire-list-edit>
+                </div>
+              </div>
+
+              <!-- CONTRAT -->
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="addValidatorContrat()"
+                    *ngIf="!possedeContrat"
+                    jhiTranslate="assoGestionApp.chat.createContrat"
+                  >
+                    Créer le contrat
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    (click)="removeValidatorContrat()"
+                    jhiTranslate="assoGestionApp.chat.deleteContrat"
+                    *ngIf="possedeContrat"
+                  >
+                    Supprimer le contrat
+                  </button>
+                </div>
+              </div>
+
+              <div formGroupName="contrat" [hidden]="!possedeContrat">
+                <div class="card">
+                  <div class="card-header">
+                    <h2
+                      id="jhi-contrat-heading"
+                      data-cy="ContratCreateUpdateHeading"
+                      jhiTranslate="assoGestionApp.contrat.home.createOrEditLabel"
+                    >
+                      Create or edit a Contrat
+                    </h2>
+                  </div>
+                  <div class="card-body">
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="form-label" jhiTranslate="assoGestionApp.contrat.nom" for="field_nom">Nom</label>
+                        <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+                        <div
+                          *ngIf="
+                            editForm.get('contrat.nom')!.invalid &&
+                            (editForm.get('contrat.nom')!.dirty || editForm.get('contrat.nom')!.touched)
+                          "
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="editForm.get('contrat.nom')?.errors?.required"
+                            jhiTranslate="entity.validation.required"
                           >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="editForm.get('contrat.nom')?.errors?.required"
-                              jhiTranslate="entity.validation.required"
-                            >
-                              This field is required.
-                            </small>
-                          </div>
+                            This field is required.
+                          </small>
                         </div>
-                        <div class="col-md-6">
-                          <label class="form-label" jhiTranslate="assoGestionApp.contrat.prenom" for="field_prenom">Prenom</label>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" jhiTranslate="assoGestionApp.contrat.prenom" for="field_prenom">Prenom</label>
+                        <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
+                        <div
+                          *ngIf="
+                            editForm.get('contrat.prenom')!.invalid &&
+                            (editForm.get('contrat.prenom')!.dirty || editForm.get('contrat.prenom')!.touched)
+                          "
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="editForm.get('contrat.prenom')?.errors?.required"
+                            jhiTranslate="entity.validation.required"
+                          >
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-md-4">
+                        <label class="form-label" jhiTranslate="assoGestionApp.contrat.cout" for="field_cout">Cout</label>
+                        <input type="number" class="form-control" name="cout" id="field_cout" data-cy="cout" formControlName="cout" />
+                        <div
+                          *ngIf="
+                            editForm.get('contrat.cout')!.invalid &&
+                            (editForm.get('contrat.cout')!.dirty || editForm.get('contrat.cout')!.touched)
+                          "
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="editForm.get('contrat.cout')?.errors?.required"
+                            jhiTranslate="entity.validation.required"
+                          >
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label" jhiTranslate="assoGestionApp.contrat.paiement" for="field_paiement">Paiement</label>
+                        <select class="form-control" name="paiement" formControlName="paiement" id="field_paiement" data-cy="paiement">
+                          <option [ngValue]="null">{{ 'assoGestionApp.PaiementEnum.null' | translate }}</option>
+                          <option *ngFor="let paiementEnum of paiementEnumValues" [value]="paiementEnum">
+                            {{ 'assoGestionApp.PaiementEnum.' + paiementEnum | translate }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="
+                            editForm.get('contrat.paiement')!.invalid &&
+                            (editForm.get('contrat.paiement')!.dirty || editForm.get('contrat.paiement')!.touched)
+                          "
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="editForm.get('contrat.paiement')?.errors?.required"
+                            jhiTranslate="entity.validation.required"
+                          >
+                            This field is required.
+                          </small>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label class="form-label" jhiTranslate="assoGestionApp.contrat.dateContrat" for="field_dateContrat"
+                          >Date Contrat</label
+                        >
+                        <div class="input-group">
                           <input
+                            id="field_dateContrat"
+                            data-cy="dateContrat"
                             type="text"
                             class="form-control"
-                            name="prenom"
-                            id="field_prenom"
-                            data-cy="prenom"
-                            formControlName="prenom"
+                            name="dateContrat"
+                            ngbDatepicker
+                            #dateContratDp="ngbDatepicker"
+                            formControlName="dateContrat"
                           />
-                          <div
-                            *ngIf="
-                              editForm.get('contrat.prenom')!.invalid &&
-                              (editForm.get('contrat.prenom')!.dirty || editForm.get('contrat.prenom')!.touched)
-                            "
+                          <button type="button" class="btn btn-secondary" (click)="dateContratDp.toggle()">
+                            <fa-icon icon="calendar-alt"></fa-icon>
+                          </button>
+                        </div>
+                        <div
+                          *ngIf="
+                            editForm.get('contrat.dateContrat')!.invalid &&
+                            (editForm.get('contrat.dateContrat')!.dirty || editForm.get('contrat.dateContrat')!.touched)
+                          "
+                        >
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="editForm.get('contrat.dateContrat')?.errors?.required"
+                            jhiTranslate="entity.validation.required"
                           >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="editForm.get('contrat.prenom')?.errors?.required"
-                              jhiTranslate="entity.validation.required"
-                            >
-                              This field is required.
-                            </small>
-                          </div>
+                            This field is required.
+                          </small>
                         </div>
                       </div>
-
-                      <div class="row mb-3">
-                        <div class="col-md-4">
-                          <label class="form-label" jhiTranslate="assoGestionApp.contrat.cout" for="field_cout">Cout</label>
-                          <input type="number" class="form-control" name="cout" id="field_cout" data-cy="cout" formControlName="cout" />
-                          <div
-                            *ngIf="
-                              editForm.get('contrat.cout')!.invalid &&
-                              (editForm.get('contrat.cout')!.dirty || editForm.get('contrat.cout')!.touched)
-                            "
-                          >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="editForm.get('contrat.cout')?.errors?.required"
-                              jhiTranslate="entity.validation.required"
-                            >
-                              This field is required.
-                            </small>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <label class="form-label" jhiTranslate="assoGestionApp.contrat.paiement" for="field_paiement">Paiement</label>
-                          <select class="form-control" name="paiement" formControlName="paiement" id="field_paiement" data-cy="paiement">
-                            <option [ngValue]="null">{{ 'assoGestionApp.PaiementEnum.null' | translate }}</option>
-                            <option *ngFor="let paiementEnum of paiementEnumValues" [value]="paiementEnum">
-                              {{ 'assoGestionApp.PaiementEnum.' + paiementEnum | translate }}
-                            </option>
-                          </select>
-                          <div
-                            *ngIf="
-                              editForm.get('contrat.paiement')!.invalid &&
-                              (editForm.get('contrat.paiement')!.dirty || editForm.get('contrat.paiement')!.touched)
-                            "
-                          >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="editForm.get('contrat.paiement')?.errors?.required"
-                              jhiTranslate="entity.validation.required"
-                            >
-                              This field is required.
-                            </small>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <label class="form-label" jhiTranslate="assoGestionApp.contrat.dateContrat" for="field_dateContrat"
-                            >Date Contrat</label
-                          >
-                          <div class="input-group">
-                            <input
-                              id="field_dateContrat"
-                              data-cy="dateContrat"
-                              type="text"
-                              class="form-control"
-                              name="dateContrat"
-                              ngbDatepicker
-                              #dateContratDp="ngbDatepicker"
-                              formControlName="dateContrat"
-                            />
-                            <button type="button" class="btn btn-secondary" (click)="dateContratDp.toggle()">
-                              <fa-icon icon="calendar-alt"></fa-icon>
-                            </button>
-                          </div>
-                          <div
-                            *ngIf="
-                              editForm.get('contrat.dateContrat')!.invalid &&
-                              (editForm.get('contrat.dateContrat')!.dirty || editForm.get('contrat.dateContrat')!.touched)
-                            "
-                          >
-                            <small
-                              class="form-text text-danger"
-                              *ngIf="editForm.get('contrat.dateContrat')?.errors?.required"
-                              jhiTranslate="entity.validation.required"
-                            >
-                              This field is required.
-                            </small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <div class="col-md-12">
-                          <jhi-adresse-edit2 formGroupName="adresseAdoptant"></jhi-adresse-edit2>
-                        </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-12">
+                        <jhi-adresse-edit2 formGroupName="adresseAdoptant"></jhi-adresse-edit2>
                       </div>
                     </div>
                   </div>
@@ -323,22 +354,22 @@
             </div>
           </div>
         </div>
+      </div>
 
-        <div>
-          <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
-            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-          </button>
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
 
-          <button
-            type="submit"
-            id="save-entity"
-            data-cy="entityCreateSaveButton"
-            [disabled]="editForm.invalid || isSaving"
-            class="btn btn-primary"
-          >
-            <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-          </button>
-        </div>
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
       </div>
     </form>
   </div>

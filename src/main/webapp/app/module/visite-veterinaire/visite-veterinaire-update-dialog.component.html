@@ -1,6 +1,10 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
   <div class="modal-header">
-    <h4 id="jhi-contact-heading" data-cy="ContactCreateUpdateHeading" jhiTranslate="assoGestionApp.contact.home.createOrEditLabel">
+    <h4
+      id="jhi-contact-heading"
+      data-cy="ContactCreateUpdateHeading"
+      jhiTranslate="assoGestionApp.visiteVeterinaire.home.createOrEditLabel"
+    >
       Create or edit a Contact
     </h4>
     <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="clean()"></button>
@@ -10,43 +14,67 @@
     <jhi-alert-error></jhi-alert-error>
 
     <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
-      <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-      <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-    </div>
-
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.contact.nom" for="field_nom">Nom</label>
-      <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
-      <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
-        <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
-          This field is required.
-        </small>
+      <div class="col-md-12">
+        <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
       </div>
     </div>
 
     <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.contact.prenom" for="field_prenom">Prenom</label>
-      <input type="text" class="form-control" name="prenom" id="field_prenom" data-cy="prenom" formControlName="prenom" />
-      <div *ngIf="editForm.get('prenom')!.invalid && (editForm.get('prenom')!.dirty || editForm.get('prenom')!.touched)">
-        <small class="form-text text-danger" *ngIf="editForm.get('prenom')?.errors?.required" jhiTranslate="entity.validation.required">
-          This field is required.
-        </small>
+      <div class="col-md-4">
+        <label class="form-label" jhiTranslate="assoGestionApp.visiteVeterinaire.dateVisite" for="field_dateVisite">Date Visite</label>
+        <div class="input-group">
+          <input
+            id="field_dateVisite"
+            data-cy="dateVisite"
+            type="text"
+            class="form-control"
+            name="dateVisite"
+            ngbDatepicker
+            #dateVisiteDp="ngbDatepicker"
+            formControlName="dateVisite"
+          />
+          <button type="button" class="btn btn-secondary" (click)="dateVisiteDp.toggle()">
+            <fa-icon icon="calendar-alt"></fa-icon>
+          </button>
+        </div>
+        <div *ngIf="editForm.get('dateVisite')!.invalid && (editForm.get('dateVisite')!.dirty || editForm.get('dateVisite')!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get('dateVisite')?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <label class="form-label" jhiTranslate="assoGestionApp.visiteVeterinaire.cliniqueVeterinaire" for="field_cliniqueVeterinaire"
+          >Clinique Veterinaire</label
+        >
+        <jhi-clinique-veterinaire-autocomplete-control formControlName="cliniqueVeterinaire">
+        </jhi-clinique-veterinaire-autocomplete-control>
+        <div
+          *ngIf="
+            editForm.get('cliniqueVeterinaire')!.invalid &&
+            (editForm.get('cliniqueVeterinaire')!.dirty || editForm.get('cliniqueVeterinaire')!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get('cliniqueVeterinaire')?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
       </div>
     </div>
 
     <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.contact.mail" for="field_mail">Mail</label>
-      <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail" formControlName="mail" />
-    </div>
-
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.contact.telMobile" for="field_telMobile">Tel Mobile</label>
-      <input type="text" class="form-control" name="telMobile" id="field_telMobile" data-cy="telMobile" formControlName="telMobile" />
-    </div>
-
-    <div class="row mb-3">
-      <label class="form-label" jhiTranslate="assoGestionApp.contact.telFixe" for="field_telFixe">Tel Fixe</label>
-      <input type="text" class="form-control" name="telFixe" id="field_telFixe" data-cy="telFixe" formControlName="telFixe" />
+      <div class="col-md-12">
+        <jhi-acte-veterinaire-list-edit [acteVeterinaires]="actes"></jhi-acte-veterinaire-list-edit>
+      </div>
     </div>
   </div>
 

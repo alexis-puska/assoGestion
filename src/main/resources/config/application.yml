@@ -211,4 +211,5 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+  filepath: ${user.home}/assoGestion

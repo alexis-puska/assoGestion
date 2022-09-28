@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
@@ -63,12 +69,15 @@ public class ChatResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/chats")
-    public ResponseEntity<ChatDTO> createChat(@Valid @RequestBody ChatDTO chatDTO) throws URISyntaxException {
+    public ResponseEntity<ChatDTO> createChat(
+        @Valid @RequestPart(name = "chat") ChatDTO chatDTO,
+        @RequestPart(name = "photo", required = false) MultipartFile photo
+    ) throws URISyntaxException {
         log.debug("REST request to save Chat : {}", chatDTO);
         if (chatDTO.getId() != null) {
             throw new BadRequestAlertException("A new chat cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ChatDTO result = chatService.save(chatDTO);
+        ChatDTO result = chatService.save(chatDTO, photo);
         return ResponseEntity
             .created(new URI("/api/chats/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -88,7 +97,8 @@ public class ChatResource {
     @PutMapping("/chats/{id}")
     public ResponseEntity<ChatDTO> updateChat(
         @PathVariable(value = "id", required = false) final Long id,
-        @Valid @RequestBody ChatDTO chatDTO
+        @Valid @RequestPart(name = "chat") ChatDTO chatDTO,
+        @RequestPart(name = "photo", required = false) MultipartFile photo
     ) throws URISyntaxException {
         log.debug("REST request to update Chat : {}, {}", id, chatDTO);
         if (chatDTO.getId() == null) {
@@ -102,7 +112,7 @@ public class ChatResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        ChatDTO result = chatService.save(chatDTO);
+        ChatDTO result = chatService.save(chatDTO, photo);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, chatDTO.getId().toString()))
@@ -186,5 +196,11 @@ public class ChatResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/chats/{id}/photo")
+    public void downloadFile(HttpServletResponse response, @PathVariable("id") long id) {
+        this.chatService.getPhoto(response, id);
     }
 }

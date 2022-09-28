@@ -19,6 +19,7 @@ import { RaceChatService } from 'app/entities/race-chat/service/race-chat.servic
 import { VisiteVeterinaire } from 'app/entities/visite-veterinaire/visite-veterinaire.model';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { MomentDateFormatter } from 'app/shared/util/dateformat';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Chat, IChat } from '../chat.model';
 import { ChatService } from '../service/chat.service';
 
@@ -33,8 +34,12 @@ export class ChatUpdateComponent implements OnInit {
   poilEnumValues = Object.keys(PoilEnum);
   paiementEnumValues = Object.keys(PaiementEnum);
 
-  visites: VisiteVeterinaire[] | null = [];
+  visiteVeterinaires: VisiteVeterinaire[] | null = [];
   possedeContrat = false;
+  hasPhoto = false;
+  deletePhoto = false;
+  selectedFile: File | undefined;
+  url: string | ArrayBuffer | null = null;
 
   editForm = this.fb.group({
     id: [],
@@ -74,7 +79,9 @@ export class ChatUpdateComponent implements OnInit {
     protected pointCaptureService: PointCaptureService,
     protected raceChatService: RaceChatService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    private localStorage: LocalStorageService,
+    private sessionStorage: SessionStorageService
   ) {}
 
   ngOnInit(): void {
@@ -105,10 +112,11 @@ export class ChatUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const chat = this.createFromForm();
+    console.log(this.selectedFile);
     if (chat.id !== undefined && chat.id !== null) {
-      this.subscribeToSaveResponse(this.chatService.update(chat));
+      this.subscribeToSaveResponse(this.chatService.update(chat, this.selectedFile));
     } else {
-      this.subscribeToSaveResponse(this.chatService.create(chat));
+      this.subscribeToSaveResponse(this.chatService.create(chat, this.selectedFile));
     }
   }
 
@@ -156,6 +164,22 @@ export class ChatUpdateComponent implements OnInit {
     this.editForm.get('contrat.adresseAdoptant.ville')?.updateValueAndValidity();
   }
 
+  public removePhoto(): void {
+    this.hasPhoto = false;
+    this.deletePhoto = true;
+  }
+
+  onFileSelected($event: any): void {
+    this.selectedFile = $event?.target?.files[0];
+    if ($event?.target?.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL($event?.target?.files[0]);
+      reader.onload = _event => {
+        this.url = reader.result;
+      };
+    }
+  }
+
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IChat>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -176,6 +200,12 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   protected updateForm(chat: IChat): void {
+    this.hasPhoto = chat.hasPhoto ? chat.hasPhoto : false;
+    if (chat.id) {
+      const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
+      this.url = `api/chats/${chat.id}/photo?Authorization=Bearer ${token}`;
+    }
+
     if (!chat.contrat) {
       this.possedeContrat = false;
       this.removeValidatorContrat();
@@ -224,7 +254,7 @@ export class ChatUpdateComponent implements OnInit {
       this.possedeContrat = true;
       this.addValidatorContrat();
     }
-    this.visites = chat.visites ? chat.visites : [];
+    this.visiteVeterinaires = chat.visites ? chat.visites : [];
   }
 
   protected createFromForm(): IChat {
@@ -241,7 +271,7 @@ export class ChatUpdateComponent implements OnInit {
       famille: this.editForm.get(['famille'])!.value,
       adresseCapture: this.editForm.get(['adresseCapture'])!.value,
       race: this.editForm.get(['race'])!.value,
-      visites: this.visites,
+      visites: this.visiteVeterinaires,
     };
     if (this.possedeContrat === true) {
       chat = {
@@ -257,6 +287,7 @@ export class ChatUpdateComponent implements OnInit {
         },
       };
     }
+    chat.deletePhoto = this.deletePhoto;
     return chat;
   }
 }

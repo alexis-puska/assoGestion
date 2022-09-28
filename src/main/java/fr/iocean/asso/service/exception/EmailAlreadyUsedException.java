@@ -1,4 +1,4 @@
-package fr.iocean.asso.service;
+package fr.iocean.asso.service.exception;
 
 public class EmailAlreadyUsedException extends RuntimeException {
 

@@ -1,40 +1,48 @@
 <div class="card">
   <div class="card-header">
-    <h2 id="jhi-adresse-heading" jhiTranslate="assoGestionApp.contact.home.title">Create or edit a Contact</h2>
+    <h2 id="jhi-adresse-heading" jhiTranslate="assoGestionApp.visiteVeterinaire.home.title">Create or edit a Contact</h2>
   </div>
   <div class="card-body">
-    <button type="button" id="jh-create-entity" class="btn btn-primary jh-create-entity create-famille-accueil" (click)="createContact()">
+    <button
+      type="button"
+      id="jh-create-entity"
+      class="btn btn-primary jh-create-entity create-famille-accueil"
+      (click)="createVisiteVeterinaire()"
+    >
       <fa-icon icon="plus"></fa-icon>
-      <span jhiTranslate="assoGestionApp.contact.home.createLabel"> Create a new Contact </span>
+      <span jhiTranslate="assoGestionApp.visiteVeterinaire.home.createLabel"> Create a new Contact </span>
     </button>
 
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
-          <th scope="col"><span jhiTranslate="assoGestionApp.contact.nom">Nom</span></th>
-          <th scope="col"><span jhiTranslate="assoGestionApp.contact.prenom">Prenom</span></th>
-          <th scope="col"><span jhiTranslate="assoGestionApp.contact.mail">Mail</span></th>
-          <th scope="col"><span jhiTranslate="assoGestionApp.contact.telMobile">Tel Mobile</span></th>
-          <th scope="col"><span jhiTranslate="assoGestionApp.contact.telFixe">Tel Fixe</span></th>
+          <th scope="col"><span jhiTranslate="assoGestionApp.visiteVeterinaire.dateVisite">DateVisite</span></th>
+          <th scope="col"><span jhiTranslate="assoGestionApp.visiteVeterinaire.cliniqueVeterinaire">Clinique Veterinaire</span></th>
+          <th scope="col"><span jhiTranslate="assoGestionApp.visiteVeterinaire.actes">Actes veterinaire</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let contact of contacts">
-          <td>{{ contact.id }}</td>
-          <td>{{ contact.nom }}</td>
-          <td>{{ contact.prenom }}</td>
-          <td>{{ contact.mail }}</td>
-          <td>{{ contact.telMobile }}</td>
-          <td>{{ contact.telFixe }}</td>
+        <tr *ngFor="let visiteVeterinaire of visiteVeterinaires">
+          <td>{{ visiteVeterinaire.id }}</td>
+          <td>{{ visiteVeterinaire.dateVisite | formatMediumDate }}</td>
+          <td>{{ visiteVeterinaire.cliniqueVeterinaire?.nom }}</td>
+          <td>
+            <span
+              >[<ng-container *ngFor="let acte of visiteVeterinaire.actes; let last = last">
+                <span>{{ acte.libelle }}</span
+                ><span *ngIf="!last"> / </span> </ng-container
+              >]
+            </span>
+          </td>
           <td class="text-end">
             <div class="btn-group">
-              <button type="button" class="btn btn-primary btn-sm" (click)="updateContact(contact)">
+              <button type="button" class="btn btn-primary btn-sm" (click)="updateVisiteVeterinaire(visiteVeterinaire)">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
               </button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="deleteContact(contact)">
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteVisiteVeterinaire(visiteVeterinaire)">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
               </button>

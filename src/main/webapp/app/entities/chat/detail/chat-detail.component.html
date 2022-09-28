@@ -42,18 +42,39 @@
         <dd>
           <span jhiTranslate="{{ 'assoGestionApp.PoilEnum.' + chat.poil }}">{{ chat.poil }}</span>
         </dd>
+        <dt><span jhiTranslate="assoGestionApp.chat.visite">Visites vétérinaire</span></dt>
+        <dd>
+          <div *ngIf="chat.visites && chat.visites.length > 0">
+            <span *ngFor="let visite of chat.visites; let lastVisite = last">
+              {{ visite.dateVisite | formatMediumDate }} - {{ visite.cliniqueVeterinaire?.nom }} [<ng-container
+                *ngFor="let acte of visite.actes; let last = last"
+              >
+                <span>{{ acte.libelle }}</span
+                ><span *ngIf="!last"> / </span> </ng-container
+              >]
+              <span *ngIf="!lastVisite"><br /></span>
+            </span>
+          </div>
+        </dd>
         <dt><span jhiTranslate="assoGestionApp.chat.contrat">Contrat</span></dt>
         <dd>
           <div *ngIf="chat.contrat">
-            <a [routerLink]="['/contrat', chat.contrat?.id, 'view']">{{ chat.contrat?.id }}</a>
+            <span
+              >{{ chat.contrat.nom }} {{ chat.contrat.prenom }} - {{ chat.contrat.cout }}€ - {{ chat.contrat.paiement }} <br />{{
+                chat.contrat.adresseAdoptant?.numero
+              }}
+              {{ chat.contrat.adresseAdoptant?.rue }} {{ chat.contrat.adresseAdoptant?.codePostale }}
+              {{ chat.contrat.adresseAdoptant?.ville }}
+            </span>
           </div>
         </dd>
         <dt><span jhiTranslate="assoGestionApp.chat.famille">Famille</span></dt>
         <dd>
           <div *ngIf="chat.famille">
             <span
-              >{{ chat.famille.nom }} - {{ chat.famille?.adresse?.numero }} {{ chat.famille?.adresse?.rue }}
-              {{ chat.famille?.adresse?.codePostale }} {{ chat.famille?.adresse?.ville }}</span
+              >{{ chat.famille.nom }} <br />
+              {{ chat.famille?.adresse?.numero }} {{ chat.famille?.adresse?.rue }} {{ chat.famille?.adresse?.codePostale }}
+              {{ chat.famille?.adresse?.ville }}</span
             >
           </div>
         </dd>
@@ -61,9 +82,9 @@
         <dd>
           <div *ngIf="chat.adresseCapture">
             <span
-              >{{ chat.adresseCapture.nom }} - {{ chat.adresseCapture?.adresseCapture?.numero }}
-              {{ chat.adresseCapture?.adresseCapture?.rue }} {{ chat.adresseCapture?.adresseCapture?.codePostale }}
-              {{ chat.adresseCapture?.adresseCapture?.ville }}</span
+              >{{ chat.adresseCapture.nom }} <br />
+              {{ chat.adresseCapture?.adresseCapture?.numero }} {{ chat.adresseCapture?.adresseCapture?.rue }}
+              {{ chat.adresseCapture?.adresseCapture?.codePostale }} {{ chat.adresseCapture?.adresseCapture?.ville }}</span
             >
           </div>
         </dd>

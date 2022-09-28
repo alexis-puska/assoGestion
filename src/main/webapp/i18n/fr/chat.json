@@ -29,7 +29,11 @@
       "visite": "Visite",
       "famille": "Famille",
       "adresseCapture": "Adresse Capture",
-      "race": "Race"
+      "race": "Race",
+      "deleteContrat": "Supprimer le contrat",
+      "createContrat": "Créer le contrat",
+      "removePhoto": "Supprimer la photo",
+      "addPhoto": "Ajouter une photo"
     }
   }
 }

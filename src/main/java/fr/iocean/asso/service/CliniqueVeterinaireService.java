@@ -4,6 +4,7 @@ import fr.iocean.asso.domain.CliniqueVeterinaire;
 import fr.iocean.asso.repository.CliniqueVeterinaireRepository;
 import fr.iocean.asso.service.dto.CliniqueVeterinaireDTO;
 import fr.iocean.asso.service.mapper.CliniqueVeterinaireMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,5 +99,9 @@ public class CliniqueVeterinaireService {
     public void delete(Long id) {
         log.debug("Request to delete CliniqueVeterinaire : {}", id);
         cliniqueVeterinaireRepository.deleteById(id);
+    }
+
+    public List<CliniqueVeterinaireDTO> findAutocomplete(String query) {
+        return this.cliniqueVeterinaireMapper.toDto(this.cliniqueVeterinaireRepository.findAutocomplete("%" + query + "%"));
     }
 }

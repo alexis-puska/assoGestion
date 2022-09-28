@@ -7,9 +7,10 @@ import { ChatDeleteDialogComponent } from './delete/chat-delete-dialog.component
 import { ChatRoutingModule } from './route/chat-routing.module';
 import { CommonsModule } from 'app/module/commons/commons.module';
 import { AdresseModule } from 'app/module/adresse/adresse.module';
+import { VisiteVeterinaireModule } from 'app/module/visite-veterinaire/visite-veterinaire.module';
 
 @NgModule({
-  imports: [SharedModule, ChatRoutingModule, CommonsModule, AdresseModule],
+  imports: [SharedModule, ChatRoutingModule, CommonsModule, AdresseModule, VisiteVeterinaireModule],
   declarations: [ChatComponent, ChatDetailComponent, ChatUpdateComponent, ChatDeleteDialogComponent],
   entryComponents: [ChatDeleteDialogComponent],
 })

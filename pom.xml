@@ -321,6 +321,31 @@
 			<artifactId>lombok-maven-plugin</artifactId>
 			<version>1.18.20.0</version>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<!-- PDF -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf.tool</groupId>
+			<artifactId>xmlworker</artifactId>
+			<version>5.5.13.3</version>
+		</dependency>
+
+		<!-- Resize image -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+		
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
 

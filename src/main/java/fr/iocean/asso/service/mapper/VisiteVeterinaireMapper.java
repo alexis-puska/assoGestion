@@ -12,7 +12,7 @@ import org.mapstruct.MappingTarget;
 /**
  * Mapper for the entity {@link VisiteVeterinaire} and its DTO {@link VisiteVeterinaireDTO}.
  */
-@Mapper(componentModel = "spring", uses = { CliniqueVeterinaireMapper.class, ChatMapper.class })
+@Mapper(componentModel = "spring", uses = { CliniqueVeterinaireMapper.class, ChatMapper.class, ActeVeterinaireMapper.class })
 public interface VisiteVeterinaireMapper extends EntityMapper<VisiteVeterinaireDTO, VisiteVeterinaire> {
     @Mapping(target = "chatId", source = "chat.id")
     VisiteVeterinaireDTO toDto(VisiteVeterinaire s);

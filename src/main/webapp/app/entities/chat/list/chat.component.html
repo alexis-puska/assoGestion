@@ -74,9 +74,8 @@
           <td>{{ chat.robe }}</td>
           <td jhiTranslate="{{ 'assoGestionApp.PoilEnum.' + chat.poil }}">{{ chat.poil }}</td>
           <td>
-            <div *ngIf="chat.contrat">
-              <a [routerLink]="['/contrat', chat.contrat?.id, 'view']">{{ chat.contrat?.id }}</a>
-            </div>
+            <fa-icon icon="check" class="text-success" *ngIf="chat.contrat"></fa-icon>
+            <fa-icon icon="times" class="text-danger" *ngIf="!chat.contrat"></fa-icon>
           </td>
           <td>
             <div *ngIf="chat.famille">

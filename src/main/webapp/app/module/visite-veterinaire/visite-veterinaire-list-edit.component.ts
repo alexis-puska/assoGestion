@@ -55,7 +55,7 @@ export class VisiteVeterinaireListEditComponent {
         index = this.visiteVeterinaires.indexOf(visiteVeterinaire);
       }
       const ngbModal = this.modalService.open(VisiteVeterinaireUpdateDialogComponent as Component, {
-        size: 'lg',
+        size: 'xl as string',
         backdrop: 'static',
       });
       ngbModal.componentInstance.visiteVeterinaire = con;

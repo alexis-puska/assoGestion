@@ -1,0 +1,44 @@
+<div class="card">
+  <div class="card-header">
+    <h2 id="jhi-adresse-heading" jhiTranslate="assoGestionApp.acteVeterinaire.home.title">Create or edit a Contact</h2>
+  </div>
+  <div class="card-body">
+    <button
+      type="button"
+      id="jh-create-entity"
+      class="btn btn-primary jh-create-entity create-famille-accueil"
+      (click)="createActeVeterinaire()"
+    >
+      <fa-icon icon="plus"></fa-icon>
+      <span jhiTranslate="assoGestionApp.acteVeterinaire.home.createLabel"> Create a new Contact </span>
+    </button>
+
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="assoGestionApp.acteVeterinaire.libelle">Libelle</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let acteVeterinaire of acteVeterinaires">
+          <td>{{ acteVeterinaire.id }}</td>
+          <td>{{ acteVeterinaire.libelle }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-sm" (click)="updateActeVeterinaire(acteVeterinaire)">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteActeVeterinaire(acteVeterinaire)">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

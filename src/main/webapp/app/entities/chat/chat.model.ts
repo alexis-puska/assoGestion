@@ -21,6 +21,8 @@ export interface IChat {
   famille?: IFamilleAccueil | null;
   adresseCapture?: IPointCapture | null;
   race?: IRaceChat | null;
+  hasPhoto?: boolean;
+  deletePhoto?: boolean;
 }
 
 export class Chat implements IChat {
@@ -37,7 +39,9 @@ export class Chat implements IChat {
     public visites?: IVisiteVeterinaire[] | null,
     public famille?: IFamilleAccueil | null,
     public adresseCapture?: IPointCapture | null,
-    public race?: IRaceChat | null
+    public race?: IRaceChat | null,
+    public hasPhoto?: boolean,
+    public deletePhoto?: boolean
   ) {}
 }
 

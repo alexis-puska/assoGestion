@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
-import { ICliniqueVeterinaire, getCliniqueVeterinaireIdentifier } from '../clinique-veterinaire.model';
+import { ICliniqueVeterinaire, getCliniqueVeterinaireIdentifier, CliniqueVeterinaire } from '../clinique-veterinaire.model';
 
 export type EntityResponseType = HttpResponse<ICliniqueVeterinaire>;
 export type EntityArrayResponseType = HttpResponse<ICliniqueVeterinaire[]>;
@@ -47,6 +47,14 @@ export class CliniqueVeterinaireService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  findCliniqueVeterinaireAutocomplete(query: string): Observable<CliniqueVeterinaire[]> {
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append('query', query);
+    return this.http.get<CliniqueVeterinaire[]>(`${this.resourceUrl}/autocomplete`, {
+      params: queryParam,
+    });
   }
 
   addCliniqueVeterinaireToCollectionIfMissing(
