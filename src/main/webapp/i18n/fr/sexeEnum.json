@@ -2,8 +2,8 @@
   "assoGestionApp": {
     "SexeEnum": {
       "null": "",
-      "MALE": "MALE",
-      "FEMELLE": "FEMELLE"
+      "MALE": "M",
+      "FEMELLE": "F"
     }
   }
 }

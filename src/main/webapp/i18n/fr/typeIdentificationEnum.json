@@ -2,8 +2,8 @@
   "assoGestionApp": {
     "TypeIdentificationEnum": {
       "null": "",
-      "PUCE": "PUCE",
-      "TATOUAGE": "TATOUAGE"
+      "PUCE": "Puce",
+      "TATOUAGE": "Tatouage"
     }
   }
 }

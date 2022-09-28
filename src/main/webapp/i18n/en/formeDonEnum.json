@@ -2,10 +2,10 @@
   "assoGestionApp": {
     "FormeDonEnum": {
       "null": "",
-      "ACTE_AUTHENTIQUE": "ACTE_AUTHENTIQUE",
-      "ACTE_SOUS_SEIN_PRIVE": "ACTE_SOUS_SEIN_PRIVE",
-      "DON_MANUEL": "DON_MANUEL",
-      "AUTRES": "AUTRES"
+      "ACTE_AUTHENTIQUE": "Acte authentique",
+      "ACTE_SOUS_SEIN_PRIVE": "Acte sous sein privé",
+      "DON_MANUEL": "Don manuel",
+      "AUTRES": "Autres"
     }
   }
 }

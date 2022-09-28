@@ -2,9 +2,9 @@
   "assoGestionApp": {
     "NumeraireDonEnum": {
       "null": "",
-      "ESPECE": "ESPECE",
-      "CHEQUE": "CHEQUE",
-      "VIREMENT": "VIREMENT",
+      "ESPECE": "Espèce",
+      "CHEQUE": "Cheque",
+      "VIREMENT": "Virement",
       "CB": "CB"
     }
   }
