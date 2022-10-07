@@ -33,11 +33,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,17 +74,12 @@ public class PdfService {
         fields.addSubstitutionFont(font);
 
         // impression champs disponible dans le pdf
-        Set<String> f = fields.getFields().keySet();
-        f
-            .stream()
-            .forEach(s -> {
-                // impression des valeurs posibles pour un champ specifique
-                log.info(
-                    "CHAMPS PDF : {}, valeur possible : {}",
-                    s,
-                    Arrays.stream(fields.getAppearanceStates(s)).collect(Collectors.joining(" , "))
-                );
-            });
+        //		Set<String> f = fields.getFields().keySet();
+        //		f.stream().forEach(s -> {
+        //			// impression des valeurs posibles pour un champ specifique
+        //			log.info("CHAMPS PDF : {}, valeur possible : {}", s,
+        //					Arrays.stream(fields.getAppearanceStates(s)).collect(Collectors.joining(" , ")));
+        //		});
 
         Map<String, Field> fieldsOfDocument = getDocumentField(class1);
         for (Map.Entry<String, Field> entry : fieldsOfDocument.entrySet()) {

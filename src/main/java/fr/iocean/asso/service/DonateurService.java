@@ -124,6 +124,7 @@ public class DonateurService {
             CerfaDonOrganismeGeneral cerfa = donateurToCerfaDonOrganismeGeneral(donateur);
             try {
                 InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("pdf/test.png");
+                response.setContentType("application/pdf");
                 response.setHeader(
                     CONTENT_DISPOSITION,
                     ATTACHEMENT_FILENAME + "recu_don_" + donateur.getNom() + "_" + donateur.getPrenom() + ".pdf"
