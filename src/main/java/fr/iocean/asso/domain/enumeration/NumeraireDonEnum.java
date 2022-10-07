@@ -6,6 +6,5 @@ package fr.iocean.asso.domain.enumeration;
 public enum NumeraireDonEnum {
     ESPECE,
     CHEQUE,
-    VIREMENT,
-    CB,
+    CB_VIREMENT,
 }

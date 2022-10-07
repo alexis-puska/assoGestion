@@ -3,7 +3,5 @@ export enum NumeraireDonEnum {
 
   CHEQUE = 'CHEQUE',
 
-  VIREMENT = 'VIREMENT',
-
-  CB = 'CB',
+  CB_VIREMENT = 'CB_VIREMENT',
 }

@@ -55,6 +55,9 @@
           <th scope="col">
             <span jhiTranslate="assoGestionApp.donateur.adresse">Adresse</span>
           </th>
+          <th scope="col" jhiSortBy="dateDon">
+            <span jhiTranslate="assoGestionApp.donateur.dateDon">Date don</span><fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -73,8 +76,14 @@
           <td>
             <jhi-adresse-view [adresse]="donateur.adresse" *ngIf="donateur.adresse"></jhi-adresse-view>
           </td>
+          <td>{{ donateur.dateDon | formatMediumDate }}</td>
           <td class="text-end">
             <div class="btn-group">
+              <button type="button" (click)="printCerfa(donateur)" class="btn btn-warning btn-sm">
+                <fa-icon icon="file"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="assoGestionApp.donateur.cerfa">Cerfa</span>
+              </button>
+
               <button
                 type="submit"
                 [routerLink]="['/donateur', donateur.id, 'view']"

@@ -44,6 +44,10 @@
         </dd>
         <dt><span jhiTranslate="assoGestionApp.donateur.adresse">Adresse</span></dt>
         <jhi-adresse-view [adresse]="donateur.adresse" *ngIf="donateur.adresse"></jhi-adresse-view>
+        <dt><span jhiTranslate="assoGestionApp.donateur.dateDon">dateDon</span></dt>
+        <dd>
+          <span>{{ donateur.dateDon | formatMediumDate }}</span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

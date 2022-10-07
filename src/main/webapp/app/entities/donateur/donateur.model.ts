@@ -2,6 +2,7 @@ import { IAdresse } from 'app/entities/adresse/adresse.model';
 import { FormeDonEnum } from 'app/entities/enumerations/forme-don-enum.model';
 import { NatureDon } from 'app/entities/enumerations/nature-don.model';
 import { NumeraireDonEnum } from 'app/entities/enumerations/numeraire-don-enum.model';
+import dayjs from 'dayjs/esm';
 
 export interface IDonateur {
   id?: number;
@@ -13,6 +14,7 @@ export interface IDonateur {
   natureDon?: NatureDon | null;
   numeraireDon?: NumeraireDonEnum | null;
   adresse?: IAdresse | null;
+  dateDon?: dayjs.Dayjs | null;
 }
 
 export class Donateur implements IDonateur {
@@ -25,7 +27,8 @@ export class Donateur implements IDonateur {
     public formeDon?: FormeDonEnum | null,
     public natureDon?: NatureDon | null,
     public numeraireDon?: NumeraireDonEnum | null,
-    public adresse?: IAdresse | null
+    public adresse?: IAdresse | null,
+    public dateDon?: dayjs.Dayjs | null
   ) {}
 }
 

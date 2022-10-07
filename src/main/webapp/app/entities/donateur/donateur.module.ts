@@ -7,9 +7,10 @@ import { DonateurDeleteDialogComponent } from './delete/donateur-delete-dialog.c
 import { DonateurRoutingModule } from './route/donateur-routing.module';
 import { CommonsModule } from 'app/module/commons/commons.module';
 import { AdresseModule } from 'app/module/adresse/adresse.module';
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
-  imports: [SharedModule, DonateurRoutingModule, CommonsModule, AdresseModule],
+  imports: [SharedModule, DonateurRoutingModule, CommonsModule, AdresseModule, FileSaverModule],
   declarations: [DonateurComponent, DonateurDetailComponent, DonateurUpdateComponent, DonateurDeleteDialogComponent],
   entryComponents: [DonateurDeleteDialogComponent],
 })

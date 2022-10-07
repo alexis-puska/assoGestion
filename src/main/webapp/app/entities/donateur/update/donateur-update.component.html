@@ -60,7 +60,7 @@
                     </small>
                   </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
                   <label class="form-label" jhiTranslate="assoGestionApp.donateur.sommeTouteLettre" for="field_sommeTouteLettre"
                     >Somme Toute Lettre</label
                   >
@@ -81,6 +81,35 @@
                     <small
                       class="form-text text-danger"
                       *ngIf="editForm.get('sommeTouteLettre')?.errors?.required"
+                      jhiTranslate="entity.validation.required"
+                    >
+                      This field is required.
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.donateur.dateDon" for="field_sommeTouteLettre"
+                    >Somme Toute Lettre</label
+                  >
+                  <div class="input-group">
+                    <input
+                      id="field_dateDon"
+                      data-cy="dateDon"
+                      type="text"
+                      class="form-control"
+                      name="dateDon"
+                      ngbDatepicker
+                      #dateDonDp="ngbDatepicker"
+                      formControlName="dateDon"
+                    />
+                    <button type="button" class="btn btn-secondary" (click)="dateDonDp.toggle()">
+                      <fa-icon icon="calendar-alt"></fa-icon>
+                    </button>
+                  </div>
+                  <div *ngIf="editForm.get('dateDon')!.invalid && (editForm.get('dateDon')!.dirty || editForm.get('dateDon')!.touched)">
+                    <small
+                      class="form-text text-danger"
+                      *ngIf="editForm.get('dateDon')?.errors?.required"
                       jhiTranslate="entity.validation.required"
                     >
                       This field is required.

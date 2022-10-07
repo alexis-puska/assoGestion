@@ -4,6 +4,7 @@ import fr.iocean.asso.domain.enumeration.FormeDonEnum;
 import fr.iocean.asso.domain.enumeration.NatureDon;
 import fr.iocean.asso.domain.enumeration.NumeraireDonEnum;
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -68,6 +69,9 @@ public class Donateur implements Serializable {
     @Column(name = "numeraire_don")
     private NumeraireDonEnum numeraireDon;
 
+    @Column(name = "dateDon")
+    private LocalDate dateDon;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
     private Adresse adresse;
@@ -116,6 +120,11 @@ public class Donateur implements Serializable {
 
     public Donateur adresse(Adresse adresse) {
         this.setAdresse(adresse);
+        return this;
+    }
+
+    public Donateur dateDon(LocalDate dateDon) {
+        this.setDateDon(dateDon);
         return this;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and

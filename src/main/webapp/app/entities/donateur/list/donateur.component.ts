@@ -8,6 +8,8 @@ import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { DonateurService } from '../service/donateur.service';
 import { DonateurDeleteDialogComponent } from '../delete/donateur-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { FileSaverService } from 'ngx-filesaver';
+import { FileUtilsService } from 'app/shared/util/file-utils.service';
 
 @Component({
   selector: 'jhi-donateur',
@@ -21,8 +23,14 @@ export class DonateurComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  fillPdf = true;
 
-  constructor(protected donateurService: DonateurService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
+  constructor(
+    protected donateurService: DonateurService,
+    protected modalService: NgbModal,
+    protected parseLinks: ParseLinks,
+    private fileSaverService: FileSaverService
+  ) {
     this.donateurs = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
@@ -81,6 +89,21 @@ export class DonateurComponent implements OnInit {
         this.reset();
       }
     });
+  }
+
+  printCerfa(donateur: IDonateur): void {
+    this.fillPdf = true;
+    if (donateur.id) {
+      this.donateurService.fillCerfa(donateur.id).subscribe(
+        res => {
+          this.fileSaverService.save(res.body, FileUtilsService.getFileNameFromHeader(res.headers));
+          this.fillPdf = false;
+        },
+        () => {
+          this.fillPdf = false;
+        }
+      );
+    }
   }
 
   protected sort(): string[] {

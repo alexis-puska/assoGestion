@@ -34,7 +34,7 @@
     {
       "fieldName": "numeraireDon",
       "fieldType": "NumeraireDonEnum",
-      "fieldValues": "ESPECE,CHEQUE,VIREMENT,CB"
+      "fieldValues": "ESPECE,CHEQUE,CB_VIREMENT"
     }
   ],
   "fluentMethods": true,

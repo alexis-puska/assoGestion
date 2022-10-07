@@ -25,7 +25,9 @@
       "formeDon": "Forme Don",
       "natureDon": "Nature Don",
       "numeraireDon": "Numeraire Don",
-      "adresse": "Adresse"
+      "adresse": "Adresse",
+      "dateDon": "dateDon",
+      "cerfa": "Cerfa"
     }
   }
 }

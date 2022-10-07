@@ -12,10 +12,13 @@ import { NatureDon } from 'app/entities/enumerations/nature-don.model';
 import { NumeraireDonEnum } from 'app/entities/enumerations/numeraire-don-enum.model';
 import { Donateur, IDonateur } from '../donateur.model';
 import { DonateurService } from '../service/donateur.service';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { MomentDateFormatter } from 'app/shared/util/dateformat';
 
 @Component({
   selector: 'jhi-donateur-update',
   templateUrl: './donateur-update.component.html',
+  providers: [{ provide: NgbDateParserFormatter, useClass: MomentDateFormatter }],
 })
 export class DonateurUpdateComponent implements OnInit {
   isSaving = false;
@@ -41,6 +44,7 @@ export class DonateurUpdateComponent implements OnInit {
       codePostale: [null, [Validators.required]],
       ville: [null, [Validators.required]],
     }),
+    dateDon: [null, [Validators.required]],
   });
 
   constructor(
@@ -110,6 +114,7 @@ export class DonateurUpdateComponent implements OnInit {
         codePostale: donateur.adresse ? donateur.adresse.codePostale : null,
         ville: donateur.adresse ? donateur.adresse.ville : null,
       },
+      dateDon: donateur.dateDon,
     });
   }
 
@@ -125,6 +130,7 @@ export class DonateurUpdateComponent implements OnInit {
       natureDon: this.editForm.get(['natureDon'])!.value,
       numeraireDon: this.editForm.get(['numeraireDon'])!.value,
       adresse: this.editForm.get(['adresse'])!.value,
+      dateDon: this.editForm.get(['dateDon'])!.value,
     };
   }
 }

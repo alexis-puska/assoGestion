@@ -4,8 +4,7 @@
       "null": "",
       "ESPECE": "Espèce",
       "CHEQUE": "Cheque",
-      "VIREMENT": "Virement",
-      "CB": "CB"
+      "CB_VIREMENT": "CB / Virement"
     }
   }
 }

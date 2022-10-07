@@ -4,6 +4,7 @@ import fr.iocean.asso.domain.enumeration.FormeDonEnum;
 import fr.iocean.asso.domain.enumeration.NatureDon;
 import fr.iocean.asso.domain.enumeration.NumeraireDonEnum;
 import java.io.Serializable;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,4 +36,6 @@ public class DonateurDTO implements Serializable {
     private NumeraireDonEnum numeraireDon;
 
     private AdresseDTO adresse;
+
+    private LocalDate dateDon;
 }
