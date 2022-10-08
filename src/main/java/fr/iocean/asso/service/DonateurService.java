@@ -2,16 +2,20 @@ package fr.iocean.asso.service;
 
 import com.itextpdf.text.DocumentException;
 import fr.iocean.asso.domain.Donateur;
+import fr.iocean.asso.domain.enumeration.FileEnum;
 import fr.iocean.asso.repository.DonateurRepository;
+import fr.iocean.asso.service.dto.ConfigurationDonDTO;
 import fr.iocean.asso.service.dto.DonateurDTO;
 import fr.iocean.asso.service.exception.FileNotFoundException;
 import fr.iocean.asso.service.mapper.DonateurMapper;
 import fr.iocean.asso.service.pdf.PdfService;
 import fr.iocean.asso.service.pdf.object.CerfaDonOrganismeGeneral;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -33,14 +37,26 @@ public class DonateurService {
     private static final String CONTENT_DISPOSITION = "Content-Disposition";
     private static final String ATTACHEMENT_FILENAME = "attachment;filename=";
 
+    private final ConfigurationDonService configurationDonService;
+
     private final PdfService pdfService;
+
+    private final FileService fileService;
 
     private final DonateurRepository donateurRepository;
 
     private final DonateurMapper donateurMapper;
 
-    public DonateurService(PdfService pdfService, DonateurRepository donateurRepository, DonateurMapper donateurMapper) {
+    public DonateurService(
+        ConfigurationDonService configurationDonService,
+        PdfService pdfService,
+        FileService fileService,
+        DonateurRepository donateurRepository,
+        DonateurMapper donateurMapper
+    ) {
+        this.configurationDonService = configurationDonService;
         this.pdfService = pdfService;
+        this.fileService = fileService;
         this.donateurRepository = donateurRepository;
         this.donateurMapper = donateurMapper;
     }
@@ -123,7 +139,11 @@ public class DonateurService {
             Donateur donateur = donateurOptional.get();
             CerfaDonOrganismeGeneral cerfa = donateurToCerfaDonOrganismeGeneral(donateur);
             try {
-                InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("pdf/test.png");
+                InputStream inputStream = null;
+                List<String> signatureFileName = this.fileService.getFilename(1l, FileEnum.SIGNATURE_ASSO);
+                if (signatureFileName != null && !signatureFileName.isEmpty()) {
+                    inputStream = new FileInputStream(fileService.getFile(FileEnum.SIGNATURE_ASSO, 1l, signatureFileName.get(0)));
+                }
                 response.setContentType("application/pdf");
                 response.setHeader(
                     CONTENT_DISPOSITION,
@@ -139,6 +159,7 @@ public class DonateurService {
                         370,
                         25
                     );
+                inputStream.close();
             } catch (FileNotFoundException e) {
                 log.error("FileNotFoundException {}: ", e.getMessage());
             } catch (DocumentException e) {
@@ -150,19 +171,20 @@ public class DonateurService {
     }
 
     private CerfaDonOrganismeGeneral donateurToCerfaDonOrganismeGeneral(Donateur donateur) {
+        ConfigurationDonDTO configDon = configurationDonService.getConfigurationDon();
+
         CerfaDonOrganismeGeneral cerfa = new CerfaDonOrganismeGeneral();
         cerfa.setOeuvreOuOrganismeDinteretGeneral(CerfaDonOrganismeGeneral.PDF_FIELD_ON);
         cerfa.setNumeroOrdreRecu(String.valueOf(donateur.getId()));
-        cerfa.setAdresse("les chats d'oc");
-        cerfa.setNumero("27");
-        cerfa.setRue("Rue des Parets");
-        cerfa.setCodePostal("34160");
-        cerfa.setCommune("Restinclières");
-        cerfa.setObjet1("Protection animale. Intégration dans l’environnement des chats dits errants ou abandonnés.");
-        cerfa.setObjet2(
-            "Réguler la surpopulation de chats errants : stérilisations, identifications, soins, amélioration des conditions de vie des chats"
-        );
-        cerfa.setObjet3("errants notamment par la promotion du statut de « chat libre ».");
+
+        cerfa.setAdresse(configDon.getDenomination());
+        cerfa.setNumero(String.valueOf(configDon.getAdresse() != null ? configDon.getAdresse().getNumero() : ""));
+        cerfa.setRue(configDon.getAdresse() != null ? configDon.getAdresse().getRue() : "");
+        cerfa.setCodePostal(String.valueOf(configDon.getAdresse() != null ? configDon.getAdresse().getCodePostale() : ""));
+        cerfa.setCommune(String.valueOf(configDon.getAdresse() != null ? configDon.getAdresse().getVille() : ""));
+        cerfa.setObjet1(configDon.getObjet() != null ? configDon.getObjet() : "");
+        cerfa.setObjet2(configDon.getObjet1() != null ? configDon.getObjet1() : "");
+        cerfa.setObjet3(configDon.getObjet2() != null ? configDon.getObjet2() : "");
         cerfa.setNom(donateur.getNom());
         cerfa.setPrenom(donateur.getPrenom());
         cerfa.setEuros(String.valueOf(donateur.getMontant()));

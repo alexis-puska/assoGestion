@@ -37,8 +37,11 @@ class ConfigurationDonResourceIT {
     private static final String DEFAULT_OBJET = "AAAAAAAAAA";
     private static final String UPDATED_OBJET = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SIGNATAIRE = "AAAAAAAAAA";
-    private static final String UPDATED_SIGNATAIRE = "BBBBBBBBBB";
+    private static final String DEFAULT_OBJET1 = "AAAAAAAAAA";
+    private static final String UPDATED_OBJET1 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_OBJET2 = "AAAAAAAAAA";
+    private static final String UPDATED_OBJET2 = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/configuration-dons";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -70,7 +73,8 @@ class ConfigurationDonResourceIT {
         ConfigurationDon configurationDon = new ConfigurationDon()
             .denomination(DEFAULT_DENOMINATION)
             .objet(DEFAULT_OBJET)
-            .signataire(DEFAULT_SIGNATAIRE);
+            .objet1(DEFAULT_OBJET1)
+            .objet2(DEFAULT_OBJET2);
         return configurationDon;
     }
 
@@ -84,7 +88,8 @@ class ConfigurationDonResourceIT {
         ConfigurationDon configurationDon = new ConfigurationDon()
             .denomination(UPDATED_DENOMINATION)
             .objet(UPDATED_OBJET)
-            .signataire(UPDATED_SIGNATAIRE);
+            .objet1(UPDATED_OBJET1)
+            .objet2(UPDATED_OBJET2);
         return configurationDon;
     }
 
@@ -111,7 +116,8 @@ class ConfigurationDonResourceIT {
         ConfigurationDon testConfigurationDon = configurationDonList.get(configurationDonList.size() - 1);
         assertThat(testConfigurationDon.getDenomination()).isEqualTo(DEFAULT_DENOMINATION);
         assertThat(testConfigurationDon.getObjet()).isEqualTo(DEFAULT_OBJET);
-        assertThat(testConfigurationDon.getSignataire()).isEqualTo(DEFAULT_SIGNATAIRE);
+        assertThat(testConfigurationDon.getObjet1()).isEqualTo(DEFAULT_OBJET1);
+        assertThat(testConfigurationDon.getObjet2()).isEqualTo(DEFAULT_OBJET2);
     }
 
     @Test
@@ -149,7 +155,8 @@ class ConfigurationDonResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(configurationDon.getId().intValue())))
             .andExpect(jsonPath("$.[*].denomination").value(hasItem(DEFAULT_DENOMINATION)))
             .andExpect(jsonPath("$.[*].objet").value(hasItem(DEFAULT_OBJET)))
-            .andExpect(jsonPath("$.[*].signataire").value(hasItem(DEFAULT_SIGNATAIRE)));
+            .andExpect(jsonPath("$.[*].objet1").value(hasItem(DEFAULT_OBJET1)))
+            .andExpect(jsonPath("$.[*].objet2").value(hasItem(DEFAULT_OBJET2)));
     }
 
     @Test
@@ -166,7 +173,8 @@ class ConfigurationDonResourceIT {
             .andExpect(jsonPath("$.id").value(configurationDon.getId().intValue()))
             .andExpect(jsonPath("$.denomination").value(DEFAULT_DENOMINATION))
             .andExpect(jsonPath("$.objet").value(DEFAULT_OBJET))
-            .andExpect(jsonPath("$.signataire").value(DEFAULT_SIGNATAIRE));
+            .andExpect(jsonPath("$.objet1").value(DEFAULT_OBJET1))
+            .andExpect(jsonPath("$.objet2").value(DEFAULT_OBJET2));
     }
 
     @Test
@@ -188,7 +196,7 @@ class ConfigurationDonResourceIT {
         ConfigurationDon updatedConfigurationDon = configurationDonRepository.findById(configurationDon.getId()).get();
         // Disconnect from session so that the updates on updatedConfigurationDon are not directly saved in db
         em.detach(updatedConfigurationDon);
-        updatedConfigurationDon.denomination(UPDATED_DENOMINATION).objet(UPDATED_OBJET).signataire(UPDATED_SIGNATAIRE);
+        updatedConfigurationDon.denomination(UPDATED_DENOMINATION).objet(UPDATED_OBJET).objet1(UPDATED_OBJET1).objet2(UPDATED_OBJET2);
         ConfigurationDonDTO configurationDonDTO = configurationDonMapper.toDto(updatedConfigurationDon);
 
         restConfigurationDonMockMvc
@@ -205,7 +213,8 @@ class ConfigurationDonResourceIT {
         ConfigurationDon testConfigurationDon = configurationDonList.get(configurationDonList.size() - 1);
         assertThat(testConfigurationDon.getDenomination()).isEqualTo(UPDATED_DENOMINATION);
         assertThat(testConfigurationDon.getObjet()).isEqualTo(UPDATED_OBJET);
-        assertThat(testConfigurationDon.getSignataire()).isEqualTo(UPDATED_SIGNATAIRE);
+        assertThat(testConfigurationDon.getObjet1()).isEqualTo(UPDATED_OBJET1);
+        assertThat(testConfigurationDon.getObjet2()).isEqualTo(UPDATED_OBJET2);
     }
 
     @Test
@@ -303,7 +312,8 @@ class ConfigurationDonResourceIT {
         ConfigurationDon testConfigurationDon = configurationDonList.get(configurationDonList.size() - 1);
         assertThat(testConfigurationDon.getDenomination()).isEqualTo(UPDATED_DENOMINATION);
         assertThat(testConfigurationDon.getObjet()).isEqualTo(UPDATED_OBJET);
-        assertThat(testConfigurationDon.getSignataire()).isEqualTo(DEFAULT_SIGNATAIRE);
+        assertThat(testConfigurationDon.getObjet1()).isEqualTo(UPDATED_OBJET1);
+        assertThat(testConfigurationDon.getObjet2()).isEqualTo(UPDATED_OBJET2);
     }
 
     @Test
@@ -318,7 +328,11 @@ class ConfigurationDonResourceIT {
         ConfigurationDon partialUpdatedConfigurationDon = new ConfigurationDon();
         partialUpdatedConfigurationDon.setId(configurationDon.getId());
 
-        partialUpdatedConfigurationDon.denomination(UPDATED_DENOMINATION).objet(UPDATED_OBJET).signataire(UPDATED_SIGNATAIRE);
+        partialUpdatedConfigurationDon
+            .denomination(UPDATED_DENOMINATION)
+            .objet(UPDATED_OBJET)
+            .objet1(UPDATED_OBJET1)
+            .objet2(UPDATED_OBJET2);
 
         restConfigurationDonMockMvc
             .perform(
@@ -334,7 +348,8 @@ class ConfigurationDonResourceIT {
         ConfigurationDon testConfigurationDon = configurationDonList.get(configurationDonList.size() - 1);
         assertThat(testConfigurationDon.getDenomination()).isEqualTo(UPDATED_DENOMINATION);
         assertThat(testConfigurationDon.getObjet()).isEqualTo(UPDATED_OBJET);
-        assertThat(testConfigurationDon.getSignataire()).isEqualTo(UPDATED_SIGNATAIRE);
+        assertThat(testConfigurationDon.getObjet2()).isEqualTo(UPDATED_OBJET2);
+        assertThat(testConfigurationDon.getObjet1()).isEqualTo(UPDATED_OBJET1);
     }
 
     @Test

@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { isPresent } from 'app/core/util/operators';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
-import { createRequestOption } from 'app/core/request/request-util';
-import { IConfigurationDon, getConfigurationDonIdentifier } from '../configuration-don.model';
+import { FileUtilsService } from 'app/shared/util/file-utils.service';
+import { IConfigurationDon } from '../configuration-don.model';
 
 export type EntityResponseType = HttpResponse<IConfigurationDon>;
 export type EntityArrayResponseType = HttpResponse<IConfigurationDon[]>;
@@ -16,58 +15,21 @@ export class ConfigurationDonService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  create(configurationDon: IConfigurationDon): Observable<EntityResponseType> {
-    return this.http.post<IConfigurationDon>(this.resourceUrl, configurationDon, { observe: 'response' });
-  }
-
-  update(configurationDon: IConfigurationDon): Observable<EntityResponseType> {
-    return this.http.put<IConfigurationDon>(
-      `${this.resourceUrl}/${getConfigurationDonIdentifier(configurationDon) as number}`,
-      configurationDon,
-      { observe: 'response' }
+  update(configurationDon: IConfigurationDon, signature?: File): Observable<EntityResponseType> {
+    const fd = new FormData();
+    fd.append(
+      'configurationDon',
+      new Blob([JSON.stringify(configurationDon)], {
+        type: 'application/json',
+      })
     );
-  }
-
-  partialUpdate(configurationDon: IConfigurationDon): Observable<EntityResponseType> {
-    return this.http.patch<IConfigurationDon>(
-      `${this.resourceUrl}/${getConfigurationDonIdentifier(configurationDon) as number}`,
-      configurationDon,
-      { observe: 'response' }
-    );
-  }
-
-  find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IConfigurationDon>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  query(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<IConfigurationDon[]>(this.resourceUrl, { params: options, observe: 'response' });
-  }
-
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
-  addConfigurationDonToCollectionIfMissing(
-    configurationDonCollection: IConfigurationDon[],
-    ...configurationDonsToCheck: (IConfigurationDon | null | undefined)[]
-  ): IConfigurationDon[] {
-    const configurationDons: IConfigurationDon[] = configurationDonsToCheck.filter(isPresent);
-    if (configurationDons.length > 0) {
-      const configurationDonCollectionIdentifiers = configurationDonCollection.map(
-        configurationDonItem => getConfigurationDonIdentifier(configurationDonItem)!
-      );
-      const configurationDonsToAdd = configurationDons.filter(configurationDonItem => {
-        const configurationDonIdentifier = getConfigurationDonIdentifier(configurationDonItem);
-        if (configurationDonIdentifier == null || configurationDonCollectionIdentifiers.includes(configurationDonIdentifier)) {
-          return false;
-        }
-        configurationDonCollectionIdentifiers.push(configurationDonIdentifier);
-        return true;
-      });
-      return [...configurationDonsToAdd, ...configurationDonCollection];
+    if (signature) {
+      fd.append('signature', signature, FileUtilsService.encodeFileName(signature.name));
     }
-    return configurationDonCollection;
+    return this.http.put<IConfigurationDon>(`${this.resourceUrl}`, fd, { observe: 'response' });
+  }
+
+  getConfigurationDon(): Observable<EntityResponseType> {
+    return this.http.get<IConfigurationDon>(`${this.resourceUrl}`, { observe: 'response' });
   }
 }

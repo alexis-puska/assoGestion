@@ -2,26 +2,23 @@
   "assoGestionApp": {
     "configurationDon": {
       "home": {
-        "title": "ConfigurationDons",
-        "refreshListLabel": "Actualiser la liste",
-        "createLabel": "Créer un nouveau Configuration Don",
-        "createOrEditLabel": "Créer ou éditer un Configuration Don",
-        "notFound": "Aucun Configuration Don trouvé"
+        "title": "Configuration Dons",
+        "createLabel": "Create a new Configuration Don",
+        "createOrEditLabel": "Create or edit a Configuration Don"
       },
-      "created": "Un nouveau Configuration Don a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Configuration Don avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Configuration Don avec l'identifiant {{ param }} a été supprimé",
-      "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Configuration Don {{ id }} ?"
-      },
+      "updated": "A Configuration Don is updated with identifier {{ param }}",
       "detail": {
         "title": "Configuration Don"
       },
       "id": "ID",
       "denomination": "Denomination",
-      "objet": "Objet",
-      "signataire": "Signataire",
-      "adresse": "Adresse"
+      "objet": "Ligne 1 objet cerfa",
+      "objet1": "Ligne 2 objet cerfa",
+      "objet2": "Ligne 3 objet cerfa",
+      "adresse": "Adresse",
+      "signature": "Signature",
+      "removeSignature": "Supprimer la signature",
+      "addSignature": "Ajouter la signature"
     }
   }
 }

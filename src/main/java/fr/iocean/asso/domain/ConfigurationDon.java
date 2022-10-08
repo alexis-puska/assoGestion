@@ -5,8 +5,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -35,18 +33,20 @@ public class ConfigurationDon implements Serializable {
     private static final long serialVersionUID = 5405134867621671569L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "denomination")
     private String denomination;
 
-    @Column(name = "objet")
+    @Column(name = "objet", length = 128)
     private String objet;
 
-    @Column(name = "signataire")
-    private String signataire;
+    @Column(name = "objet1", length = 128)
+    private String objet1;
+
+    @Column(name = "objet2", length = 128)
+    private String objet2;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(unique = true)
@@ -69,13 +69,14 @@ public class ConfigurationDon implements Serializable {
         return this;
     }
 
-    public ConfigurationDon signataire(String signataire) {
-        this.setSignataire(signataire);
+    public ConfigurationDon objet1(String objet1) {
+        this.setObjet1(objet1);
         return this;
     }
 
-    public void setSignataire(String signataire) {
-        this.signataire = signataire;
+    public ConfigurationDon objet2(String objet2) {
+        this.setObjet2(objet2);
+        return this;
     }
 
     public ConfigurationDon adresse(Adresse adresse) {

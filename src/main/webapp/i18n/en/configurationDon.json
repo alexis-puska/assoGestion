@@ -3,25 +3,22 @@
     "configurationDon": {
       "home": {
         "title": "Configuration Dons",
-        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Configuration Don",
-        "createOrEditLabel": "Create or edit a Configuration Don",
-        "notFound": "No Configuration Dons found"
+        "createOrEditLabel": "Create or edit a Configuration Don"
       },
-      "created": "A new Configuration Don is created with identifier {{ param }}",
       "updated": "A Configuration Don is updated with identifier {{ param }}",
-      "deleted": "A Configuration Don is deleted with identifier {{ param }}",
-      "delete": {
-        "question": "Are you sure you want to delete Configuration Don {{ id }}?"
-      },
       "detail": {
         "title": "Configuration Don"
       },
       "id": "ID",
       "denomination": "Denomination",
-      "objet": "Objet",
-      "signataire": "Signataire",
-      "adresse": "Adresse"
+      "objet": "Ligne 1 objet cerfa",
+      "objet1": "Ligne 2 objet cerfa",
+      "objet2": "Ligne 3 objet cerfa",
+      "adresse": "Adresse",
+      "signature": "Signature",
+      "removeSignature": "Supprimer la signature",
+      "addSignature": "Ajouter la signature"
     }
   }
 }

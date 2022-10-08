@@ -43,6 +43,7 @@
     <include file="config/liquibase/changelog/20220923160048_added_entity_constraints_Contact.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20220928210346_add_field_chat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20221007234700_add_field_donateur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221008121200_add_remove_field_configuration_don.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

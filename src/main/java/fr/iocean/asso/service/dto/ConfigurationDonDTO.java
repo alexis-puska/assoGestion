@@ -21,7 +21,12 @@ public class ConfigurationDonDTO implements Serializable {
 
     private String objet;
 
-    private String signataire;
+    private String objet1;
+
+    private String objet2;
 
     private AdresseDTO adresse;
+
+    private boolean hasSignature;
+    private boolean deleteSignature;
 }
