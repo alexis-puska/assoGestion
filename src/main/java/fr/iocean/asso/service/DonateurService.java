@@ -4,7 +4,7 @@ import com.itextpdf.text.DocumentException;
 import fr.iocean.asso.domain.Donateur;
 import fr.iocean.asso.domain.enumeration.FileEnum;
 import fr.iocean.asso.repository.DonateurRepository;
-import fr.iocean.asso.service.dto.ConfigurationDonDTO;
+import fr.iocean.asso.service.dto.ConfigurationAssoDTO;
 import fr.iocean.asso.service.dto.DonateurDTO;
 import fr.iocean.asso.service.exception.FileNotFoundException;
 import fr.iocean.asso.service.mapper.DonateurMapper;
@@ -37,7 +37,7 @@ public class DonateurService {
     private static final String CONTENT_DISPOSITION = "Content-Disposition";
     private static final String ATTACHEMENT_FILENAME = "attachment;filename=";
 
-    private final ConfigurationDonService configurationDonService;
+    private final ConfigurationAssoService configurationAssoService;
 
     private final PdfService pdfService;
 
@@ -48,13 +48,13 @@ public class DonateurService {
     private final DonateurMapper donateurMapper;
 
     public DonateurService(
-        ConfigurationDonService configurationDonService,
+        ConfigurationAssoService configurationAssoService,
         PdfService pdfService,
         FileService fileService,
         DonateurRepository donateurRepository,
         DonateurMapper donateurMapper
     ) {
-        this.configurationDonService = configurationDonService;
+        this.configurationAssoService = configurationAssoService;
         this.pdfService = pdfService;
         this.fileService = fileService;
         this.donateurRepository = donateurRepository;
@@ -171,7 +171,7 @@ public class DonateurService {
     }
 
     private CerfaDonOrganismeGeneral donateurToCerfaDonOrganismeGeneral(Donateur donateur) {
-        ConfigurationDonDTO configDon = configurationDonService.getConfigurationDon();
+        ConfigurationAssoDTO configDon = configurationAssoService.getConfigurationAsso();
 
         CerfaDonOrganismeGeneral cerfa = new CerfaDonOrganismeGeneral();
         cerfa.setOeuvreOuOrganismeDinteretGeneral(CerfaDonOrganismeGeneral.PDF_FIELD_ON);

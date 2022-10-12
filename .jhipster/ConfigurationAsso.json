@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20220923142520",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "configuration_don",
+  "fields": [
+    {
+      "fieldName": "denomination",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objet",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "signataire",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ConfigurationAsso",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "adresse",
+      "otherEntityRelationshipName": "configurationAsso",
+      "ownerSide": true,
+      "relationshipName": "adresse",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

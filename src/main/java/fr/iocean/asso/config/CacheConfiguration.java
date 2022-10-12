@@ -62,8 +62,7 @@ public class CacheConfiguration {
             createCache(cm, fr.iocean.asso.domain.RaceChat.class.getName());
             createCache(cm, fr.iocean.asso.domain.ActeVeterinaire.class.getName());
             createCache(cm, fr.iocean.asso.domain.Contrat.class.getName());
-            createCache(cm, fr.iocean.asso.domain.ConfigurationDon.class.getName());
-            createCache(cm, fr.iocean.asso.domain.ConfigurationContrat.class.getName());
+            createCache(cm, fr.iocean.asso.domain.ConfigurationAsso.class.getName());
             createCache(cm, fr.iocean.asso.domain.CliniqueVeterinaire.class.getName());
             createCache(cm, fr.iocean.asso.domain.Donateur.class.getName());
             createCache(cm, fr.iocean.asso.domain.Contact.class.getName());

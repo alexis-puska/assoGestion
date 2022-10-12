@@ -1,0 +1,28 @@
+{
+  "assoGestionApp": {
+    "configurationAsso": {
+      "home": {
+        "title": "Configuration Assos",
+        "createLabel": "Create a new Configuration Asso",
+        "createOrEditLabel": "Create or edit a Configuration Asso"
+      },
+      "updated": "A Configuration Asso is updated with identifier {{ param }}",
+      "detail": {
+        "title": "Configuration Asso"
+      },
+      "id": "ID",
+      "denomination": "Denomination",
+      "objet": "Ligne 1 objet cerfa",
+      "objet1": "Ligne 2 objet cerfa",
+      "objet2": "Ligne 3 objet cerfa",
+      "siret": "Numéro Siret",
+      "email": "Email",
+      "telephone": "Téléphone",
+      "adresse": "Adresse",
+      "cerfa": "information justificatif cerfa",
+      "signature": "Signature",
+      "removeSignature": "Supprimer la signature",
+      "addSignature": "Ajouter la signature"
+    }
+  }
+}

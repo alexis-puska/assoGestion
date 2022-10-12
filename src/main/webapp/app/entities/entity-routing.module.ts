@@ -50,14 +50,9 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./contrat/contrat.module').then(m => m.ContratModule),
       },
       {
-        path: 'configuration-don',
-        data: { pageTitle: 'assoGestionApp.configurationDon.home.title' },
-        loadChildren: () => import('./configuration-don/configuration-don.module').then(m => m.ConfigurationDonModule),
-      },
-      {
-        path: 'configuration-contrat',
-        data: { pageTitle: 'assoGestionApp.configurationContrat.home.title' },
-        loadChildren: () => import('./configuration-contrat/configuration-contrat.module').then(m => m.ConfigurationContratModule),
+        path: 'configuration-asso',
+        data: { pageTitle: 'assoGestionApp.configurationAsso.home.title' },
+        loadChildren: () => import('./configuration-asso/configuration-asso.module').then(m => m.ConfigurationAssoModule),
       },
       {
         path: 'clinique-veterinaire',

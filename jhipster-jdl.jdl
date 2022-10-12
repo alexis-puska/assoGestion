@@ -55,7 +55,7 @@ entity Adresse {
     ville String required
 }
 
-entity ConfigurationDon {
+entity ConfigurationAsso {
     denomination String
     objet String
     signataire String
@@ -138,7 +138,7 @@ relationship OneToOne {
     PointCapture{adresseCapture} to Adresse
     PointNourrissage{adresse} to Adresse
     Donateur{adresse} to Adresse
-    ConfigurationDon{adresse} to Adresse
+    ConfigurationAsso{adresse} to Adresse
     CliniqueVeterinaire{adresse} to Adresse
     Contrat{adresseAdoptant} to Adresse
     Chat{contrat} to Contrat

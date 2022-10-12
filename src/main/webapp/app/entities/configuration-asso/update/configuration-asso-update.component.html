@@ -1,0 +1,198 @@
+<div class="d-flex justify-content-center">
+  <div class="col-10">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-configuration-asso-heading"
+        data-cy="ConfigurationAssoCreateUpdateHeading"
+        jhiTranslate="assoGestionApp.configurationAsso.home.createOrEditLabel"
+      >
+        Create or edit a Configuration Asso
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                  <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.denomination" for="field_denomination"
+                    >Denomination</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="denomination"
+                    id="field_denomination"
+                    data-cy="denomination"
+                    formControlName="denomination"
+                  />
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.siret" for="field_siret">siret</label>
+                  <input type="text" class="form-control" name="siret" id="field_siret" data-cy="siret" formControlName="siret" />
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('siret')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 17 }"
+                  >
+                    This field cannot be longer than 17 characters.
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.email" for="field_email">email</label>
+                  <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('email')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 255 }"
+                  >
+                    This field cannot be longer than 255 characters.
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.telephone" for="field_telephone"
+                    >telephone</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="telephone"
+                    id="field_telephone"
+                    data-cy="telephone"
+                    formControlName="telephone"
+                  />
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('telephone')?.errors?.maxlength"
+                    jhiTranslate="entity.validation.maxlength"
+                    [translateValues]="{ max: 20 }"
+                  >
+                    This field cannot be longer than 20 characters.
+                  </small>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <jhi-adresse-edit2 formGroupName="adresse"></jhi-adresse-edit2>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <h2 id="jhi-adresse-heading" data-cy="AdresseCreateUpdateHeading" jhiTranslate="assoGestionApp.configurationAsso.cerfa">
+                    cerfa
+                  </h2>
+                </div>
+                <div class="card-body">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.objet" for="field_objet">Objet</label>
+                      <input type="text" class="form-control" name="objet" id="field_objet" data-cy="objet" formControlName="objet" />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('objet')?.errors?.maxlength"
+                        jhiTranslate="entity.validation.maxlength"
+                        [translateValues]="{ max: 128 }"
+                      >
+                        This field cannot be longer than 128 characters.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col">
+                      <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.objet1" for="field_objet1">Objet1</label>
+                      <input type="text" class="form-control" name="objet1" id="field_objet1" data-cy="objet1" formControlName="objet1" />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('objet1')?.errors?.maxlength"
+                        jhiTranslate="entity.validation.maxlength"
+                        [translateValues]="{ max: 128 }"
+                      >
+                        This field cannot be longer than 128 characters.
+                      </small>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col">
+                      <label class="form-label" jhiTranslate="assoGestionApp.configurationAsso.objet2" for="field_objet2">Objet2</label>
+                      <input type="text" class="form-control" name="objet2" id="field_objet2" data-cy="objet2" formControlName="objet2" />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('objet2')?.errors?.maxlength"
+                        jhiTranslate="entity.validation.maxlength"
+                        [translateValues]="{ max: 128 }"
+                      >
+                        This field cannot be longer than 128 characters.
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-md-2 row align-items-center">
+                  <img [src]="url" *ngIf="(hasSignature || this.selectedFile) && this.url" />
+                  <div class="text-center">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="removeSignature()"
+                      jhiTranslate="assoGestionApp.configurationAsso.removeSignature"
+                      *ngIf="hasSignature"
+                    >
+                      Supprimer la signature
+                    </button>
+                    <a *ngIf="!hasSignature">
+                      <label class="btn btn-success">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span jhiTranslate="assoGestionApp.configurationAsso.addSignature"></span>
+                        <input name="addSignature" type="file" accept=".png,.jpg" style="display: none" (change)="onFileSelected($event)" />
+                      </label>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+                <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+              </button>
+
+              <button
+                type="submit"
+                id="save-entity"
+                data-cy="entityCreateSaveButton"
+                [disabled]="editForm.invalid || isSaving"
+                class="btn btn-primary"
+              >
+                <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
