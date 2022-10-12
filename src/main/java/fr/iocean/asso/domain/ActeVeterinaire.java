@@ -1,8 +1,11 @@
 package fr.iocean.asso.domain;
 
+import fr.iocean.asso.domain.enumeration.ActeVeterinaireEnum;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +39,9 @@ public class ActeVeterinaire implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "libelle")
-    private String libelle;
+    private ActeVeterinaireEnum libelle;
 
     @ManyToOne
     private VisiteVeterinaire visiteVeterinaire;
@@ -49,7 +53,7 @@ public class ActeVeterinaire implements Serializable {
         return this;
     }
 
-    public ActeVeterinaire libelle(String libelle) {
+    public ActeVeterinaire libelle(ActeVeterinaireEnum libelle) {
         this.setLibelle(libelle);
         return this;
     }

@@ -28,6 +28,7 @@ import fr.iocean.asso.service.pdf.annotation.PdfField;
 import fr.iocean.asso.service.pdf.processor.TableProcessor;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,6 +40,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -74,12 +76,13 @@ public class PdfService {
         fields.addSubstitutionFont(font);
 
         // impression champs disponible dans le pdf
-        //		Set<String> f = fields.getFields().keySet();
-        //		f.stream().forEach(s -> {
-        //			// impression des valeurs posibles pour un champ specifique
-        //			log.info("CHAMPS PDF : {}, valeur possible : {}", s,
-        //					Arrays.stream(fields.getAppearanceStates(s)).collect(Collectors.joining(" , ")));
-        //		});
+        // Set<String> f = fields.getFields().keySet();
+        // f.stream().forEach(s -> {
+        // // impression des valeurs posibles pour un champ specifique
+        // log.info("CHAMPS PDF : {}, valeur possible : {}", s,
+        // Arrays.stream(fields.getAppearanceStates(s)).collect(Collectors.joining(" ,
+        // ")));
+        // });
 
         Map<String, Field> fieldsOfDocument = getDocumentField(class1);
         for (Map.Entry<String, Field> entry : fieldsOfDocument.entrySet()) {
@@ -153,6 +156,9 @@ public class PdfService {
         writer.setInitialLeading(12.5f);
         writer.setPageEvent(footer);
 
+        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:pdf/logo_chat_doc.png"));
+        writer.setPageEvent(new PdfHeader(false, Image.getInstance(IOUtils.toByteArray(in))));
+
         // step 3 : ouverture document
         document.open();
         HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
@@ -182,6 +188,7 @@ public class PdfService {
         baos.writeTo(outputStream);
         baos.close();
         is.close();
+        in.close();
     }
 
     public CssFile getCssFile(String css) {

@@ -202,4 +202,10 @@ public class ChatResource {
     public void downloadFile(HttpServletResponse response, @PathVariable("id") long id) {
         this.chatService.getPhoto(response, id);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/chats/{id}/contrat")
+    public void downloadContrat(HttpServletResponse response, @PathVariable("id") long id) {
+        this.chatService.generateContrat(response, id);
+    }
 }

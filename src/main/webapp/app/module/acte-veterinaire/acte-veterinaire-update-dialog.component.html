@@ -19,7 +19,15 @@
     <div class="row mb-3">
       <div class="col-md-12">
         <label class="form-label" jhiTranslate="assoGestionApp.acteVeterinaire.libelle" for="field_libelle">Libelle</label>
-        <input type="text" class="form-control" name="libelle" id="field_libelle" data-cy="libelle" formControlName="libelle" />
+
+        <select class="form-control" name="libelle" formControlName="libelle" id="field_libelle" data-cy="libelle">
+          <option [ngValue]="null">{{ 'assoGestionApp.ActeVeterinaireEnum.null' | translate }}</option>
+          <option *ngFor="let acteVeterinaireEnum of acteVeterinaireEnumValues" [value]="acteVeterinaireEnum">
+            {{ 'assoGestionApp.ActeVeterinaireEnum.' + acteVeterinaireEnum | translate }}
+          </option>
+        </select>
+
+        <!-- <input type="text" class="form-control" name="libelle" id="field_libelle" data-cy="libelle" formControlName="libelle" /> -->
         <div *ngIf="editForm.get('libelle')!.invalid && (editForm.get('libelle')!.dirty || editForm.get('libelle')!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get('libelle')?.errors?.required" jhiTranslate="entity.validation.required">
             This field is required.

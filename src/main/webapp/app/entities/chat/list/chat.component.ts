@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IChat } from '../chat.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
-import { ChatService } from '../service/chat.service';
-import { ChatDeleteDialogComponent } from '../delete/chat-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { FileUtilsService } from 'app/shared/util/file-utils.service';
+import { FileSaverService } from 'ngx-filesaver';
+import { ChatDeleteDialogComponent } from '../delete/chat-delete-dialog.component';
+import { ChatService } from '../service/chat.service';
 
 @Component({
   selector: 'jhi-chat',
@@ -22,12 +24,14 @@ export class ChatComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  generateContrat: number[] = [];
 
   constructor(
     protected chatService: ChatService,
     protected dataUtils: DataUtils,
     protected modalService: NgbModal,
-    protected parseLinks: ParseLinks
+    protected parseLinks: ParseLinks,
+    protected fileSaverService: FileSaverService
   ) {
     this.chats = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -95,6 +99,28 @@ export class ChatComponent implements OnInit {
         this.reset();
       }
     });
+  }
+
+  downloadContrat(chat: IChat): void {
+    if (chat.id) {
+      this.generateContrat.push(chat.id);
+      this.chatService.downloadContrat(chat.id).subscribe(
+        res => {
+          this.fileSaverService.save(res.body, FileUtilsService.getFileNameFromHeader(res.headers));
+          this.generateContrat = this.generateContrat.filter((id: number) => id !== chat.id);
+        },
+        () => {
+          this.generateContrat = this.generateContrat.filter((id: number) => id !== chat.id);
+        }
+      );
+    }
+  }
+
+  isGenerateContrat(chatId: number | undefined): boolean {
+    if (chatId) {
+      return this.generateContrat.includes(chatId);
+    }
+    return false;
   }
 
   protected sort(): string[] {

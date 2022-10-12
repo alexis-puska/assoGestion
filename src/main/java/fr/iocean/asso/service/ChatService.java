@@ -1,5 +1,7 @@
 package fr.iocean.asso.service;
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
 import fr.iocean.asso.domain.Chat;
 import fr.iocean.asso.domain.enumeration.FileEnum;
 import fr.iocean.asso.repository.ChatRepository;
@@ -7,10 +9,13 @@ import fr.iocean.asso.service.dto.ChatDTO;
 import fr.iocean.asso.service.exception.FileAccessException;
 import fr.iocean.asso.service.exception.FileNotFoundException;
 import fr.iocean.asso.service.mapper.ChatMapper;
+import fr.iocean.asso.service.pdf.PdfFooter;
+import fr.iocean.asso.service.pdf.PdfService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -21,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.context.Context;
 
 /**
  * Service Implementation for managing {@link Chat}.
@@ -30,15 +36,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class ChatService {
 
     private final Logger log = LoggerFactory.getLogger(ChatService.class);
+    private static final String CONTENT_DISPOSITION = "Content-Disposition";
+    private static final String ATTACHEMENT_FILENAME = "attachment;filename=";
+    private static final String CONTRAT_TEMPLATE = "contrat";
+    private static final String CONTRAT_CSS = "templates/thymleaf/css/contrat.css";
 
     private final FileService fileService;
+
+    private final PdfService pdfService;
 
     private final ChatRepository chatRepository;
 
     private final ChatMapper chatMapper;
 
-    public ChatService(FileService fileService, ChatRepository chatRepository, ChatMapper chatMapper) {
+    public ChatService(FileService fileService, PdfService pdfService, ChatRepository chatRepository, ChatMapper chatMapper) {
         this.fileService = fileService;
+        this.pdfService = pdfService;
         this.chatRepository = chatRepository;
         this.chatMapper = chatMapper;
     }
@@ -163,5 +176,54 @@ public class ChatService {
             .forEach(fileName -> {
                 this.fileService.deleteFile(FileEnum.PHOTO_CHAT, id, fileName);
             });
+    }
+
+    public void generateContrat(HttpServletResponse response, long id) {
+        try {
+            Locale locale = Locale.forLanguageTag("fr");
+            Context context = new Context(locale);
+
+            String logo = this.fileService.getClasspathFileBase64("classpath:pdf/logo_chat_doc.png");
+            String checkbox = this.fileService.getClasspathFileBase64("classpath:pdf/checkbox.png");
+            String checkboxChecked = this.fileService.getClasspathFileBase64("classpath:pdf/checkbox_checked.png");
+
+            List<String> signatureFileName = this.fileService.getFilename(1l, FileEnum.SIGNATURE_ASSO);
+            if (signatureFileName != null && !signatureFileName.isEmpty()) {
+                String signature = fileService.getFileBase64(FileEnum.SIGNATURE_ASSO, 1l, signatureFileName.get(0));
+                if (signature != null) {
+                    context.setVariable("signature", "data:image/png;base64," + signature);
+                }
+            }
+
+            if (logo != null) {
+                context.setVariable("logo", "data:image/png;base64," + logo);
+            }
+            if (checkbox != null) {
+                context.setVariable("checkbox", "data:image/png;base64," + checkbox);
+            }
+            if (checkboxChecked != null) {
+                context.setVariable("checkbox_checked", "data:image/png;base64," + checkboxChecked);
+            }
+
+            context.setVariable("dto", null);
+            String footer = "Association Les Chats d’Oc\nN° SIRET : 894 063 759 00019";
+            response.setContentType("application/pdf");
+            response.setHeader(CONTENT_DISPOSITION, ATTACHEMENT_FILENAME + "contrat_test.pdf");
+            this.pdfService.printPDF(
+                    response.getOutputStream(),
+                    PageSize.A4,
+                    context,
+                    CONTRAT_TEMPLATE,
+                    this.pdfService.getCssFile(CONTRAT_CSS),
+                    new PdfFooter(footer, 8, true, false),
+                    true
+                );
+        } catch (FileNotFoundException e) {
+            log.error("file not found : {}", e.getMessage());
+        } catch (IOException e) {
+            log.error("IO Exception : {}", e.getMessage());
+        } catch (DocumentException e) {
+            log.error("Document Exception : {}", e.getMessage());
+        }
     }
 }

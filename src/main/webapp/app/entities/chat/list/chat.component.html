@@ -86,6 +86,11 @@
           <td>
             <fa-icon icon="check" class="text-success" *ngIf="chat.contrat"></fa-icon>
             <fa-icon icon="times" class="text-danger" *ngIf="!chat.contrat"></fa-icon>
+            <button type="button" (click)="downloadContrat(chat)" class="btn btn-warning btn-sm" *ngIf="chat.contrat">
+              <fa-icon *ngIf="!isGenerateContrat(chat.id)" icon="file"></fa-icon>
+              <fa-icon *ngIf="isGenerateContrat(chat.id)" icon="sync-alt" [spin]="true"></fa-icon>
+              <span class="d-none d-md-inline" jhiTranslate="assoGestionApp.chat.pdfContrat">pdf</span>
+            </button>
           </td>
           <td>
             <div *ngIf="chat.famille">

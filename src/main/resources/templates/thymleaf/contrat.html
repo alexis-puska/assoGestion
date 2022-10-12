@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>s</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- <link rel="stylesheet" type="text/css" href="../thymleaf/css/contrat.css"> -->
+  </head>
+
+  <body>
+    <table style="width: 100%">
+      <tbody>
+        <tr>
+          <td style="width: 20%">
+            <div th:if="${logo != null}">
+              <img th:src="${logo}" width="150px" height="150px" />
+            </div>
+          </td>
+          <td style="width: 80%">
+            <h1 style="text-align: right">
+              <strong>ASSOCIATION LES CHATS D'OC</strong>
+            </h1>
+
+            <p style="text-align: right">
+              <strong>Restinclières - Beaulieu</strong>
+            </p>
+            <p style="text-align: right">27 Rue des Parets - 34160 Restinclières</p>
+            <p style="text-align: right">Tél: 07 49 24 46 18</p>
+            <p style="text-align: right">Mail : <a href="mailto:asso.leschatsdoc@gmail.com">asso.leschatsdoc@gmail.com</a></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <h1 style="text-align: center">
+      <strong><u>CONTRAT D’ADOPTION</u></strong>
+    </h1>
+
+    <br />
+    <p>
+      <strong>Entre : </strong>
+    </p>
+    <p>
+      L’association les Chats d’Oc de Restinclières et Beaulieu<br />
+      27 Rue des Parets - 34160 Restinclières
+    </p>
+    <br />
+    <br />
+    <p>
+      <strong>Et l’adoptante : </strong>
+    </p>
+    <p>
+      ABELARD Aurélie<br />
+      Adresse : 160 avenue Frederic Sabatier d’Espeyran – 34090 Montpellier<br />
+      Téléphone : 07 66 31 94 84 <br />
+      Mail : aurelie.abelard1906@gmail.com
+    </p>
+    <br />
+    <br />
+    <p>
+      <strong>Concernant l’animal : </strong>
+    </p>
+    <p>
+      Nom : TEEMO Race : Européen<br />
+      Né(e) le : 17/04/2022 Sexe : Mâle<br />
+      Couleur : Roux et blanc
+    </p>
+    <br />
+    <br />
+    <p>
+      <strong>Identification</strong>
+    </p>
+    <p>
+      Effectuée le 17/08/2022 par <br />
+      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp; Tatouage<br />
+      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp; Puce électronique, jugulaire gauche<br />
+      N° ICAD : 250268780407816
+    </p>
+    <br />
+    <br />
+    <p>
+      <strong>Stérilisation / Castration : </strong>
+    </p>
+    <p>
+      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp; Effectuée le :<br />
+      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp; A faire à partir de : octobre 2022 <br />
+      Vétérinaire partenaire : Laetitia MUS - 6 rue du Versant - 34670 ST BRES
+    </p>
+    <br />
+    <br />
+    <p>
+      <strong>Primo vaccination</strong> <br />
+      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp; Effectuée le 24/09/2022 <br />
+      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp; Non effectuée<br />
+      Rappel à faire le 24/10/2022 (TCL)
+    </p>
+    <br />
+    <br />
+    <p style="page-break-before: always"><strong>Divers : </strong> <br /></p>
+    <ul>
+      <li>Antiparasitaire donné le 24/09/2022</li>
+      <li>Vermifugé le 24/09/2022.</li>
+    </ul>
+    <br />
+    <p>
+      Vermifuge à renouveler tous les mois (selon le produit utilisé) jusqu’à ses 6 mois, puis à minima 2 fois par ans (préconisations 4
+      fois par an).
+    </p>
+    <br />
+    <p>
+      A dater du jour de signature du présent contrat, je consens à prendre en charge l’animal cité ci-dessus, dans l’état actuel où il se
+      trouve et dégage totalement la responsabilité de l’Association Les Chats d’Oc. <br />
+      <br />
+      Conscient(e) que cet animal est un être sensible, je m’engage à lire attentivement les articles ci-dessous et à les respecter :
+    </p>
+    <br />
+    <br />
+    <p>
+      <strong>Article 1</strong><br />
+      Je m’engage à bien traiter l’animal que j’adopte, à lui procurer affectation, nourriture, soins nécessaires et un habitat convenable
+      en toute saison.<br />
+      <br />
+      Prenant acte que l’animal est désormais reconnu comme « un être vivant doté de sensibilité » dans le Code Civil (nouvel article
+      515-14) et n’est plus considéré comme un bien meuble (Article 528), il doit donc bénéficier de la considération et du respect dû à
+      tout être vivant, il est donc du devoir de l’adoptant de considérer l’animal comme un membre de sa famille, ce qui implique que
+      l’adoptant s’engage à le faire vivre à ses côtés (notamment à l’intérieur de la maison ou de l’appartement)<br />
+      <br />
+      Je m’engage à le garder toute sa vie durant : en aucun cas, je ne peux le faire euthanasier (sauf avis médical), le vendre ou le céder
+      à autrui. Si je désire me séparer de l’animal pour quelque raison que ce soit, je dois obligatoirement prévenir l’association qui le
+      récupérera dans les plus brefs délais. Dans tous les cas, les frais engendrés par le retour de l’animal seront entièrement supportés
+      par l’adoptant qui convient ne pouvoir réclamer à l’association le règlement préalablement encaissé.<br />
+      <br />
+      Si l’animal devait s’échapper, être perdu ou mourir, l’adoptant devra prévenir dans les 24h l’Association Les Chats d’Oc et/ou le
+      Fichier National d’Identification des Carnivores Domestiques (I-CAD) au 0810 778 778
+    </p>
+    <br />
+    <p>
+      <strong>Article 2</strong> <br />
+      Je m’engage à faire vacciner l’animal à mes frais par un vétérinaire de nature à garantir le bon état sanitaire de l’animal.<br />
+      Si l’animal est jeune, je m’engage à ne pas le mettre en contact direct avec d’autres congénères tant qu’il n’aura pas eu son rappel
+      de vaccin. Cette mesure semble essentielle afin de respecter la santé et l’intégrité physique des jeunes animaux. Les jeunes animaux
+      peuvent être mis en contact avec les autres animaux dès lors qu’ils auront reçu les vaccins et auront donc obtenu une protection
+      efficace.
+    </p>
+    <br />
+    <p>
+      <strong>Article 3</strong> <br />
+      Je m’engage à ne pas faire reproduire l’animal dont j’ai la garde.<br />
+      <br />
+      Si la stérilisation / castration n’a pas été effectuée par l’association, je m’engage à stériliser l’animal dès l’âge de 6 mois et à
+      faire parvenir à l’association un certificat de stérilisation établi par le vétérinaire dans les plus brefs délais à l’adresse :
+      asso.leschatsdoc@gmail.com.<br />
+      <br />
+      La stérilisation est rendue obligatoire par la signature de ce contrat.
+    </p>
+    <br />
+    <p>
+      <strong>Article 4</strong> <br />
+      Je m’engage à prendre à ma charge, à compter de ce jour, les frais occasionnés par des soins à effectuer chez un vétérinaire ou pour
+      tout accident subi par l’animal quelles qu’en soient les circonstances. Ces frais ne sont pas pris en charge par l’association une
+      fois le contrat établi.
+    </p>
+    <br />
+    <p>
+      <strong>Article 5</strong> <br />
+      Les frais d’adoption versés à l’association correspondent aux dépenses engagées lors du suivi vétérinaire réalisé avant leur adoption
+      (traitements, antiparasitaires, identification). A l’adoption un carnet de santé est remis à l’adoptant.<br />
+      <br />
+      <strong
+        >L’association ne prendra pas en charge les dépenses dues à une pathologie se déclarant après la date de signature du présent
+        contrat.</strong
+      >
+    </p>
+    <br />
+    <br />
+    <br />
+
+    <strong>Conditions d’adoption de Teemo</strong><br />
+    <ul>
+      <li>Teemo à son adoption n’est pas castré. L’adoptante s’engage à réaliser sa castration à partir de ses 6 mois.</li>
+      <li>Les frais d’adoption tiennent compte d’un acompte de 150 euros pour sa castration.</li>
+      <li>A la réception du certificat de castration :</li>
+      <ul>
+        <li>L’association s’engage à faire le nécessaire auprès de l’ICAD pour valider le changement de propriétaire de Teemo</li>
+        <li>L’acompte sera restitué, ou le chèque barré</li>
+      </ul>
+    </ul>
+
+    <p style="page-break-before: always">
+      <br /><br />
+      <strong>Je soussignée ABELARD Aurélie</strong><br />
+      <br />
+      Déclare adopter l’animal désigné dans ce contrat.
+    </p>
+    <br />
+    <p>
+      Je reconnais avoir été averti(e) du caractère, de la santé de l’animal et avoir été conseillé(e) pour son adoption avec une durée
+      d’adaptation plus ou moins longue selon son passif, une durée probable de 1 mois minimum pour l’adaptabilité à son nouvel
+      environnement de vie.
+    </p>
+    <br />
+    <br />
+    <p>
+      Je règle ce jour les frais d’adoption d’un montant de 240,00 Euros au profit de l’association Les Chats d’Oc (acompte de stérilisation
+      inclus).
+    </p>
+    <br />
+    <br />
+    <p>
+      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp;Espèces <br />
+      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp;Chèque(s) à l’ordre de l’association Les Chats d’Oc<br />
+      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp;Virement sur le compte bancaire de l’association<br />
+      <br />
+      Contrat établi en 2 exemplaires originaux (un pour chacune des deux parties)
+    </p>
+    <br />
+    <br />
+
+    <table style="width: 100%">
+      <tbody>
+        <tr>
+          <td style="width: 50%; vertical-align: top">
+            Le : 30 septembre 2022<br />
+            Le président de l'association<br />
+            <br />
+            <strong>Lu et approuvé</strong><br />
+            <br />
+            <br />
+            <div th:if="${signature != null}">
+              <img th:src="${signature}" width="150px" height="70px" />
+            </div>
+          </td>
+          <td style="width: 50%; vertical-align: top">
+            Le : 30 septembre 2022<br />
+            Aurélie ABELARD<br />
+            <br />
+            <strong>Lu et approuvé</strong>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <p>
+      <strong
+        >Je m’engage à communiquer à l’association tout changement d’adresse et de coordonnées téléphoniques dans les plus brefs
+        délais.</strong
+      >
+    </p>
+  </body>
+</html>

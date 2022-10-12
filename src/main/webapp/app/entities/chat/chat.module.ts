@@ -8,9 +8,10 @@ import { ChatRoutingModule } from './route/chat-routing.module';
 import { CommonsModule } from 'app/module/commons/commons.module';
 import { AdresseModule } from 'app/module/adresse/adresse.module';
 import { VisiteVeterinaireModule } from 'app/module/visite-veterinaire/visite-veterinaire.module';
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
-  imports: [SharedModule, ChatRoutingModule, CommonsModule, AdresseModule, VisiteVeterinaireModule],
+  imports: [SharedModule, ChatRoutingModule, CommonsModule, AdresseModule, VisiteVeterinaireModule, FileSaverModule],
   declarations: [ChatComponent, ChatDetailComponent, ChatUpdateComponent, ChatDeleteDialogComponent],
   entryComponents: [ChatDeleteDialogComponent],
 })

@@ -79,6 +79,10 @@ export class ChatService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  downloadContrat(id: number): Observable<HttpResponse<Blob>> {
+    return this.http.get<Blob>(`${this.resourceUrl}/${id}/contrat`, { responseType: 'blob' as 'json', observe: 'response' });
+  }
+
   addChatToCollectionIfMissing(chatCollection: IChat[], ...chatsToCheck: (IChat | null | undefined)[]): IChat[] {
     const chats: IChat[] = chatsToCheck.filter(isPresent);
     if (chats.length > 0) {

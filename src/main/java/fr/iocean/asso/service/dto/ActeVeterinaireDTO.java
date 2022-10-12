@@ -1,5 +1,6 @@
 package fr.iocean.asso.service.dto;
 
+import fr.iocean.asso.domain.enumeration.ActeVeterinaireEnum;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class ActeVeterinaireDTO implements Serializable {
 
     private Long id;
 
-    private String libelle;
+    private ActeVeterinaireEnum libelle;
 
     private long visiteVeterinaireId;
 }

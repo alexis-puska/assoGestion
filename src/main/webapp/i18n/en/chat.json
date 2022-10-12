@@ -37,7 +37,8 @@
       "deleteContrat": "Delete contract",
       "createContrat": "Create contract",
       "removePhoto": "Remove photo",
-      "addPhoto": "add a photo"
+      "addPhoto": "add a photo",
+      "pdfContrat": "pdf"
     }
   }
 }

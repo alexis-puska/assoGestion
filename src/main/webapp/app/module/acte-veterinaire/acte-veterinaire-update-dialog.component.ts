@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { NgbActiveModal, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { ActeVeterinaire, IActeVeterinaire } from 'app/entities/acte-veterinaire/acte-veterinaire.model';
+import { ActeVeterinaireEnum } from 'app/entities/enumerations/acte-veterinaire-enum.model';
 import { MomentDateFormatter } from 'app/shared/util/dateformat';
 
 @Component({
@@ -11,6 +12,8 @@ import { MomentDateFormatter } from 'app/shared/util/dateformat';
   providers: [{ provide: NgbDateParserFormatter, useClass: MomentDateFormatter }],
 })
 export class ActeVeterinaireUpdateDialogComponent implements OnInit {
+  acteVeterinaireEnumValues = Object.keys(ActeVeterinaireEnum);
+
   isSaving = false;
 
   // needed to open modal
