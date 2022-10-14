@@ -9,7 +9,6 @@ import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
 import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
 import { IContrat } from 'app/entities/contrat/contrat.model';
-import { ContratService } from 'app/entities/contrat/service/contrat.service';
 import { PaiementEnum } from 'app/entities/enumerations/paiement-enum.model';
 import { PoilEnum } from 'app/entities/enumerations/poil-enum.model';
 import { TypeIdentificationEnum } from 'app/entities/enumerations/type-identification-enum.model';
@@ -78,7 +77,6 @@ export class ChatUpdateComponent implements OnInit {
     protected dataUtils: DataUtils,
     protected eventManager: EventManager,
     protected chatService: ChatService,
-    protected contratService: ContratService,
     protected familleAccueilService: FamilleAccueilService,
     protected pointCaptureService: PointCaptureService,
     protected raceChatService: RaceChatService,

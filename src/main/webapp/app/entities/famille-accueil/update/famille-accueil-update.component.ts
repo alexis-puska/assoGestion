@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { TypeLogementEnum } from 'app/entities/enumerations/type-logement-enum.model';
 import { FamilleAccueil, IFamilleAccueil } from '../famille-accueil.model';
 import { FamilleAccueilService } from '../service/famille-accueil.service';
@@ -40,7 +39,6 @@ export class FamilleAccueilUpdateComponent implements OnInit {
 
   constructor(
     protected familleAccueilService: FamilleAccueilService,
-    protected adresseService: AdresseService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}

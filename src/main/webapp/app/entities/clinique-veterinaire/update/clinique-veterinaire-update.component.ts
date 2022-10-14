@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { CliniqueVeterinaire, ICliniqueVeterinaire } from '../clinique-veterinaire.model';
 import { CliniqueVeterinaireService } from '../service/clinique-veterinaire.service';
 
@@ -32,7 +31,6 @@ export class CliniqueVeterinaireUpdateComponent implements OnInit {
 
   constructor(
     protected cliniqueVeterinaireService: CliniqueVeterinaireService,
-    protected adresseService: AdresseService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}

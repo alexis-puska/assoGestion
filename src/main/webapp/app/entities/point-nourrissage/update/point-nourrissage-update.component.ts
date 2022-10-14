@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { Contact } from 'app/entities/contact/contact.model';
 import { IPointNourrissage, PointNourrissage } from '../point-nourrissage.model';
 import { PointNourrissageService } from '../service/point-nourrissage.service';
@@ -34,7 +33,6 @@ export class PointNourrissageUpdateComponent implements OnInit {
 
   constructor(
     protected pointNourrissageService: PointNourrissageService,
-    protected adresseService: AdresseService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}

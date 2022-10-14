@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { FormeDonEnum } from 'app/entities/enumerations/forme-don-enum.model';
 import { NatureDon } from 'app/entities/enumerations/nature-don.model';
 import { NumeraireDonEnum } from 'app/entities/enumerations/numeraire-don-enum.model';
@@ -47,12 +46,7 @@ export class DonateurUpdateComponent implements OnInit {
     dateDon: [null, [Validators.required]],
   });
 
-  constructor(
-    protected donateurService: DonateurService,
-    protected adresseService: AdresseService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+  constructor(protected donateurService: DonateurService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ donateur }) => {

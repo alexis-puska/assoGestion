@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { IPointCapture, PointCapture } from '../point-capture.model';
 import { PointCaptureService } from '../service/point-capture.service';
 
@@ -29,12 +28,7 @@ export class PointCaptureUpdateComponent implements OnInit {
     }),
   });
 
-  constructor(
-    protected pointCaptureService: PointCaptureService,
-    protected adresseService: AdresseService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+  constructor(protected pointCaptureService: PointCaptureService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ pointCapture }) => {

@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
-import { AdresseService } from 'app/entities/adresse/service/adresse.service';
 import { ConfigurationAsso, IConfigurationAsso } from '../configuration-asso.model';
 import { ConfigurationAssoService } from '../service/configuration-asso.service';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
@@ -43,7 +42,6 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
 
   constructor(
     protected configurationAssoService: ConfigurationAssoService,
-    protected adresseService: AdresseService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder,
     private localStorage: LocalStorageService,
