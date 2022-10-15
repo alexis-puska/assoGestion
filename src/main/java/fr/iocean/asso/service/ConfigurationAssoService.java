@@ -7,6 +7,7 @@ import fr.iocean.asso.service.dto.ConfigurationAssoDTO;
 import fr.iocean.asso.service.exception.FileAccessException;
 import fr.iocean.asso.service.exception.FileNotFoundException;
 import fr.iocean.asso.service.mapper.ConfigurationAssoMapper;
+import fr.iocean.asso.web.rest.errors.LogoSizeException;
 import fr.iocean.asso.web.rest.errors.SignatureSizeException;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -55,7 +56,7 @@ public class ConfigurationAssoService {
      * @param signature
      * @return the persisted entity.
      */
-    public ConfigurationAssoDTO save(ConfigurationAssoDTO configurationAssoDTO, MultipartFile signature) {
+    public ConfigurationAssoDTO save(ConfigurationAssoDTO configurationAssoDTO, MultipartFile signature, MultipartFile logo) {
         log.debug("Request to save ConfigurationAsso : {}", configurationAssoDTO);
         ConfigurationAsso configurationAsso = configurationAssoMapper.toEntity(configurationAssoDTO);
         if (signature != null) {
@@ -76,6 +77,26 @@ public class ConfigurationAssoService {
         if (signature != null) {
             this.deleteSignature();
             this.fileService.saveFiles(FileEnum.SIGNATURE_ASSO, 1l, true, signature);
+        }
+
+        if (logo != null) {
+            try {
+                BufferedImage logoBuffer;
+                logoBuffer = ImageIO.read(logo.getInputStream());
+                if (logoBuffer.getHeight() > 400 || logoBuffer.getWidth() > 400) {
+                    throw new LogoSizeException();
+                }
+            } catch (IOException e) {
+                log.error("IOException error when check logo size");
+            }
+        }
+
+        if (configurationAssoDTO.isDeleteLogo()) {
+            this.deleteLogo();
+        }
+        if (logo != null) {
+            this.deleteLogo();
+            this.fileService.saveFiles(FileEnum.LOGO_ASSO, 1l, true, logo);
         }
         configurationAsso = configurationAssoRepository.save(configurationAsso);
         return configurationAssoMapper.toDto(configurationAsso);
@@ -99,6 +120,10 @@ public class ConfigurationAssoService {
         List<String> fileName = this.fileService.getFilename(dto.getId(), FileEnum.SIGNATURE_ASSO);
         if (fileName != null && !fileName.isEmpty()) {
             dto.setHasSignature(true);
+        }
+        fileName = this.fileService.getFilename(dto.getId(), FileEnum.LOGO_ASSO);
+        if (fileName != null && !fileName.isEmpty()) {
+            dto.setHasLogo(true);
         }
         return dto;
     }
@@ -129,6 +154,35 @@ public class ConfigurationAssoService {
             .stream()
             .forEach(fileName -> {
                 this.fileService.deleteFile(FileEnum.SIGNATURE_ASSO, 1l, fileName);
+            });
+    }
+
+    public void getLogo(HttpServletResponse response) {
+        try {
+            List<String> signatureName = fileService.getFilename(1l, FileEnum.LOGO_ASSO);
+            if (signatureName.isEmpty()) {
+                throw new FileNotFoundException();
+            }
+            File file = fileService.getFile(FileEnum.LOGO_ASSO, 1l, signatureName.get(0));
+            if (file != null) {
+                response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
+                try (FileInputStream fs = new FileInputStream(file)) {
+                    FileCopyUtils.copy(fs, response.getOutputStream());
+                }
+                return;
+            }
+            throw new FileNotFoundException();
+        } catch (IOException e) {
+            throw new FileAccessException(e);
+        }
+    }
+
+    private void deleteLogo() {
+        List<String> photoFileName = this.fileService.getFilename(1l, FileEnum.LOGO_ASSO);
+        photoFileName
+            .stream()
+            .forEach(fileName -> {
+                this.fileService.deleteFile(FileEnum.LOGO_ASSO, 1l, fileName);
             });
     }
 }

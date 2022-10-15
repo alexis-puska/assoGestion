@@ -20,6 +20,8 @@
       "id": "ID",
       "nom": "Nom",
       "prenom": "Prenom",
+      "email": "Email",
+      "telephone": "Téléphone",
       "cout": "Cout",
       "paiement": "Paiement",
       "dateContrat": "Date Contrat",

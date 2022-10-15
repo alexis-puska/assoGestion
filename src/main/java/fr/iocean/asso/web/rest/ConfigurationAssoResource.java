@@ -41,10 +41,11 @@ public class ConfigurationAssoResource {
     @PutMapping("/configuration-assos")
     public ResponseEntity<ConfigurationAssoDTO> updateConfigurationAsso(
         @RequestPart(name = "configurationAsso") ConfigurationAssoDTO configurationAssoDTO,
-        @RequestPart(name = "signature", required = false) MultipartFile signature
+        @RequestPart(name = "signature", required = false) MultipartFile signature,
+        @RequestPart(name = "logo", required = false) MultipartFile logo
     ) throws URISyntaxException {
         log.debug("REST request to update ConfigurationAsso : {}", configurationAssoDTO);
-        ConfigurationAssoDTO result = configurationAssoService.save(configurationAssoDTO, signature);
+        ConfigurationAssoDTO result = configurationAssoService.save(configurationAssoDTO, signature, logo);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, configurationAssoDTO.getId().toString()))
@@ -60,7 +61,13 @@ public class ConfigurationAssoResource {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/configuration-assos/signature")
-    public void downloadFile(HttpServletResponse response) {
+    public void downloadSignature(HttpServletResponse response) {
         this.configurationAssoService.getSignature(response);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/configuration-assos/logo")
+    public void downloadLogo(HttpServletResponse response) {
+        this.configurationAssoService.getLogo(response);
     }
 }

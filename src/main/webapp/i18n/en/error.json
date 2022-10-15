@@ -10,6 +10,9 @@
     },
     "concurrencyFailure": "Another user modified this data at the same time as you. Your changes were rejected.",
     "validation": "Validation error on the server.",
-    "signatureSize": "La signature ne doit pas dépasser une taille de 150 x 70"
+    "signatureSize": "La signature ne doit pas dépasser une taille de 150 x 70",
+    "logoSize": "Le logo ne doit pas dépasser une taille de 400 x 400",
+    "chatNotFound": "Le chat n'a pas été trouvé",
+    "contratNotExists": "Le contrat n'existe pas"
   }
 }

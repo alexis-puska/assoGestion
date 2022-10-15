@@ -31,4 +31,14 @@ public class AdresseDTO implements Serializable {
 
     @NotNull
     private String ville;
+
+    public String formatAdresse() {
+        return String.format(
+            "%s%s - %s%s",
+            numero != null ? numero + " " : "",
+            rue != null ? rue : "",
+            codePostale != null ? codePostale + " " : "",
+            ville != null ? ville : ""
+        );
+    }
 }

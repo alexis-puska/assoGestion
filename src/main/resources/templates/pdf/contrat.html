@@ -17,15 +17,14 @@
           </td>
           <td style="width: 80%">
             <h1 style="text-align: right">
-              <strong>ASSOCIATION LES CHATS D'OC</strong>
+              <strong>Association</strong><br />
+              <strong th:text="${configAsso.denomination}"></strong>
             </h1>
-
+            <p style="text-align: right" th:text="${configAsso.adresse.formatAdresse()}"></p>
+            <p style="text-align: right">Tél: <span th:text="${configAsso.telephone}"></span></p>
             <p style="text-align: right">
-              <strong>Restinclières - Beaulieu</strong>
+              Mail : <a href="mailto:asso.leschatsdoc@gmail.com"><span th:text="${configAsso.email}"></span></a>
             </p>
-            <p style="text-align: right">27 Rue des Parets - 34160 Restinclières</p>
-            <p style="text-align: right">Tél: 07 49 24 46 18</p>
-            <p style="text-align: right">Mail : <a href="mailto:asso.leschatsdoc@gmail.com">asso.leschatsdoc@gmail.com</a></p>
           </td>
         </tr>
       </tbody>
@@ -40,8 +39,8 @@
       <strong>Entre : </strong>
     </p>
     <p>
-      L’association les Chats d’Oc de Restinclières et Beaulieu<br />
-      27 Rue des Parets - 34160 Restinclières
+      L’association <span th:text="${configAsso.denomination}"></span><br />
+      <span th:text="${configAsso.adresse.formatAdresse()}"></span>
     </p>
     <br />
     <br />
@@ -49,10 +48,10 @@
       <strong>Et l’adoptante : </strong>
     </p>
     <p>
-      ABELARD Aurélie<br />
-      Adresse : 160 avenue Frederic Sabatier d’Espeyran – 34090 Montpellier<br />
-      Téléphone : 07 66 31 94 84 <br />
-      Mail : aurelie.abelard1906@gmail.com
+      <span th:text="${chat.contrat.nom}"></span>&nbsp;<span th:text="${chat.contrat.prenom}"></span><br />
+      Adresse : <span th:text="${chat.contrat.adresseAdoptant.formatAdresse()}"></span><br />
+      Téléphone : <span th:text="${chat.contrat.telephone}"></span><br />
+      Mail : <span th:text="${chat.contrat.email}"></span>
     </p>
     <br />
     <br />
@@ -60,9 +59,10 @@
       <strong>Concernant l’animal : </strong>
     </p>
     <p>
-      Nom : TEEMO Race : Européen<br />
-      Né(e) le : 17/04/2022 Sexe : Mâle<br />
-      Couleur : Roux et blanc
+      Nom : <span th:text="${chat.nom}"></span> Race : <span th:text="${chat.race.libelle}"></span><br />
+      Né(e) le : <span th:text="${#temporals.format(chat.dateNaissance, 'dd/MM/yyyy')}"></span> Sexe :
+      <span th:text="${chat.sexe.name() == 'MALE' ? 'Mâle' : 'Femelle'}"></span><br />
+      Couleur : <span th:text="${chat.robe}"></span>
     </p>
     <br />
     <br />
@@ -71,9 +71,11 @@
     </p>
     <p>
       Effectuée le 17/08/2022 par <br />
-      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp; Tatouage<br />
-      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp; Puce électronique, jugulaire gauche<br />
-      N° ICAD : 250268780407816
+      <img th:src="${chat.typeIdentification.name() =='TATOUAGE' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;
+      Tatouage<br />
+      <img th:src="${chat.typeIdentification.name() =='PUCE' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Puce
+      électronique, jugulaire gauche<br />
+      N° ICAD : <span th:text="${chat.identification}"></span>
     </p>
     <br />
     <br />
@@ -81,16 +83,16 @@
       <strong>Stérilisation / Castration : </strong>
     </p>
     <p>
-      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp; Effectuée le :<br />
-      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp; A faire à partir de : octobre 2022 <br />
+      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Effectuée le :<br />
+      <img th:src="${true ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; A faire à partir de : octobre 2022 <br />
       Vétérinaire partenaire : Laetitia MUS - 6 rue du Versant - 34670 ST BRES
     </p>
     <br />
     <br />
     <p>
       <strong>Primo vaccination</strong> <br />
-      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp; Effectuée le 24/09/2022 <br />
-      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp; Non effectuée<br />
+      <img th:src="${true ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Effectuée le 24/09/2022 <br />
+      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Non effectuée<br />
       Rappel à faire le 24/10/2022 (TCL)
     </p>
     <br />
@@ -206,9 +208,11 @@
     <br />
     <br />
     <p>
-      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp;Espèces <br />
-      <img th:src="${checkbox_checked}" width="15px" height="15px" />&nbsp;Chèque(s) à l’ordre de l’association Les Chats d’Oc<br />
-      <img th:src="${checkbox}" width="15px" height="15px" />&nbsp;Virement sur le compte bancaire de l’association<br />
+      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Espèces <br />
+      <img th:src="${true ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Chèque(s) à l’ordre de l’association Les Chats
+      d’Oc<br />
+      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Virement sur le compte bancaire de
+      l’association<br />
       <br />
       Contrat établi en 2 exemplaires originaux (un pour chacune des deux parties)
     </p>

@@ -6,6 +6,8 @@ export interface IContrat {
   id?: number;
   nom?: string | null;
   prenom?: string | null;
+  email?: string | null;
+  telephone?: string | null;
   cout?: number | null;
   paiement?: PaiementEnum | null;
   dateContrat?: dayjs.Dayjs | null;
@@ -17,6 +19,8 @@ export class Contrat implements IContrat {
     public id?: number,
     public nom?: string | null,
     public prenom?: string | null,
+    public email?: string | null,
+    public telephone?: string | null,
     public cout?: number | null,
     public paiement?: PaiementEnum | null,
     public dateContrat?: dayjs.Dayjs | null,

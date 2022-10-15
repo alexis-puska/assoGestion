@@ -49,6 +49,12 @@ public class Contrat implements Serializable {
     @Column(name = "prenom", nullable = false)
     private String prenom;
 
+    @Column(name = "email", nullable = false, length = 128)
+    private String email;
+
+    @Column(name = "telephone", nullable = false, length = 20)
+    private String telephone;
+
     @Column(name = "cout", nullable = false)
     private Double cout;
 

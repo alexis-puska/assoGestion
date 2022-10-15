@@ -60,6 +60,8 @@ export class ChatUpdateComponent implements OnInit {
       id: [],
       nom: [],
       prenom: [],
+      email: [],
+      telephone: [],
       cout: [],
       paiement: [],
       dateContrat: [],
@@ -129,6 +131,8 @@ export class ChatUpdateComponent implements OnInit {
   addValidatorContrat(): void {
     this.editForm.get('contrat.nom')?.setValidators([Validators.required]);
     this.editForm.get('contrat.prenom')?.setValidators([Validators.required]);
+    this.editForm.get('contrat.email')?.setValidators([Validators.required, Validators.maxLength(128)]);
+    this.editForm.get('contrat.telephone')?.setValidators([Validators.required, Validators.maxLength(20)]);
     this.editForm.get('contrat.cout')?.setValidators([Validators.required]);
     this.editForm.get('contrat.paiement')?.setValidators([Validators.required]);
     this.editForm.get('contrat.dateContrat')?.setValidators([Validators.required]);
@@ -143,6 +147,8 @@ export class ChatUpdateComponent implements OnInit {
   removeValidatorContrat(): void {
     this.editForm.get('contrat.nom')?.clearValidators();
     this.editForm.get('contrat.prenom')?.clearValidators();
+    this.editForm.get('contrat.email')?.clearValidators();
+    this.editForm.get('contrat.telephone')?.clearValidators();
     this.editForm.get('contrat.cout')?.clearValidators();
     this.editForm.get('contrat.paiement')?.clearValidators();
     this.editForm.get('contrat.dateContrat')?.clearValidators();
@@ -157,6 +163,8 @@ export class ChatUpdateComponent implements OnInit {
   refreshValueAndValidity(): void {
     this.editForm.get('contrat.nom')?.updateValueAndValidity();
     this.editForm.get('contrat.prenom')?.updateValueAndValidity();
+    this.editForm.get('contrat.email')?.updateValueAndValidity();
+    this.editForm.get('contrat.telephone')?.updateValueAndValidity();
     this.editForm.get('contrat.cout')?.updateValueAndValidity();
     this.editForm.get('contrat.paiement')?.updateValueAndValidity();
     this.editForm.get('contrat.dateContrat')?.updateValueAndValidity();
@@ -246,6 +254,8 @@ export class ChatUpdateComponent implements OnInit {
           id: chat.contrat?.id ? chat.contrat.id : null,
           nom: chat.contrat ? chat.contrat.nom : null,
           prenom: chat.contrat ? chat.contrat.prenom : null,
+          email: chat.contrat ? chat.contrat.email : null,
+          telephone: chat.contrat ? chat.contrat.telephone : null,
           cout: chat.contrat ? chat.contrat.cout : null,
           paiement: chat.contrat ? chat.contrat.paiement : null,
           dateContrat: chat.contrat ? chat.contrat.dateContrat : null,
@@ -289,6 +299,8 @@ export class ChatUpdateComponent implements OnInit {
           id: this.editForm.get(['contrat', 'id'])!.value,
           nom: this.editForm.get(['contrat', 'nom'])!.value,
           prenom: this.editForm.get(['contrat', 'prenom'])!.value,
+          email: this.editForm.get(['contrat', 'email'])!.value,
+          telephone: this.editForm.get(['contrat', 'telephone'])!.value,
           paiement: this.editForm.get(['contrat', 'paiement'])!.value,
           cout: this.editForm.get(['contrat', 'cout'])!.value,
           dateContrat: this.editForm.get(['contrat', 'dateContrat'])!.value,

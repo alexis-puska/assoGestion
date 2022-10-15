@@ -27,6 +27,12 @@ public class ContratDTO implements Serializable {
     private String prenom;
 
     @NotNull
+    private String email;
+
+    @NotNull
+    private String telephone;
+
+    @NotNull
     private Double cout;
 
     @NotNull

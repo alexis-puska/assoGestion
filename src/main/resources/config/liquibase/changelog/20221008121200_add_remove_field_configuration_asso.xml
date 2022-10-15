@@ -48,4 +48,28 @@
     <changeSet author="apuskarczyk (generated)" id="1665179282001-11">
     	<dropTable tableName="configuration_contrat"/>
     </changeSet>
+    
+	<changeSet author="apuskarczyk (generated)" id="1665179282001-12">
+		<addColumn tableName="contrat">
+		    <column name="email" type="VARCHAR(128)" defaultValue="test@test.fr">
+		    	<constraints nullable="false"/>
+		    </column>
+		</addColumn>
+    </changeSet>
+    
+    <changeSet author="apuskarczyk (generated)" id="1665179282001-13">
+		<dropDefaultValue tableName="contrat" columnName="email"/>
+    </changeSet>
+    
+    <changeSet author="apuskarczyk (generated)" id="1665179282001-14">
+		<addColumn tableName="contrat">
+		    <column name="telephone" type="VARCHAR(128)" defaultValue="06xxxxxxxx">
+		    	<constraints nullable="false"/>
+		    </column>
+		</addColumn>
+    </changeSet>
+    
+    <changeSet author="apuskarczyk (generated)" id="1665179282001-15">
+		<dropDefaultValue tableName="contrat" columnName="telephone"/>
+    </changeSet>
 </databaseChangeLog>

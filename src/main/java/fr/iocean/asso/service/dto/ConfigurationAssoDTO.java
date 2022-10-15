@@ -35,4 +35,7 @@ public class ConfigurationAssoDTO implements Serializable {
 
     private boolean hasSignature;
     private boolean deleteSignature;
+
+    private boolean hasLogo;
+    private boolean deleteLogo;
 }

@@ -15,7 +15,7 @@ export class ConfigurationAssoService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  update(configurationAsso: IConfigurationAsso, signature?: File): Observable<EntityResponseType> {
+  update(configurationAsso: IConfigurationAsso, signature?: File, logo?: File): Observable<EntityResponseType> {
     const fd = new FormData();
     fd.append(
       'configurationAsso',
@@ -25,6 +25,9 @@ export class ConfigurationAssoService {
     );
     if (signature) {
       fd.append('signature', signature, FileUtilsService.encodeFileName(signature.name));
+    }
+    if (logo) {
+      fd.append('logo', logo, FileUtilsService.encodeFileName(logo.name));
     }
     return this.http.put<IConfigurationAsso>(`${this.resourceUrl}`, fd, { observe: 'response' });
   }

@@ -21,8 +21,11 @@
       "adresse": "Adresse",
       "cerfa": "information justificatif cerfa",
       "signature": "Signature",
+      "logo": "logo",
       "removeSignature": "Supprimer la signature",
-      "addSignature": "Ajouter la signature"
+      "addSignature": "Ajouter la signature",
+      "removeLogo": "Supprimer le logo",
+      "addLogo": "Ajouter le logo"
     }
   }
 }

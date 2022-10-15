@@ -12,6 +12,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 @Component({
   selector: 'jhi-configuration-asso-update',
   templateUrl: './configuration-asso-update.component.html',
+  styleUrls: ['./configuration-asso-update.scss'],
 })
 export class ConfigurationAssoUpdateComponent implements OnInit {
   isSaving = false;
@@ -19,8 +20,14 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
   hasSignature = false;
   deleteSignature = false;
   signatureSizeLimit = false;
-  selectedFile: File | undefined;
-  url: string | ArrayBuffer | null = null;
+  selectedFileSignature: File | undefined;
+  urlSignature: string | ArrayBuffer | null = null;
+
+  hasLogo = false;
+  deleteLogo = false;
+  logoSizeLimit = false;
+  selectedFileLogo: File | undefined;
+  urlLogo: string | ArrayBuffer | null = null;
 
   editForm = this.fb.group({
     id: [],
@@ -52,7 +59,8 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ configurationAsso }) => {
       this.updateForm(configurationAsso);
       const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
-      this.url = `api/configuration-assos/signature?Authorization=Bearer ${token}`;
+      this.urlSignature = `api/configuration-assos/signature?Authorization=Bearer ${token}`;
+      this.urlLogo = `api/configuration-assos/logo?Authorization=Bearer ${token}`;
     });
   }
 
@@ -63,7 +71,9 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const configurationAsso = this.createFromForm();
-    this.subscribeToSaveResponse(this.configurationAssoService.update(configurationAsso, this.selectedFile));
+    this.subscribeToSaveResponse(
+      this.configurationAssoService.update(configurationAsso, this.selectedFileSignature, this.selectedFileLogo)
+    );
   }
 
   removeSignature(): void {
@@ -71,14 +81,31 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
     this.deleteSignature = true;
   }
 
-  onFileSelected($event: any): void {
-    this.url = null;
-    this.selectedFile = $event?.target?.files[0];
+  removeLogo(): void {
+    this.hasLogo = false;
+    this.deleteLogo = true;
+  }
+
+  onSignatureSelected($event: any): void {
+    this.urlSignature = null;
+    this.selectedFileSignature = $event?.target?.files[0];
     if ($event?.target?.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL($event?.target?.files[0]);
       reader.onload = () => {
-        this.url = reader.result;
+        this.urlSignature = reader.result;
+      };
+    }
+  }
+
+  onLogoSelected($event: any): void {
+    this.urlLogo = null;
+    this.selectedFileLogo = $event?.target?.files[0];
+    if ($event?.target?.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL($event?.target?.files[0]);
+      reader.onload = () => {
+        this.urlLogo = reader.result;
       };
     }
   }
@@ -104,6 +131,7 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
 
   protected updateForm(configurationAsso: IConfigurationAsso): void {
     this.hasSignature = configurationAsso.hasSignature ? configurationAsso.hasSignature : false;
+    this.hasLogo = configurationAsso.hasLogo ? configurationAsso.hasLogo : false;
     this.editForm.patchValue({
       id: configurationAsso.id,
       denomination: configurationAsso.denomination,
@@ -136,6 +164,7 @@ export class ConfigurationAssoUpdateComponent implements OnInit {
       telephone: this.editForm.get(['telephone'])!.value,
       adresse: this.editForm.get(['adresse'])!.value,
       deleteSignature: this.deleteSignature,
+      deleteLogo: this.deleteLogo,
     };
   }
 }

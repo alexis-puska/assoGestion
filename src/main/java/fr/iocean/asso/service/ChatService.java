@@ -1,16 +1,21 @@
 package fr.iocean.asso.service;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import fr.iocean.asso.domain.Chat;
 import fr.iocean.asso.domain.enumeration.FileEnum;
 import fr.iocean.asso.repository.ChatRepository;
 import fr.iocean.asso.service.dto.ChatDTO;
+import fr.iocean.asso.service.dto.ConfigurationAssoDTO;
 import fr.iocean.asso.service.exception.FileAccessException;
 import fr.iocean.asso.service.exception.FileNotFoundException;
 import fr.iocean.asso.service.mapper.ChatMapper;
 import fr.iocean.asso.service.pdf.PdfFooter;
+import fr.iocean.asso.service.pdf.PdfHeader;
 import fr.iocean.asso.service.pdf.PdfService;
+import fr.iocean.asso.web.rest.errors.ChatNotFoundException;
+import fr.iocean.asso.web.rest.errors.ContratNotExistsException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -38,20 +44,29 @@ public class ChatService {
     private final Logger log = LoggerFactory.getLogger(ChatService.class);
     private static final String CONTENT_DISPOSITION = "Content-Disposition";
     private static final String ATTACHEMENT_FILENAME = "attachment;filename=";
-    private static final String CONTRAT_TEMPLATE = "contrat";
+    private static final String CONTRAT_TEMPLATE = "pdf/contrat";
     private static final String CONTRAT_CSS = "templates/thymleaf/css/contrat.css";
 
     private final FileService fileService;
 
     private final PdfService pdfService;
 
+    private final ConfigurationAssoService configurationAssoService;
+
     private final ChatRepository chatRepository;
 
     private final ChatMapper chatMapper;
 
-    public ChatService(FileService fileService, PdfService pdfService, ChatRepository chatRepository, ChatMapper chatMapper) {
+    public ChatService(
+        FileService fileService,
+        PdfService pdfService,
+        ConfigurationAssoService configurationAssoService,
+        ChatRepository chatRepository,
+        ChatMapper chatMapper
+    ) {
         this.fileService = fileService;
         this.pdfService = pdfService;
+        this.configurationAssoService = configurationAssoService;
         this.chatRepository = chatRepository;
         this.chatMapper = chatMapper;
     }
@@ -179,51 +194,76 @@ public class ChatService {
     }
 
     public void generateContrat(HttpServletResponse response, long id) {
-        try {
+        ConfigurationAssoDTO configDTO = configurationAssoService.getConfigurationAsso();
+        Optional<Chat> chatOptional = this.chatRepository.findById(id);
+        if (chatOptional.isPresent()) {
+            Chat chat = chatOptional.get();
+            if (chat.getContrat() == null) {
+                throw new ContratNotExistsException();
+            }
+            ChatDTO chatDTO = this.chatMapper.toDto(chat);
+
+            response.setContentType("application/pdf");
+            response.setHeader(CONTENT_DISPOSITION, ATTACHEMENT_FILENAME + "contrat_test.pdf");
+
             Locale locale = Locale.forLanguageTag("fr");
             Context context = new Context(locale);
 
-            String logo = this.fileService.getClasspathFileBase64("classpath:pdf/logo_chat_doc.png");
-            String checkbox = this.fileService.getClasspathFileBase64("classpath:pdf/checkbox.png");
-            String checkboxChecked = this.fileService.getClasspathFileBase64("classpath:pdf/checkbox_checked.png");
+            context.setVariable("chat", chatDTO);
+            context.setVariable("configAsso", configDTO);
 
-            List<String> signatureFileName = this.fileService.getFilename(1l, FileEnum.SIGNATURE_ASSO);
-            if (signatureFileName != null && !signatureFileName.isEmpty()) {
-                String signature = fileService.getFileBase64(FileEnum.SIGNATURE_ASSO, 1l, signatureFileName.get(0));
-                if (signature != null) {
-                    context.setVariable("signature", "data:image/png;base64," + signature);
+            String footer = String.format(
+                "%s\n%s",
+                configDTO.getDenomination() != null ? configDTO.getDenomination() : "",
+                configDTO.getSiret() != null ? configDTO.getSiret() : ""
+            );
+            // Chargement images + logo header
+            try {
+                byte[] logoByteArray = null;
+                List<String> signatureFileName = this.fileService.getFilename(1l, FileEnum.SIGNATURE_ASSO);
+                if (signatureFileName != null && !signatureFileName.isEmpty()) {
+                    String signature = fileService.getFileBase64(FileEnum.SIGNATURE_ASSO, 1l, signatureFileName.get(0));
+                    if (signature != null) {
+                        context.setVariable("signature", "data:image/png;base64," + signature);
+                    }
                 }
+                List<String> logoFileName = this.fileService.getFilename(1l, FileEnum.LOGO_ASSO);
+                if (logoFileName != null && !logoFileName.isEmpty()) {
+                    String logo = fileService.getFileBase64(FileEnum.LOGO_ASSO, 1l, logoFileName.get(0));
+                    if (logo != null) {
+                        context.setVariable("logo", "data:image/png;base64," + logo);
+                        FileInputStream fis = new FileInputStream(fileService.getFile(FileEnum.LOGO_ASSO, 1l, logoFileName.get(0)));
+                        logoByteArray = IOUtils.toByteArray(fis);
+                        fis.close();
+                    }
+                }
+                String checkbox = this.fileService.getClasspathFileBase64("classpath:pdf/checkbox.png");
+                if (checkbox != null) {
+                    context.setVariable("checkbox", "data:image/png;base64," + checkbox);
+                }
+                String checkboxChecked = this.fileService.getClasspathFileBase64("classpath:pdf/checkbox_checked.png");
+                if (checkboxChecked != null) {
+                    context.setVariable("checkbox_checked", "data:image/png;base64," + checkboxChecked);
+                }
+                this.pdfService.printPDF(
+                        response.getOutputStream(),
+                        PageSize.A4,
+                        context,
+                        CONTRAT_TEMPLATE,
+                        this.pdfService.getCssFile(CONTRAT_CSS),
+                        new PdfFooter(footer, 8, true, false),
+                        logoByteArray != null ? new PdfHeader(false, Image.getInstance(logoByteArray)) : null,
+                        true
+                    );
+            } catch (FileNotFoundException e) {
+                log.error("file not found : {}", e.getMessage());
+            } catch (IOException e) {
+                log.error("IO Exception : {}", e.getMessage());
+            } catch (DocumentException e) {
+                log.error("Document Exception : {}", e.getMessage());
             }
-
-            if (logo != null) {
-                context.setVariable("logo", "data:image/png;base64," + logo);
-            }
-            if (checkbox != null) {
-                context.setVariable("checkbox", "data:image/png;base64," + checkbox);
-            }
-            if (checkboxChecked != null) {
-                context.setVariable("checkbox_checked", "data:image/png;base64," + checkboxChecked);
-            }
-
-            context.setVariable("dto", null);
-            String footer = "Association Les Chats d’Oc\nN° SIRET : 894 063 759 00019";
-            response.setContentType("application/pdf");
-            response.setHeader(CONTENT_DISPOSITION, ATTACHEMENT_FILENAME + "contrat_test.pdf");
-            this.pdfService.printPDF(
-                    response.getOutputStream(),
-                    PageSize.A4,
-                    context,
-                    CONTRAT_TEMPLATE,
-                    this.pdfService.getCssFile(CONTRAT_CSS),
-                    new PdfFooter(footer, 8, true, false),
-                    true
-                );
-        } catch (FileNotFoundException e) {
-            log.error("file not found : {}", e.getMessage());
-        } catch (IOException e) {
-            log.error("IO Exception : {}", e.getMessage());
-        } catch (DocumentException e) {
-            log.error("Document Exception : {}", e.getMessage());
+        } else {
+            throw new ChatNotFoundException();
         }
     }
 }

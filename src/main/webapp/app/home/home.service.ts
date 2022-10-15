@@ -7,7 +7,7 @@ import { IHome } from './home.model';
 
 @Injectable({ providedIn: 'root' })
 export class HomeService {
-  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/home');
+  public resourceUrl = this.applicationConfigService.getEndpointFor('api/home');
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 

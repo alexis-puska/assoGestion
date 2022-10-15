@@ -139,6 +139,7 @@ public class PdfService {
         String template,
         CssFile css,
         PdfFooter footer,
+        PdfHeader header,
         boolean dontCutTableAsPossible
     ) throws DocumentException, IOException {
         // creation du contenu
@@ -155,9 +156,9 @@ public class PdfService {
         PdfWriter writer = PdfWriter.getInstance(document, baos);
         writer.setInitialLeading(12.5f);
         writer.setPageEvent(footer);
-
-        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:pdf/logo_chat_doc.png"));
-        writer.setPageEvent(new PdfHeader(false, Image.getInstance(IOUtils.toByteArray(in))));
+        if (header != null) {
+            writer.setPageEvent(header);
+        }
 
         // step 3 : ouverture document
         document.open();
@@ -188,7 +189,6 @@ public class PdfService {
         baos.writeTo(outputStream);
         baos.close();
         is.close();
-        in.close();
     }
 
     public CssFile getCssFile(String css) {

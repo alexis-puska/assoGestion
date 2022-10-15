@@ -12,6 +12,8 @@ export interface IConfigurationAsso {
   telephone?: string | null;
   hasSignature?: boolean;
   deleteSignature?: boolean;
+  hasLogo?: boolean;
+  deleteLogo?: boolean;
 }
 
 export class ConfigurationAsso implements IConfigurationAsso {
@@ -26,6 +28,8 @@ export class ConfigurationAsso implements IConfigurationAsso {
     public email?: string | null,
     public telephone?: string | null,
     public hasSignature?: boolean,
-    public deleteSignature?: boolean
+    public deleteSignature?: boolean,
+    public hasLogo?: boolean,
+    public deleteLogo?: boolean
   ) {}
 }

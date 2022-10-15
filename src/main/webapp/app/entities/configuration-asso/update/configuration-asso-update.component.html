@@ -150,10 +150,17 @@
                 </div>
               </div>
 
+              <br />
+
               <div class="row mb-3">
-                <div class="col-md-2 row align-items-center">
-                  <img [src]="url" *ngIf="(hasSignature || this.selectedFile) && this.url" />
-                  <div class="text-center">
+                <div class="col-md-6 row align-items-center text-center">
+                  <span jhiTranslate="assoGestionApp.configurationAsso.signature">Signature</span>
+                  <img
+                    [src]="urlSignature"
+                    *ngIf="(hasSignature || this.selectedFileSignature) && this.urlSignature"
+                    class="image-center"
+                  />
+                  <div class="">
                     <button
                       type="button"
                       class="btn btn-danger"
@@ -167,13 +174,43 @@
                       <label class="btn btn-success">
                         <fa-icon [icon]="'plus'"></fa-icon>
                         <span jhiTranslate="assoGestionApp.configurationAsso.addSignature"></span>
-                        <input name="addSignature" type="file" accept=".png,.jpg" style="display: none" (change)="onFileSelected($event)" />
+                        <input
+                          name="addSignature"
+                          type="file"
+                          accept=".png,.jpg"
+                          style="display: none"
+                          (change)="onSignatureSelected($event)"
+                        />
+                      </label>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-md-6 row align-items-center text-center">
+                  <span jhiTranslate="assoGestionApp.configurationAsso.logo">Logo</span>
+                  <img [src]="urlLogo" *ngIf="(hasLogo || this.selectedFileLogo) && this.urlLogo" class="image-center" />
+                  <div class="">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="removeLogo()"
+                      jhiTranslate="assoGestionApp.configurationAsso.removeLogo"
+                      *ngIf="hasLogo"
+                    >
+                      Supprimer la signature
+                    </button>
+                    <a *ngIf="!hasLogo">
+                      <label class="btn btn-success">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span jhiTranslate="assoGestionApp.configurationAsso.addLogo"></span>
+                        <input name="addLogo" type="file" accept=".png,.jpg" style="display: none" (change)="onLogoSelected($event)" />
                       </label>
                     </a>
                   </div>
                 </div>
               </div>
             </div>
+
+            <br />
 
             <div>
               <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
