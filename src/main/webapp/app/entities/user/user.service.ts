@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
@@ -7,6 +7,7 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { isPresent } from 'app/core/util/operators';
 import { Pagination } from 'app/core/request/request.model';
 import { IUser, getUserIdentifier } from './user.model';
+import { UserLight } from './user-light.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -34,5 +35,16 @@ export class UserService {
       return [...usersToAdd, ...userCollection];
     }
     return userCollection;
+  }
+
+  findUserAutocomplete(query: string, authorities: string[]): Observable<UserLight[]> {
+    let queryParam = new HttpParams();
+    queryParam = queryParam.append('query', query);
+    authorities.forEach(authoritie => {
+      queryParam = queryParam.append('authorities', authoritie);
+    });
+    return this.http.get<UserLight[]>(`${this.resourceUrl}/autocomplete`, {
+      params: queryParam,
+    });
   }
 }

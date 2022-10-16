@@ -5,9 +5,10 @@ import { SharedModule } from 'app/shared/shared.module';
 import { HOME_ROUTE } from './home.route';
 import { HomeComponent } from './home.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { CommonsModule } from 'app/module/commons/commons.module';
 
 @NgModule({
-  imports: [SharedModule, FullCalendarModule, RouterModule.forChild([HOME_ROUTE])],
+  imports: [SharedModule, CommonsModule, FullCalendarModule, RouterModule.forChild([HOME_ROUTE])],
   declarations: [HomeComponent],
 })
 export class HomeModule {}

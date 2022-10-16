@@ -4,7 +4,12 @@ import fr.iocean.asso.domain.Authority;
 import fr.iocean.asso.domain.User;
 import fr.iocean.asso.service.dto.AdminUserDTO;
 import fr.iocean.asso.service.dto.UserDTO;
-import java.util.*;
+import fr.iocean.asso.service.dto.UserLightDTO;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapping;
@@ -30,6 +35,14 @@ public class UserMapper {
 
     public List<AdminUserDTO> usersToAdminUserDTOs(List<User> users) {
         return users.stream().filter(Objects::nonNull).map(this::userToAdminUserDTO).collect(Collectors.toList());
+    }
+
+    public Set<UserLightDTO> usersToAdminUserDTOs(Set<User> users) {
+        return users.stream().filter(Objects::nonNull).map(this::userToUserLightDTO).collect(Collectors.toSet());
+    }
+
+    public UserLightDTO userToUserLightDTO(User user) {
+        return new UserLightDTO(user);
     }
 
     public AdminUserDTO userToAdminUserDTO(User user) {

@@ -5,16 +5,20 @@ import { CliniqueVeterinaireAutocompleteControlComponent } from './clinique-vete
 import { FamilleAccueilAutocompleteControlComponent } from './famille-acceuil-autocomplete-control.component';
 import { PointCaptureAutocompleteControlComponent } from './point-capture-autocomplete-control.component';
 import { RaceChatAutocompleteControlComponent } from './race-chat-autocomplete-control.component';
+import { UserAutocompleteControlComponent } from './user-autocomplete-control.component';
 
 @NgModule({
   imports: [SharedModule, NgSelectModule],
+
   declarations: [
+    UserAutocompleteControlComponent,
     FamilleAccueilAutocompleteControlComponent,
     RaceChatAutocompleteControlComponent,
     PointCaptureAutocompleteControlComponent,
     CliniqueVeterinaireAutocompleteControlComponent,
   ],
   exports: [
+    UserAutocompleteControlComponent,
     FamilleAccueilAutocompleteControlComponent,
     RaceChatAutocompleteControlComponent,
     PointCaptureAutocompleteControlComponent,

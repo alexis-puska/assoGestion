@@ -9,12 +9,18 @@ import fr.iocean.asso.security.AuthoritiesConstants;
 import fr.iocean.asso.security.SecurityUtils;
 import fr.iocean.asso.service.dto.AdminUserDTO;
 import fr.iocean.asso.service.dto.UserDTO;
+import fr.iocean.asso.service.dto.UserLightDTO;
 import fr.iocean.asso.service.exception.EmailAlreadyUsedException;
 import fr.iocean.asso.service.exception.InvalidPasswordException;
 import fr.iocean.asso.service.exception.UsernameAlreadyUsedException;
+import fr.iocean.asso.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,17 +48,21 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
+    private final UserMapper userMapper;
+
     private final CacheManager cacheManager;
 
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
+        UserMapper userMapper,
         CacheManager cacheManager
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.userMapper = userMapper;
         this.cacheManager = cacheManager;
     }
 
@@ -324,5 +334,9 @@ public class UserService {
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
+    }
+
+    public Set<UserLightDTO> findAutocomplete(String query, List<String> Authorities) {
+        return this.userMapper.usersToAdminUserDTOs(this.userRepository.findAutocomplete("%" + query + "%", Authorities));
     }
 }
