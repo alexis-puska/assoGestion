@@ -106,6 +106,13 @@
                           {{ 'assoGestionApp.TypeIdentificationEnum.' + typeIdentificationEnum | translate }}
                         </option>
                       </select>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('typeIdentification')?.errors?.required"
+                        jhiTranslate="entity.validation.required"
+                      >
+                        This field is required.
+                      </small>
                     </div>
                     <div class="col-md-6">
                       <label class="form-label" jhiTranslate="assoGestionApp.chat.identification" for="field_identification"
@@ -119,6 +126,13 @@
                         data-cy="identification"
                         formControlName="identification"
                       />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('identification')?.errors?.required"
+                        jhiTranslate="entity.validation.required"
+                      >
+                        This field is required.
+                      </small>
                     </div>
                     <div class="col-md-4">
                       <label class="form-label" jhiTranslate="assoGestionApp.chat.robe" for="field_robe">Robe</label>
@@ -154,6 +168,13 @@
                     <div class="col-md-4">
                       <label class="form-label" jhiTranslate="assoGestionApp.chat.race" for="field_race">Race</label>
                       <jhi-race-chat-autocomplete-control formControlName="race"></jhi-race-chat-autocomplete-control>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="editForm.get('race')?.errors?.required"
+                        jhiTranslate="entity.validation.required"
+                      >
+                        This field is required.
+                      </small>
                     </div>
 
                     <div class="col-md-6">

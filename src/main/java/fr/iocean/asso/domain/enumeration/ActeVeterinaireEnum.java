@@ -1,20 +1,27 @@
 package fr.iocean.asso.domain.enumeration;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum ActeVeterinaireEnum {
-    STERILISATION,
+    STERILISATION("Stérilisation"),
 
-    IDENTIFICATION,
+    IDENTIFICATION("Identification"),
 
-    VACCINATION_TL,
-    VACCINATION_TLC,
-    VACCINATION_TL_PRIMO,
-    VACCINATION_TLC_PRIMO,
+    VACCINATION_TL("Vaccination Typhus / Leucose"),
+    VACCINATION_TLC("Vaccination Typhus / Leucose / Choryza"),
+    VACCINATION_TL_PRIMO("Primo vaccination Typhus / Leucose"),
+    VACCINATION_TLC_PRIMO("Primo vaccination Typhus / Leucose/ Choryza"),
 
-    DEPARASITAGE,
-    ANTIPUCE_ANTI_TIQUE,
+    DEPARASITAGE("Déparasitage"),
+    ANTIPUCE_ANTI_TIQUE("Anti-puce / Anti-tique"),
 
-    VERMIFUGATION,
+    VERMIFUGATION("Vermifuge"),
 
-    OPERATION,
-    AUTRES,
+    OPERATION("Opération"),
+    AUTRES("Identification");
+
+    private String nomActe;
 }

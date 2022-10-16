@@ -18,12 +18,12 @@
           <td style="width: 80%">
             <h1 style="text-align: right">
               <strong>Association</strong><br />
-              <strong th:text="${configAsso.denomination}"></strong>
+              <strong th:text="${contrat.denominationAsso}"></strong>
             </h1>
-            <p style="text-align: right" th:text="${configAsso.adresse.formatAdresse()}"></p>
-            <p style="text-align: right">Tél: <span th:text="${configAsso.telephone}"></span></p>
+            <p style="text-align: right" th:text="${contrat.adresseAsso}"></p>
+            <p style="text-align: right">Tél: <span th:text="${contrat.telephoneAsso}"></span></p>
             <p style="text-align: right">
-              Mail : <a href="mailto:asso.leschatsdoc@gmail.com"><span th:text="${configAsso.email}"></span></a>
+              Mail : <a href="mailto:${contrat.emailAsso}"><span th:text="${contrat.emailAsso}"></span></a>
             </p>
           </td>
         </tr>
@@ -36,22 +36,22 @@
 
     <br />
     <p>
-      <strong>Entre : </strong>
+      <strong>Entre l’association: </strong>
     </p>
     <p>
-      L’association <span th:text="${configAsso.denomination}"></span><br />
-      <span th:text="${configAsso.adresse.formatAdresse()}"></span>
+      <span th:text="${contrat.denominationAsso}"></span><br />
+      <span th:text="${contrat.adresseAsso}"></span>
     </p>
     <br />
     <br />
     <p>
-      <strong>Et l’adoptante : </strong>
+      <strong>Et l’adoptant : </strong>
     </p>
     <p>
-      <span th:text="${chat.contrat.nom}"></span>&nbsp;<span th:text="${chat.contrat.prenom}"></span><br />
-      Adresse : <span th:text="${chat.contrat.adresseAdoptant.formatAdresse()}"></span><br />
-      Téléphone : <span th:text="${chat.contrat.telephone}"></span><br />
-      Mail : <span th:text="${chat.contrat.email}"></span>
+      <span th:text="${contrat.nomAdoptant}"></span><br />
+      Adresse : <span th:text="${contrat.adresseAdoptant}"></span><br />
+      Téléphone : <span th:text="${contrat.telephoneAdoptant}"></span><br />
+      Mail : <span th:text="${contrat.emailAdoptant}"></span>
     </p>
     <br />
     <br />
@@ -59,10 +59,10 @@
       <strong>Concernant l’animal : </strong>
     </p>
     <p>
-      Nom : <span th:text="${chat.nom}"></span> Race : <span th:text="${chat.race.libelle}"></span><br />
-      Né(e) le : <span th:text="${#temporals.format(chat.dateNaissance, 'dd/MM/yyyy')}"></span> Sexe :
-      <span th:text="${chat.sexe.name() == 'MALE' ? 'Mâle' : 'Femelle'}"></span><br />
-      Couleur : <span th:text="${chat.robe}"></span>
+      Nom : <span th:text="${contrat.nomChat}"></span> Race : <span th:text="${contrat.raceChat}"></span><br />
+      Né(e) le : <span th:text="${#temporals.format(contrat.dateNaissanceChat, 'dd/MM/yyyy')}"></span> Sexe :
+      <span th:text="${contrat.sexeChat}"></span><br />
+      Couleur : <span th:text="${contrat.couleurChat}"></span>
     </p>
     <br />
     <br />
@@ -70,12 +70,10 @@
       <strong>Identification</strong>
     </p>
     <p>
-      Effectuée le 17/08/2022 par <br />
-      <img th:src="${chat.typeIdentification.name() =='TATOUAGE' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;
-      Tatouage<br />
-      <img th:src="${chat.typeIdentification.name() =='PUCE' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Puce
-      électronique, jugulaire gauche<br />
-      N° ICAD : <span th:text="${chat.identification}"></span>
+      Effectuée le <span th:text="${#temporals.format(contrat.dateIdentification, 'dd/MM/yyyy')}"></span> par <br />
+      <img th:src="${contrat.tatouage ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Tatouage<br />
+      <img th:src="${contrat.puce ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Puce électronique, jugulaire gauche<br />
+      N° ICAD : <span th:text="${contrat.identification}"></span>
     </p>
     <br />
     <br />
@@ -83,24 +81,28 @@
       <strong>Stérilisation / Castration : </strong>
     </p>
     <p>
-      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Effectuée le :<br />
-      <img th:src="${true ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; A faire à partir de : octobre 2022 <br />
-      Vétérinaire partenaire : Laetitia MUS - 6 rue du Versant - 34670 ST BRES
+      <img th:src="${contrat.sterilise ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Effectuée le :
+      <span th:text="${#temporals.format(contrat.dateSterilisation, 'dd/MM/yyyy')}"></span><br />
+      <img th:src="${!contrat.sterilise ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; A faire à partir de :
+      <span th:text="${#temporals.format(contrat.dateSterilisationSouhaitee, 'MMM yyyy')}"></span> <br />
+      Vétérinaire partenaire : <span th:text="${contrat.veterinaire}"></span>
     </p>
     <br />
     <br />
     <p>
       <strong>Primo vaccination</strong> <br />
-      <img th:src="${true ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Effectuée le 24/09/2022 <br />
-      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Non effectuée<br />
-      Rappel à faire le 24/10/2022 (TCL)
+      <img th:src="${contrat.primo ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Effectuée le
+      <span th:text="${#temporals.format(contrat.dateVaccination, 'dd/MM/yyyy')}"></span> <br />
+      <img th:src="${!contrat.primo ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp; Non effectuée<br />
+      Rappel à faire le <span th:text="${#temporals.format(contrat.dateRapelleVaccination, 'dd/MM/yyyy')}"></span>&nbsp;<span
+        th:text="${contrat.typeVaccin}"
+      ></span>
     </p>
     <br />
     <br />
     <p style="page-break-before: always"><strong>Divers : </strong> <br /></p>
-    <ul>
-      <li>Antiparasitaire donné le 24/09/2022</li>
-      <li>Vermifugé le 24/09/2022.</li>
+    <ul th:each="d: ${contrat.divers}">
+      <li th:text="${d}"></li>
     </ul>
     <br />
     <p>
@@ -174,22 +176,25 @@
     </p>
     <br />
     <br />
-    <br />
-
-    <strong>Conditions d’adoption de Teemo</strong><br />
-    <ul>
-      <li>Teemo à son adoption n’est pas castré. L’adoptante s’engage à réaliser sa castration à partir de ses 6 mois.</li>
-      <li>Les frais d’adoption tiennent compte d’un acompte de 150 euros pour sa castration.</li>
-      <li>A la réception du certificat de castration :</li>
+    <div th:if="${!contrat.sterilise}">
+      <strong>Conditions d’adoption de <span th:text="${contrat.nomChat}"></span></strong><br />
       <ul>
-        <li>L’association s’engage à faire le nécessaire auprès de l’ICAD pour valider le changement de propriétaire de Teemo</li>
-        <li>L’acompte sera restitué, ou le chèque barré</li>
+        <li>
+          <span th:text="${contrat.nomChat}"></span> à son adoption n’est pas castré. L’adoptante s’engage à réaliser sa castration à partir
+          de ses 6 mois.
+        </li>
+        <li>Les frais d’adoption tiennent compte d’un acompte de 150 euros pour sa castration.</li>
+        <li>A la réception du certificat de castration :</li>
+        <ul>
+          <li>L’association s’engage à faire le nécessaire auprès de l’ICAD pour valider le changement de propriétaire de Teemo</li>
+          <li>L’acompte sera restitué, ou le chèque barré</li>
+        </ul>
       </ul>
-    </ul>
+    </div>
 
     <p style="page-break-before: always">
       <br /><br />
-      <strong>Je soussignée ABELARD Aurélie</strong><br />
+      <strong>Je soussignée <span th:text="${contrat.nomAdoptant}"></span></strong><br />
       <br />
       Déclare adopter l’animal désigné dans ce contrat.
     </p>
@@ -202,17 +207,17 @@
     <br />
     <br />
     <p>
-      Je règle ce jour les frais d’adoption d’un montant de 240,00 Euros au profit de l’association Les Chats d’Oc (acompte de stérilisation
-      inclus).
+      Je règle ce jour les frais d’adoption d’un montant de <span th:text="${contrat.montant}"></span> Euros au profit de l’association Les
+      Chats d’Oc (acompte de stérilisation inclus).
     </p>
     <br />
     <br />
     <p>
-      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Espèces <br />
-      <img th:src="${true ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Chèque(s) à l’ordre de l’association Les Chats
-      d’Oc<br />
-      <img th:src="${false ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Virement sur le compte bancaire de
-      l’association<br />
+      <img th:src="${contrat.paiement.name() == 'ESPECE' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Espèces <br />
+      <img th:src="${contrat.paiement.name() == 'CHEQUE' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Chèque(s) à
+      l’ordre de l’association Les Chats d’Oc<br />
+      <img th:src="${contrat.paiement.name() == 'VIREMENT' ? checkbox_checked : checkbox}" width="15px" height="15px" />&nbsp;Virement sur
+      le compte bancaire de l’association<br />
       <br />
       Contrat établi en 2 exemplaires originaux (un pour chacune des deux parties)
     </p>
@@ -222,26 +227,34 @@
     <table style="width: 100%">
       <tbody>
         <tr>
-          <td style="width: 50%; vertical-align: top">
-            Le : 30 septembre 2022<br />
+          <td style="width: 50%">
+            Le : <span th:text="${#temporals.format(contrat.dateContrat, 'dd/MM/yyyy')}"></span><br />
             Le président de l'association<br />
             <br />
             <strong>Lu et approuvé</strong><br />
-            <br />
-            <br />
-            <div th:if="${signature != null}">
-              <img th:src="${signature}" width="150px" height="70px" />
-            </div>
           </td>
-          <td style="width: 50%; vertical-align: top">
-            Le : 30 septembre 2022<br />
-            Aurélie ABELARD<br />
+          <td style="width: 50%">
+            Le : <span th:text="${#temporals.format(contrat.dateContrat, 'dd/MM/yyyy')}"></span><br />
+            <span th:text="${contrat.nomAdoptant}"></span><br />
             <br />
             <strong>Lu et approuvé</strong>
           </td>
         </tr>
       </tbody>
     </table>
+    <table style="width: 100%">
+      <tbody>
+        <tr>
+          <td style="width: 50%; vertical-align: top">
+            <div th:if="${signature != null}">
+              <img th:src="${signature}" width="150px" height="70px" />
+            </div>
+          </td>
+          <td style="width: 50%; vertical-align: top"></td>
+        </tr>
+      </tbody>
+    </table>
+
     <br />
     <br />
     <br />

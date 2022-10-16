@@ -51,7 +51,7 @@ export class ChatUpdateComponent implements OnInit {
     description: [],
     robe: [null, [Validators.required]],
     poil: [null, [Validators.required]],
-    sexe: [],
+    sexe: [null, [Validators.required]],
     sterilise: [],
     famille: [],
     adresseCapture: [],
@@ -129,6 +129,9 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   addValidatorContrat(): void {
+    this.editForm.get('typeIdentification')?.setValidators([Validators.required]);
+    this.editForm.get('identification')?.setValidators([Validators.required]);
+    this.editForm.get('race')?.setValidators([Validators.required]);
     this.editForm.get('contrat.nom')?.setValidators([Validators.required]);
     this.editForm.get('contrat.prenom')?.setValidators([Validators.required]);
     this.editForm.get('contrat.email')?.setValidators([Validators.required, Validators.maxLength(128)]);
@@ -145,6 +148,9 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   removeValidatorContrat(): void {
+    this.editForm.get('typeIdentification')?.clearValidators();
+    this.editForm.get('identification')?.clearValidators();
+    this.editForm.get('race')?.clearValidators();
     this.editForm.get('contrat.nom')?.clearValidators();
     this.editForm.get('contrat.prenom')?.clearValidators();
     this.editForm.get('contrat.email')?.clearValidators();
@@ -161,6 +167,9 @@ export class ChatUpdateComponent implements OnInit {
   }
 
   refreshValueAndValidity(): void {
+    this.editForm.get('typeIdentification')?.updateValueAndValidity();
+    this.editForm.get('identification')?.updateValueAndValidity();
+    this.editForm.get('race')?.updateValueAndValidity();
     this.editForm.get('contrat.nom')?.updateValueAndValidity();
     this.editForm.get('contrat.prenom')?.updateValueAndValidity();
     this.editForm.get('contrat.email')?.updateValueAndValidity();

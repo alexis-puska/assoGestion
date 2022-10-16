@@ -3,11 +3,17 @@ package fr.iocean.asso.service;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
+import fr.iocean.asso.domain.ActeVeterinaire;
 import fr.iocean.asso.domain.Chat;
+import fr.iocean.asso.domain.enumeration.ActeVeterinaireEnum;
 import fr.iocean.asso.domain.enumeration.FileEnum;
 import fr.iocean.asso.repository.ChatRepository;
+import fr.iocean.asso.service.dto.ActeVeterinaireDTO;
 import fr.iocean.asso.service.dto.ChatDTO;
+import fr.iocean.asso.service.dto.CliniqueVeterinaireDTO;
 import fr.iocean.asso.service.dto.ConfigurationAssoDTO;
+import fr.iocean.asso.service.dto.ContratPdfDTO;
+import fr.iocean.asso.service.dto.VisiteVeterinaireDTO;
 import fr.iocean.asso.service.exception.FileAccessException;
 import fr.iocean.asso.service.exception.FileNotFoundException;
 import fr.iocean.asso.service.mapper.ChatMapper;
@@ -19,9 +25,13 @@ import fr.iocean.asso.web.rest.errors.ContratNotExistsException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -209,9 +219,177 @@ public class ChatService {
             Locale locale = Locale.forLanguageTag("fr");
             Context context = new Context(locale);
 
-            context.setVariable("chat", chatDTO);
-            context.setVariable("configAsso", configDTO);
+            ContratPdfDTO contratPdf = new ContratPdfDTO();
 
+            // Association
+            contratPdf.setDenominationAsso(configDTO.getDenomination());
+            contratPdf.setAdresseAsso(configDTO.getAdresse().formatAdresse());
+            contratPdf.setTelephoneAsso(configDTO.getTelephone());
+            contratPdf.setEmailAsso(configDTO.getEmail());
+
+            // Adoptant
+            contratPdf.setNomAdoptant(chatDTO.getContrat().getNom() + " " + chatDTO.getContrat().getPrenom());
+            contratPdf.setAdresseAdoptant(chatDTO.getContrat().getAdresseAdoptant().formatAdresse());
+            contratPdf.setEmailAdoptant(chatDTO.getContrat().getEmail());
+            contratPdf.setTelephoneAdoptant(chatDTO.getContrat().getTelephone());
+
+            // Chat
+            contratPdf.setNomChat(chatDTO.getNom());
+            contratPdf.setRaceChat(chatDTO.getRace().getLibelle());
+            contratPdf.setDateNaissanceChat(chatDTO.getDateNaissance());
+            switch (chatDTO.getSexe()) {
+                case FEMELLE:
+                    contratPdf.setSexeChat("Femelle");
+                    break;
+                case MALE:
+                    contratPdf.setSexeChat("Male");
+                    break;
+                default:
+                    contratPdf.setSexeChat("Male");
+                    break;
+            }
+            contratPdf.setCouleurChat(chatDTO.getRobe());
+
+            // Identification
+            for (VisiteVeterinaireDTO v : chatDTO.getVisites()) {
+                boolean foundIdentification = false;
+                for (ActeVeterinaireDTO acte : v.getActes()) {
+                    if (acte.getLibelle() == ActeVeterinaireEnum.IDENTIFICATION) {
+                        foundIdentification = true;
+                        break;
+                    }
+                }
+                if (foundIdentification) {
+                    contratPdf.setDateIdentification(v.getDateVisite());
+                    break;
+                }
+            }
+            switch (chatDTO.getTypeIdentification()) {
+                case PUCE:
+                    contratPdf.setPuce(true);
+                    break;
+                case TATOUAGE:
+                    contratPdf.setTatouage(true);
+                    break;
+                default:
+                    contratPdf.setPuce(true);
+                    break;
+            }
+
+            contratPdf.setIdentification(chatDTO.getIdentification());
+
+            // Sterilisation
+            contratPdf.setSterilise(chatDTO.getSterilise());
+            for (VisiteVeterinaireDTO v : chatDTO.getVisites()) {
+                boolean foundSterilisation = false;
+                for (ActeVeterinaireDTO acte : v.getActes()) {
+                    if (acte.getLibelle() == ActeVeterinaireEnum.STERILISATION) {
+                        foundSterilisation = true;
+                        break;
+                    }
+                }
+                if (foundSterilisation) {
+                    contratPdf.setDateSterilisation(v.getDateVisite());
+                    break;
+                }
+            }
+
+            if (chat.getSterilise() == false && chat.getDateNaissance().isAfter(LocalDate.now().minusMonths(6))) {
+                contratPdf.setDateSterilisationSouhaitee(chat.getDateNaissance().plusMonths(6));
+            }
+
+            // primo vaccination
+
+            boolean foundVaccinationPrimo = false;
+            LocalDate dateVaccinationPrimo = null;
+            boolean foundVaccination = false;
+            LocalDate dateVaccination = null;
+            for (VisiteVeterinaireDTO v : chatDTO.getVisites()) {
+                for (ActeVeterinaireDTO acte : v.getActes()) {
+                    if (acte.getLibelle() == ActeVeterinaireEnum.VACCINATION_TL_PRIMO) {
+                        foundVaccinationPrimo = true;
+                        contratPdf.setTypeVaccin("(TL)");
+                        break;
+                    }
+                    if (acte.getLibelle() == ActeVeterinaireEnum.VACCINATION_TLC_PRIMO) {
+                        foundVaccinationPrimo = true;
+                        contratPdf.setTypeVaccin("(TLC)");
+                        break;
+                    }
+                    if (acte.getLibelle() == ActeVeterinaireEnum.VACCINATION_TL) {
+                        foundVaccination = true;
+                        contratPdf.setTypeVaccin("(TL)");
+                        break;
+                    }
+                    if (acte.getLibelle() == ActeVeterinaireEnum.VACCINATION_TLC) {
+                        foundVaccination = true;
+                        contratPdf.setTypeVaccin("(TLC)");
+                        break;
+                    }
+                }
+                if (foundVaccination) {
+                    dateVaccination = v.getDateVisite();
+                }
+                if (foundVaccinationPrimo) {
+                    dateVaccinationPrimo = v.getDateVisite();
+                }
+            }
+            if (!foundVaccination && foundVaccinationPrimo) {
+                contratPdf.setPrimo(true);
+                contratPdf.setDateVaccination(dateVaccinationPrimo);
+                contratPdf.setDateRapelleVaccination(dateVaccinationPrimo.plusMonths(1));
+            }
+            if (foundVaccination && foundVaccinationPrimo) {
+                contratPdf.setPrimo(false);
+                contratPdf.setDateVaccination(dateVaccination);
+            }
+            List<VisiteVeterinaireDTO> visitesOrdered = chatDTO
+                .getVisites()
+                .stream()
+                .sorted((v1, v2) -> {
+                    if (v1.getDateVisite().isBefore(v2.getDateVisite())) return -1;
+                    if (v1.getDateVisite().isAfter(v2.getDateVisite())) return 1;
+                    return 0;
+                })
+                .collect(Collectors.toList());
+            List<String> divers = new ArrayList<>();
+
+            visitesOrdered
+                .stream()
+                .forEach(v -> {
+                    String actes = v
+                        .getActes()
+                        .stream()
+                        .filter(acte -> {
+                            return (
+                                acte.getLibelle() != ActeVeterinaireEnum.VACCINATION_TL_PRIMO ||
+                                acte.getLibelle() != ActeVeterinaireEnum.VACCINATION_TLC_PRIMO ||
+                                acte.getLibelle() != ActeVeterinaireEnum.VACCINATION_TL ||
+                                acte.getLibelle() != ActeVeterinaireEnum.VACCINATION_TLC ||
+                                acte.getLibelle() != ActeVeterinaireEnum.STERILISATION ||
+                                acte.getLibelle() != ActeVeterinaireEnum.IDENTIFICATION ||
+                                acte.getLibelle() != ActeVeterinaireEnum.AUTRES
+                            );
+                        })
+                        .map(acte -> acte.getLibelle().getNomActe())
+                        .collect(Collectors.joining(", "));
+                    divers.add(String.format("%s : %s", v.getDateVisite().format(DateTimeFormatter.ofPattern("dd/MM/yyy")), actes));
+                });
+
+            Optional<VisiteVeterinaireDTO> premiereVisite = visitesOrdered.stream().findFirst();
+
+            if (premiereVisite.isPresent()) {
+                CliniqueVeterinaireDTO veto = premiereVisite.get().getCliniqueVeterinaire();
+                contratPdf.setVeterinaire(String.format("%s, %s", veto.getNom(), veto.getAdresse().formatAdresse()));
+            }
+
+            contratPdf.setDivers(divers);
+            contratPdf.setMontant(chatDTO.getContrat().getCout());
+            contratPdf.setPaiement(chatDTO.getContrat().getPaiement());
+
+            contratPdf.setDateContrat(chatDTO.getContrat().getDateContrat());
+
+            context.setVariable("contrat", contratPdf);
             String footer = String.format(
                 "%s\n%s",
                 configDTO.getDenomination() != null ? configDTO.getDenomination() : "",
