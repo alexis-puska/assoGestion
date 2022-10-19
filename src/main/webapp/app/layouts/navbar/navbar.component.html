@@ -1,7 +1,8 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-primary">
   <div class="container-fluid">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="logo-img"></span>
+      <img [src]="urlLogo" class="image-center" (error)="logoFailed()" *ngIf="!logoHasFailed" style="height: 45px; width: 45px" />
+      <span class="logo-img" *ngIf="logoHasFailed"></span>
       <span jhiTranslate="global.title" class="navbar-title">AssoGestion</span>
       <span class="navbar-version">{{ version }}</span>
     </a>

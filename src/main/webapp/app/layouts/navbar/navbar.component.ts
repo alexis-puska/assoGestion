@@ -24,6 +24,8 @@ export class NavbarComponent implements OnInit {
   version = '';
   account: Account | null = null;
   entitiesNavbarItems: any[] = [];
+  urlLogo: string | null = null;
+  logoHasFailed = false;
 
   constructor(
     private loginService: LoginService,
@@ -48,6 +50,7 @@ export class NavbarComponent implements OnInit {
     this.accountService.getAuthenticationState().subscribe(account => {
       this.account = account;
     });
+    this.urlLogo = `api/configuration-assos/logo`;
   }
 
   changeLanguage(languageKey: string): void {
@@ -71,5 +74,9 @@ export class NavbarComponent implements OnInit {
 
   toggleNavbar(): void {
     this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+
+  logoFailed(): void {
+    this.logoHasFailed = true;
   }
 }

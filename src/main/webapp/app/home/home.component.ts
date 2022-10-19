@@ -54,7 +54,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           },
           datesSet: this.dateRenderTrigger.bind(this),
         };
+        this.loadCounter();
       });
+  }
+
+  loadCounter(): void {
     this.homeService.getCounter().subscribe(home => {
       this.home = home.body;
     });
