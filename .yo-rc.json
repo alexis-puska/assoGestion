@@ -36,6 +36,9 @@
       "Contact"
     ],
     "entitySuffix": "",
+    "herokuAppName": "asso-gestion",
+    "herokuDeployType": "jar",
+    "herokuJavaVersion": "11",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "jwtSecretKey": "YWMwNmVhMGM0YTU3NzUzNmFiYTZiODFjMDU3NTAzZWZkZjZkODM3MDg3MGNhZWM4ZTk1YTkyNTU4ZDc0MjI5NmNhMGRiYzM0YmE4YmVjYmJmNjMxMDNmNDliZGQ1YmQ4YjI1MDNmMTQ1NWY1NGZjMGY2MzkwMWM5ZGRhZWU5Mzc=",
