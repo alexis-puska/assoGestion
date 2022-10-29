@@ -90,6 +90,11 @@
           "invalid": "Your email is invalid.",
           "minlength": "Your email is required to be at least 5 characters.",
           "maxlength": "Your email cannot be longer than 50 characters."
+        },
+        "telephone": {
+          "required": "Your telephone is required.",
+          "invalid": "Your telephone is invalid.",
+          "minlength": "Your telephone is required to be at least 5 characters."
         }
       }
     },

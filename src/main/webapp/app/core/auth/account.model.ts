@@ -3,6 +3,7 @@ export class Account {
     public activated: boolean,
     public authorities: string[],
     public email: string,
+    public telephone: string,
     public firstName: string | null,
     public langKey: string,
     public lastName: string | null,

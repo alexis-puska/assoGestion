@@ -30,6 +30,9 @@ public class AdminUserDTO {
     @Size(min = 5, max = 254)
     private String email;
 
+    @Size(min = 10, max = 254)
+    private String telephone;
+
     @Size(max = 256)
     private String imageUrl;
 
@@ -58,6 +61,7 @@ public class AdminUserDTO {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
+        this.telephone = user.getTelephone();
         this.activated = user.isActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
@@ -106,6 +110,14 @@ public class AdminUserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getImageUrl() {
@@ -180,6 +192,7 @@ public class AdminUserDTO {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", telephone='" + telephone + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +

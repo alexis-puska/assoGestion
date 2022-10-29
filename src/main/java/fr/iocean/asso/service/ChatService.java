@@ -3,7 +3,6 @@ package fr.iocean.asso.service;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
-import fr.iocean.asso.domain.ActeVeterinaire;
 import fr.iocean.asso.domain.Chat;
 import fr.iocean.asso.domain.enumeration.ActeVeterinaireEnum;
 import fr.iocean.asso.domain.enumeration.FileEnum;

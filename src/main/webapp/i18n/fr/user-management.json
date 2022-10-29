@@ -19,6 +19,7 @@
     "firstName": "Prénom",
     "lastName": "Nom",
     "email": "Email",
+    "telephone": "Telephone",
     "activated": "Activé",
     "deactivated": "Désactivé",
     "profiles": "Droits",

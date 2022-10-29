@@ -56,7 +56,9 @@
       "confirmpassword.label": "Confirmation du nouveau mot de passe",
       "confirmpassword.placeholder": "Confirmation du nouveau mot de passe",
       "email.label": "Email",
-      "email.placeholder": "Votre email"
+      "email.placeholder": "Votre email",
+      "telephone.label": "Téléphone",
+      "telephone.placeholder": "Votre Téléphone"
     },
     "messages": {
       "info": {
@@ -90,6 +92,11 @@
           "minlength": "Votre email doit comporter au moins 5 caractères.",
           "maxlength": "Votre email ne doit pas comporter plus de 50 caractères.",
           "invalid": "Votre email n'est pas valide."
+        },
+        "telephone": {
+          "required": "Votre telephone est requis.",
+          "minlength": "Votre telephone doit comporter au moins 10 caractères.",
+          "maxlength": "Votre telephone ne doit pas comporter plus de 100 caractères."
         }
       }
     },

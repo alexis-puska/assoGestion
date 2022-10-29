@@ -144,6 +144,57 @@
           </div>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label" for="telephone" jhiTranslate="global.form.telephone.label">Telephone</label>
+          <input
+            type="telephone"
+            class="form-control"
+            id="telephone"
+            name="telephone"
+            placeholder="{{ 'global.form.telephone.placeholder' | translate }}"
+            formControlName="telephone"
+            data-cy="telephone"
+          />
+
+          <div
+            *ngIf="
+              settingsForm.get('telephone')!.invalid && (settingsForm.get('telephone')!.dirty || settingsForm.get('telephone')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="settingsForm.get('telephone')?.errors?.required"
+              jhiTranslate="global.messages.validate.telephone.required"
+            >
+              Your telephone is required.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="settingsForm.get('telephone')?.errors?.telephone"
+              jhiTranslate="global.messages.validate.telephone.invalid"
+            >
+              Your telephone is invalid.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="settingsForm.get('telephone')?.errors?.minlength"
+              jhiTranslate="global.messages.validate.telephone.minlength"
+            >
+              Your telephone is required to be at least 5 characters.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="settingsForm.get('telephone')?.errors?.maxlength"
+              jhiTranslate="global.messages.validate.telephone.maxlength"
+            >
+              Your telephone cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+
         <div class="mb-3" *ngIf="languages && languages.length > 0">
           <label for="langKey" jhiTranslate="settings.form.language">Language</label>
           <select class="form-control" id="langKey" name="langKey" formControlName="langKey" data-cy="langKey">
