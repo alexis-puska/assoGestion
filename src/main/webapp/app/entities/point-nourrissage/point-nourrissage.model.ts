@@ -1,15 +1,15 @@
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { IContact } from 'app/entities/contact/contact.model';
+import { IUserLight } from './../user/user-light.model';
 
 export interface IPointNourrissage {
   id?: number;
   nom?: string | null;
   adresse?: IAdresse | null;
-  contacts?: IContact[] | null;
+  contacts?: IUserLight[] | null;
 }
 
 export class PointNourrissage implements IPointNourrissage {
-  constructor(public id?: number, public nom?: string | null, public adresse?: IAdresse | null, public contacts?: IContact[] | null) {}
+  constructor(public id?: number, public nom?: string | null, public adresse?: IAdresse | null, public contacts?: IUserLight[] | null) {}
 }
 
 export function getPointNourrissageIdentifier(pointNourrissage: IPointNourrissage): number | undefined {

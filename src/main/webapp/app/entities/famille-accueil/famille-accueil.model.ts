@@ -1,6 +1,6 @@
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { IContact } from 'app/entities/contact/contact.model';
 import { TypeLogementEnum } from 'app/entities/enumerations/type-logement-enum.model';
+import { IUserLight } from './../user/user-light.model';
 
 export interface IFamilleAccueil {
   id?: number;
@@ -10,7 +10,8 @@ export interface IFamilleAccueil {
   nombreChat?: number | null;
   nombreChien?: number | null;
   adresse?: IAdresse | null;
-  contacts?: IContact[] | null;
+  referent?: IUserLight | null;
+  membres?: IUserLight[] | null;
 }
 
 export class FamilleAccueil implements IFamilleAccueil {
@@ -22,7 +23,8 @@ export class FamilleAccueil implements IFamilleAccueil {
     public nombreChat?: number | null,
     public nombreChien?: number | null,
     public adresse?: IAdresse | null,
-    public contacts?: IContact[] | null
+    public referent?: IUserLight | null,
+    public membres?: IUserLight[] | null
   ) {}
 }
 

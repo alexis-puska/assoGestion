@@ -14,7 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -68,9 +69,21 @@ public class FamilleAccueil implements Serializable {
     @JoinColumn(unique = true)
     private Adresse adresse;
 
-    @OneToMany(mappedBy = "familleAccueil", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Contact> contacts = new HashSet<>();
+    private User referent;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        joinColumns = @JoinColumn(name = "famille_accueil_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        indexes = {
+            @javax.persistence.Index(columnList = "famille_accueil_id", name = "famille_accueil_id_ind"),
+            @javax.persistence.Index(columnList = "user_id", name = "user_fa_id_ind"),
+        }
+    )
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<User> membres = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -109,8 +122,13 @@ public class FamilleAccueil implements Serializable {
         return this;
     }
 
-    public FamilleAccueil contacts(Set<Contact> contacts) {
-        this.setContacts(contacts);
+    public FamilleAccueil membres(Set<User> membres) {
+        this.setMembres(membres);
+        return this;
+    }
+
+    public FamilleAccueil referent(User referent) {
+        this.setReferent(referent);
         return this;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and

@@ -45,6 +45,7 @@
     <include file="config/liquibase/changelog/20221007234700_add_field_donateur.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20221008121200_add_remove_field_configuration_asso.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20221029130002_add_telephone_user.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20221107122948_contact_to_users.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

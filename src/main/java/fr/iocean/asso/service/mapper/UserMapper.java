@@ -42,11 +42,17 @@ public class UserMapper {
     }
 
     public UserLightDTO userToUserLightDTO(User user) {
-        return new UserLightDTO(user);
+        if (user != null) {
+            return new UserLightDTO(user);
+        }
+        return null;
     }
 
     public AdminUserDTO userToAdminUserDTO(User user) {
-        return new AdminUserDTO(user);
+        if (user != null) {
+            return new AdminUserDTO(user);
+        }
+        return null;
     }
 
     public List<User> userDTOsToUsers(List<AdminUserDTO> userDTOs) {

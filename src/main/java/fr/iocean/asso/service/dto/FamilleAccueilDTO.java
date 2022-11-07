@@ -32,5 +32,7 @@ public class FamilleAccueilDTO implements Serializable {
 
     private AdresseDTO adresse;
 
-    private Set<ContactDTO> contacts = new HashSet<>();
+    private UserLightDTO referent;
+
+    private Set<UserLightDTO> membres = new HashSet<>();
 }

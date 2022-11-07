@@ -23,5 +23,5 @@ public class PointNourrissageDTO implements Serializable {
 
     private AdresseDTO adresse;
 
-    private Set<ContactDTO> contacts = new HashSet<>();
+    private Set<UserLightDTO> contacts = new HashSet<>();
 }

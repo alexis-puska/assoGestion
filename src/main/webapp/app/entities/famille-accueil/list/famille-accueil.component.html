@@ -60,7 +60,10 @@
             <span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span>
           </th>
           <th scope="col">
-            <span jhiTranslate="assoGestionApp.familleAccueil.contact">Contact</span>
+            <span jhiTranslate="assoGestionApp.familleAccueil.referent">Referent</span>
+          </th>
+          <th scope="col">
+            <span jhiTranslate="assoGestionApp.familleAccueil.membres">Membres</span>
           </th>
           <th scope="col"></th>
         </tr>
@@ -78,10 +81,11 @@
           <td>
             <jhi-adresse-view [adresse]="familleAccueil.adresse" *ngIf="familleAccueil.adresse"></jhi-adresse-view>
           </td>
+          <td>{{ familleAccueil?.referent?.firstName }}&nbsp;{{ familleAccueil?.referent?.lastName }}</td>
           <td>
-            <ng-container *ngIf="familleAccueil.contacts">
-              <span class="badge bg-success" *ngIf="familleAccueil.contacts.length > 0">{{ familleAccueil.contacts.length }}</span>
-              <span class="badge bg-danger" *ngIf="familleAccueil.contacts.length === 0">{{ familleAccueil.contacts.length }}</span>
+            <ng-container *ngIf="familleAccueil.membres">
+              <span class="badge bg-success" *ngIf="familleAccueil.membres.length > 0">{{ familleAccueil.membres.length }}</span>
+              <span class="badge bg-danger" *ngIf="familleAccueil.membres.length === 0">{{ familleAccueil.membres.length }}</span>
             </ng-container>
           </td>
           <td class="text-end">

@@ -11,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
@@ -49,9 +50,17 @@ public class PointNourrissage implements Serializable {
     @JoinColumn(unique = true)
     private Adresse adresse;
 
-    @OneToMany(mappedBy = "pointNourrissage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        joinColumns = @JoinColumn(name = "point_nourrissage_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        indexes = {
+            @javax.persistence.Index(columnList = "point_nourrissage_id", name = "point_nourrissage_id_ind"),
+            @javax.persistence.Index(columnList = "user_id", name = "user_pn_id_ind"),
+        }
+    )
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Contact> contacts = new HashSet<>();
+    private Set<User> contacts = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -70,7 +79,7 @@ public class PointNourrissage implements Serializable {
         return this;
     }
 
-    public PointNourrissage contacts(Set<Contact> contacts) {
+    public PointNourrissage contacts(Set<User> contacts) {
         this.setContacts(contacts);
         return this;
     }

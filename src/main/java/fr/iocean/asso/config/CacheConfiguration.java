@@ -54,7 +54,8 @@ public class CacheConfiguration {
             createCache(cm, fr.iocean.asso.domain.VisiteVeterinaire.class.getName());
             createCache(cm, fr.iocean.asso.domain.VisiteVeterinaire.class.getName() + ".actes");
             createCache(cm, fr.iocean.asso.domain.FamilleAccueil.class.getName());
-            createCache(cm, fr.iocean.asso.domain.FamilleAccueil.class.getName() + ".contacts");
+            createCache(cm, fr.iocean.asso.domain.FamilleAccueil.class.getName() + ".membres");
+            createCache(cm, fr.iocean.asso.domain.FamilleAccueil.class.getName() + ".referent");
             createCache(cm, fr.iocean.asso.domain.Adresse.class.getName());
             createCache(cm, fr.iocean.asso.domain.PointCapture.class.getName());
             createCache(cm, fr.iocean.asso.domain.PointNourrissage.class.getName());
@@ -65,7 +66,6 @@ public class CacheConfiguration {
             createCache(cm, fr.iocean.asso.domain.ConfigurationAsso.class.getName());
             createCache(cm, fr.iocean.asso.domain.CliniqueVeterinaire.class.getName());
             createCache(cm, fr.iocean.asso.domain.Donateur.class.getName());
-            createCache(cm, fr.iocean.asso.domain.Contact.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

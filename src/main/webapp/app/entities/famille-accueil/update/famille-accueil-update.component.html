@@ -95,12 +95,29 @@
                   />
                 </div>
               </div>
+
               <div class="row mb-3">
-                <jhi-adresse-edit2 formGroupName="adresse"></jhi-adresse-edit2>
+                <div class="col-md-4">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.referent" for="field_referent">Referent</label>
+                  <jhi-user-autocomplete-control
+                    formControlName="referent"
+                    [multiple]="false"
+                    [authorities]="['ROLE_ADMIN']"
+                  ></jhi-user-autocomplete-control>
+                </div>
+
+                <div class="col-md-8">
+                  <label class="form-label" jhiTranslate="assoGestionApp.familleAccueil.membres" for="field_membres">Membres</label>
+                  <jhi-user-autocomplete-control
+                    formControlName="membres"
+                    [multiple]="true"
+                    [authorities]="['ROLE_FAMILLE_ACCUEIL']"
+                  ></jhi-user-autocomplete-control>
+                </div>
               </div>
 
               <div class="row mb-3">
-                <jhi-contact-list-edit [contacts]="contacts"></jhi-contact-list-edit>
+                <jhi-adresse-edit2 formGroupName="adresse"></jhi-adresse-edit2>
               </div>
             </div>
           </div>

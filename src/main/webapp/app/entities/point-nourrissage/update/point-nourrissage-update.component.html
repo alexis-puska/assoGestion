@@ -37,11 +37,17 @@
               </div>
 
               <div class="row mb-3">
-                <jhi-adresse-edit2 formGroupName="adresse"></jhi-adresse-edit2>
+                <div class="col-md-12">
+                  <label class="form-label" jhiTranslate="assoGestionApp.pointNourrissage.contact" for="field_contact">Contact</label>
+                  <jhi-user-autocomplete-control
+                    formControlName="contacts"
+                    [multiple]="true"
+                    [authorities]="['ROLE_NOURRISSEUR']"
+                  ></jhi-user-autocomplete-control>
+                </div>
               </div>
-
               <div class="row mb-3">
-                <jhi-contact-list-edit [contacts]="contacts"></jhi-contact-list-edit>
+                <jhi-adresse-edit2 formGroupName="adresse"></jhi-adresse-edit2>
               </div>
             </div>
           </div>

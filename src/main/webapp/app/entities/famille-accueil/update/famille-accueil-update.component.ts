@@ -9,7 +9,6 @@ import { IAdresse } from 'app/entities/adresse/adresse.model';
 import { TypeLogementEnum } from 'app/entities/enumerations/type-logement-enum.model';
 import { FamilleAccueil, IFamilleAccueil } from '../famille-accueil.model';
 import { FamilleAccueilService } from '../service/famille-accueil.service';
-import { Contact } from './../../contact/contact.model';
 
 @Component({
   selector: 'jhi-famille-accueil-update',
@@ -19,8 +18,6 @@ export class FamilleAccueilUpdateComponent implements OnInit {
   isSaving = false;
   typeLogementEnumValues = Object.keys(TypeLogementEnum);
 
-  contacts: Contact[] | null = [];
-
   editForm = this.fb.group({
     id: [],
     nom: [null, [Validators.required]],
@@ -28,6 +25,8 @@ export class FamilleAccueilUpdateComponent implements OnInit {
     nombrePiece: [],
     nombreChat: [],
     nombreChien: [],
+    referent: [],
+    membres: [[]],
     adresse: this.fb.group({
       id: [],
       numero: [null, [Validators.required]],
@@ -94,6 +93,8 @@ export class FamilleAccueilUpdateComponent implements OnInit {
       nombrePiece: familleAccueil.nombrePiece,
       nombreChat: familleAccueil.nombreChat,
       nombreChien: familleAccueil.nombreChien,
+      referent: familleAccueil.referent,
+      membres: familleAccueil.membres,
       adresse: {
         id: familleAccueil.adresse ? familleAccueil.adresse.id : null,
         numero: familleAccueil.adresse ? familleAccueil.adresse.numero : null,
@@ -102,7 +103,6 @@ export class FamilleAccueilUpdateComponent implements OnInit {
         ville: familleAccueil.adresse ? familleAccueil.adresse.ville : null,
       },
     });
-    this.contacts = familleAccueil.contacts ? familleAccueil.contacts : [];
   }
 
   protected createFromForm(): IFamilleAccueil {
@@ -115,7 +115,8 @@ export class FamilleAccueilUpdateComponent implements OnInit {
       nombreChat: this.editForm.get(['nombreChat'])!.value,
       nombreChien: this.editForm.get(['nombreChien'])!.value,
       adresse: this.editForm.get(['adresse'])!.value,
-      contacts: this.contacts,
+      referent: this.editForm.get(['referent'])!.value,
+      membres: this.editForm.get(['membres'])!.value,
     };
   }
 }
