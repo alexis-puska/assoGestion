@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 import { IAdresse } from 'app/entities/adresse/adresse.model';
-import { Contact } from 'app/entities/contact/contact.model';
 import { IPointNourrissage, PointNourrissage } from '../point-nourrissage.model';
 import { PointNourrissageService } from '../service/point-nourrissage.service';
 
@@ -17,11 +16,10 @@ import { PointNourrissageService } from '../service/point-nourrissage.service';
 export class PointNourrissageUpdateComponent implements OnInit {
   isSaving = false;
 
-  contacts: Contact[] | null = [];
-
   editForm = this.fb.group({
     id: [],
     nom: [null, [Validators.required]],
+    contacts: [[]],
     adresse: this.fb.group({
       id: [],
       numero: [null, [Validators.required]],
@@ -84,6 +82,7 @@ export class PointNourrissageUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: pointNourrissage.id,
       nom: pointNourrissage.nom,
+      contacts: pointNourrissage.contacts,
       adresse: {
         id: pointNourrissage.adresse ? pointNourrissage.adresse.id : null,
         numero: pointNourrissage.adresse ? pointNourrissage.adresse.numero : null,
@@ -92,7 +91,6 @@ export class PointNourrissageUpdateComponent implements OnInit {
         ville: pointNourrissage.adresse ? pointNourrissage.adresse.ville : null,
       },
     });
-    this.contacts = pointNourrissage.contacts ? pointNourrissage.contacts : [];
   }
 
   protected createFromForm(): IPointNourrissage {
@@ -101,7 +99,7 @@ export class PointNourrissageUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       nom: this.editForm.get(['nom'])!.value,
       adresse: this.editForm.get(['adresse'])!.value,
-      contacts: this.contacts,
+      contacts: this.editForm.get(['contacts'])!.value,
     };
   }
 }

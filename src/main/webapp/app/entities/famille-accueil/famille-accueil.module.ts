@@ -6,11 +6,10 @@ import { FamilleAccueilUpdateComponent } from './update/famille-accueil-update.c
 import { FamilleAccueilDeleteDialogComponent } from './delete/famille-accueil-delete-dialog.component';
 import { FamilleAccueilRoutingModule } from './route/famille-accueil-routing.module';
 import { CommonsModule } from 'app/module/commons/commons.module';
-import { ContactModule } from 'app/module/contact/contact.module';
 import { AdresseModule } from 'app/module/adresse/adresse.module';
 
 @NgModule({
-  imports: [SharedModule, FamilleAccueilRoutingModule, CommonsModule, ContactModule, AdresseModule],
+  imports: [SharedModule, FamilleAccueilRoutingModule, CommonsModule, AdresseModule],
   declarations: [
     FamilleAccueilComponent,
     FamilleAccueilDetailComponent,

@@ -24,7 +24,8 @@
       "nombreChat": "Nombre Chat",
       "nombreChien": "Nombre Chien",
       "adresse": "Adresse",
-      "contact": "Contact"
+      "referent": "Referent",
+      "membres": "Membres"
     }
   }
 }

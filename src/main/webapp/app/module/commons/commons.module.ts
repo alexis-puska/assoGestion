@@ -6,6 +6,7 @@ import { FamilleAccueilAutocompleteControlComponent } from './famille-acceuil-au
 import { PointCaptureAutocompleteControlComponent } from './point-capture-autocomplete-control.component';
 import { RaceChatAutocompleteControlComponent } from './race-chat-autocomplete-control.component';
 import { UserAutocompleteControlComponent } from './user-autocomplete-control.component';
+import { UserLightListComponent } from './user-light-list.component';
 
 @NgModule({
   imports: [SharedModule, NgSelectModule],
@@ -16,6 +17,7 @@ import { UserAutocompleteControlComponent } from './user-autocomplete-control.co
     RaceChatAutocompleteControlComponent,
     PointCaptureAutocompleteControlComponent,
     CliniqueVeterinaireAutocompleteControlComponent,
+    UserLightListComponent,
   ],
   exports: [
     UserAutocompleteControlComponent,
@@ -23,6 +25,7 @@ import { UserAutocompleteControlComponent } from './user-autocomplete-control.co
     RaceChatAutocompleteControlComponent,
     PointCaptureAutocompleteControlComponent,
     CliniqueVeterinaireAutocompleteControlComponent,
+    UserLightListComponent,
   ],
   entryComponents: [],
 })

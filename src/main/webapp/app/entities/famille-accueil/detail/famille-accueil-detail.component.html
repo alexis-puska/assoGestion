@@ -36,10 +36,15 @@
         <dd>
           <span>{{ familleAccueil.nombreChien }}</span>
         </dd>
+
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.referent">Referent</span></dt>
+        <dd>{{ familleAccueil?.referent?.firstName }}&nbsp;{{ familleAccueil?.referent?.lastName }}</dd>
+
+        <dt><span jhiTranslate="assoGestionApp.familleAccueil.membres">Membres</span></dt>
+        <jhi-user-light-list [users]="familleAccueil.membres" *ngIf="familleAccueil && familleAccueil.membres"></jhi-user-light-list>
+
         <dt><span jhiTranslate="assoGestionApp.familleAccueil.adresse">Adresse</span></dt>
         <jhi-adresse-view [adresse]="familleAccueil.adresse" *ngIf="familleAccueil.adresse"></jhi-adresse-view>
-        <dt><span jhiTranslate="assoGestionApp.familleAccueil.contact">Contact</span></dt>
-        <jhi-contact-list [contacts]="familleAccueil.contacts" *ngIf="familleAccueil && familleAccueil.contacts"></jhi-contact-list>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

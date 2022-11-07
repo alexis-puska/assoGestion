@@ -1,0 +1,20 @@
+<table class="table table-striped" aria-describedby="page-heading">
+  <thead>
+    <tr>
+      <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+      <th scope="col"><span jhiTranslate="userManagement.lastName">Nom</span></th>
+      <th scope="col"><span jhiTranslate="userManagement.firstName">Prenom</span></th>
+      <th scope="col"><span jhiTranslate="userManagement.email">Mail</span></th>
+      <th scope="col"><span jhiTranslate="userManagement.telephone">Tel Mobile</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.lastName }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.telephone }}</td>
+    </tr>
+  </tbody>
+</table>
