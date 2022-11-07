@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -105,6 +106,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "contacts")
+    private Set<PointNourrissage> pointNourrissages = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "membres")
+    private Set<FamilleAccueil> familleAccueils = new HashSet<>();
 
     public Long getId() {
         return id;

@@ -1,0 +1,72 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-2">
+        <createTable tableName="famille_accueil_membres">
+            <column name="famille_accueil_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-3">
+        <createTable tableName="point_nourrissage_contacts">
+            <column name="point_nourrissage_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-4">
+        <addColumn tableName="famille_accueil">
+            <column name="referent_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-5">
+        <createIndex indexName="famille_accueil_id_ind" tableName="famille_accueil_membres">
+            <column name="famille_accueil_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-6">
+        <createIndex indexName="point_nourrissage_id_ind" tableName="point_nourrissage_contacts">
+            <column name="point_nourrissage_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-7">
+        <createIndex indexName="user_fa_id_ind" tableName="famille_accueil_membres">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-8">
+        <createIndex indexName="user_pn_id_ind" tableName="point_nourrissage_contacts">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-9">
+        <addForeignKeyConstraint baseColumnNames="referent_id" baseTableName="famille_accueil" constraintName="FK1q5qbull5ld8tdpn9jf69gjc7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-10">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="point_nourrissage_contacts" constraintName="FK9c5ti99eialforl9vcf1bs647" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-11">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="famille_accueil_membres" constraintName="FKmkoj9y49gr8lheyo2t02xncp7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-12">
+        <addForeignKeyConstraint baseColumnNames="famille_accueil_id" baseTableName="famille_accueil_membres" constraintName="FKoqhv9xyoh2trd4qg774uhv0ba" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="famille_accueil" validate="true"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-13">
+        <addForeignKeyConstraint baseColumnNames="point_nourrissage_id" baseTableName="point_nourrissage_contacts" constraintName="FKpijlren8hfp4vi5yvs2wr7x07" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="point_nourrissage" validate="true"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-14">
+        <dropForeignKeyConstraint baseTableName="contact" constraintName="fk_contact__famille_accueil_id"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-15">
+        <dropForeignKeyConstraint baseTableName="contact" constraintName="fk_contact__point_nourrissage_id"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667824294824-16">
+        <dropTable tableName="contact"/>
+    </changeSet>
+</databaseChangeLog>

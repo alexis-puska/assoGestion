@@ -1,11 +1,20 @@
 package fr.iocean.asso.service.dto;
 
 import fr.iocean.asso.domain.User;
+import java.io.Serializable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * A DTO representing a user, with his authorities.
  */
-public class UserLightDTO {
+@Getter
+@Setter
+@NoArgsConstructor
+public class UserLightDTO implements Serializable {
+
+    private static final long serialVersionUID = -4766160031712544604L;
 
     private Long id;
 
@@ -13,46 +22,15 @@ public class UserLightDTO {
 
     private String lastName;
 
-    public UserLightDTO() {
-        // Empty constructor needed for Jackson.
-    }
+    private String email;
+
+    private String telephone;
 
     public UserLightDTO(User user) {
         this.id = user.getId();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "UserLightDTO{" +
-            "firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + 
-            "}";
+        this.email = user.getEmail();
+        this.telephone = user.getTelephone();
     }
 }
