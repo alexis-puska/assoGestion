@@ -22,6 +22,7 @@
         "cliniqueVeterinaire": "Clinique Veterinaire",
         "donateur": "Donateur",
         "contact": "Contact",
+        "absence": "Absence",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -133,6 +134,7 @@
       "min": "This field should be at least {{ min }}.",
       "max": "This field cannot be more than {{ max }}.",
       "minbytes": "This field should be at least {{ min }} bytes.",
+      "mindate": "La date doit être inférieur à {{min | date: 'dd/MM/yy'}}",
       "maxbytes": "This field cannot be more than {{ max }} bytes.",
       "pattern": "This field should follow pattern for {{ pattern }}.",
       "number": "This field should be a number.",

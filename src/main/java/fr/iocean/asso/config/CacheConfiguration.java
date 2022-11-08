@@ -66,6 +66,8 @@ public class CacheConfiguration {
             createCache(cm, fr.iocean.asso.domain.ConfigurationAsso.class.getName());
             createCache(cm, fr.iocean.asso.domain.CliniqueVeterinaire.class.getName());
             createCache(cm, fr.iocean.asso.domain.Donateur.class.getName());
+            createCache(cm, fr.iocean.asso.domain.Absence.class.getName());
+            createCache(cm, fr.iocean.asso.domain.Absence.class.getName() + ".user");
             // jhipster-needle-ehcache-add-entry
         };
     }

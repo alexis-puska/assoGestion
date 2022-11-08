@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="apuskarczyk (generated)" id="1667829819310-2">
+        <createTable tableName="absence">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="absencePK"/>
+            </column>
+            <column name="jhi_end" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="motif" type="VARCHAR(512)"/>
+            <column name="start" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667829819310-3">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="absence" constraintName="FKqi807js5wv5rby7als384sikr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="apuskarczyk (generated)" id="1667829819310-4">
+        <addNotNullConstraint columnDataType="bigint" columnName="user_id" tableName="absence" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

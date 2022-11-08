@@ -33,14 +33,14 @@
       "ConfigurationContrat",
       "CliniqueVeterinaire",
       "Donateur",
-      "Contact"
+      "Absence"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.7.0",
     "jwtSecretKey": "YWMwNmVhMGM0YTU3NzUzNmFiYTZiODFjMDU3NTAzZWZkZjZkODM3MDg3MGNhZWM4ZTk1YTkyNTU4ZDc0MjI5NmNhMGRiYzM0YmE4YmVjYmJmNjMxMDNmNDliZGQ1YmQ4YjI1MDNmMTQ1NWY1NGZjMGY2MzkwMWM5ZGRhZWU5Mzc=",
     "languages": ["fr", "en"],
-    "lastLiquibaseTimestamp": 1663948848000,
+    "lastLiquibaseTimestamp": 1667828909000,
     "messageBroker": false,
     "nativeLanguage": "fr",
     "otherModules": [],

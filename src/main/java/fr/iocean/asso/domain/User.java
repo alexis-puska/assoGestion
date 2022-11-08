@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -112,6 +113,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "membres")
     private Set<FamilleAccueil> familleAccueils = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Absence> absences;
 
     public Long getId() {
         return id;

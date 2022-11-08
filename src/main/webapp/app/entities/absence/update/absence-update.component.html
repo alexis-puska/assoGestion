@@ -1,0 +1,124 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-absence-heading" data-cy="AbsenceCreateUpdateHeading" jhiTranslate="assoGestionApp.absence.home.createOrEditLabel">
+        Create or edit a Absence
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label" jhiTranslate="assoGestionApp.absence.motif" for="field_motif">Motif</label>
+            <input type="text" class="form-control" name="motif" id="field_motif" data-cy="motif" formControlName="motif" />
+            <div *ngIf="editForm.get('motif')!.invalid && (editForm.get('motif')!.dirty || editForm.get('motif')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('motif')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength"
+                [translateValues]="{ max: 512 }"
+              >
+                This field cannot be longer than 512 characters.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label" jhiTranslate="assoGestionApp.absence.start" for="field_start">Start</label>
+            <div class="input-group">
+              <input
+                id="field_start"
+                data-cy="start"
+                type="text"
+                class="form-control"
+                name="start"
+                ngbDatepicker
+                #startDp="ngbDatepicker"
+                formControlName="start"
+              />
+              <button type="button" class="btn btn-secondary" (click)="startDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </div>
+            <div *ngIf="editForm.get('start')!.invalid && (editForm.get('start')!.dirty || editForm.get('start')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('start')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" jhiTranslate="assoGestionApp.absence.end" for="field_end">End</label>
+            <div class="input-group">
+              <input
+                id="field_end"
+                data-cy="end"
+                type="text"
+                class="form-control"
+                name="end"
+                ngbDatepicker
+                #endDp="ngbDatepicker"
+                formControlName="end"
+                [minDate]="getMinDate()"
+              />
+              <button type="button" class="btn btn-secondary" (click)="endDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </div>
+            <div *ngIf="editForm.get('end')!.invalid && (editForm.get('end')!.dirty || editForm.get('end')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('end')?.errors?.required" jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+            </div>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('end')?.errors?.ngbDate && editForm.get('end')?.errors?.ngbDate?.minDate"
+              jhiTranslate="entity.validation.mindate"
+              [translateValues]="{ min: getMinDateFormater() }"
+            >
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="assoGestionApp.absence.user" for="field_user">Utilisateur</label>
+          <jhi-user-autocomplete-control formControlName="user" [multiple]="false" [authorities]="['ROLE_USER']">
+          </jhi-user-autocomplete-control>
+          <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('user')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
