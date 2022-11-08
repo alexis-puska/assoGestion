@@ -4,8 +4,8 @@ import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of, EMPTY } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { IAbsence, Absence } from '../absence.model';
-import { AbsenceService } from '../service/absence.service';
+import { IAbsence, Absence } from '../../absence/absence.model';
+import { AbsenceService } from '../../absence/service/absence.service';
 
 @Injectable({ providedIn: 'root' })
 export class AbsenceRoutingResolveService implements Resolve<IAbsence> {
@@ -14,7 +14,7 @@ export class AbsenceRoutingResolveService implements Resolve<IAbsence> {
   resolve(route: ActivatedRouteSnapshot): Observable<IAbsence> | Observable<never> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(
+      return this.service.findAdmin(id).pipe(
         mergeMap((absence: HttpResponse<Absence>) => {
           if (absence.body) {
             return of(absence.body);

@@ -49,6 +49,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'assoGestionApp.absence.home.title' },
         loadChildren: () => import('./absence/absence.module').then(m => m.AbsenceModule),
       },
+      {
+        path: 'absence-admin',
+        data: { pageTitle: 'assoGestionApp.absence.home.title' },
+        loadChildren: () => import('./absence-admin/absence-admin.module').then(m => m.AbsenceAdminModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

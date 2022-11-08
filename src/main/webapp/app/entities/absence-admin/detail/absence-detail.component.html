@@ -26,13 +26,15 @@
         <dd>
           <span>{{ absence.end | formatMediumDate }}</span>
         </dd>
+        <dt><span jhiTranslate="assoGestionApp.absence.user">User</span></dt>
+        <dd>{{ absence?.user?.firstName }}&nbsp;{{ absence?.user?.lastName }}</dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/absence', absence.id, 'edit']" class="btn btn-primary">
+      <button type="button" [routerLink]="['/absence-admin', absence.id, 'edit']" class="btn btn-primary">
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>

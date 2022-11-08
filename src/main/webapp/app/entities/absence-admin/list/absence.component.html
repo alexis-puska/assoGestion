@@ -12,7 +12,7 @@
         id="jh-create-entity"
         data-cy="entityCreateButton"
         class="btn btn-primary jh-create-entity create-absence"
-        [routerLink]="['/absence/new']"
+        [routerLink]="['/absence-admin/new']"
       >
         <fa-icon icon="plus"></fa-icon>
         <span jhiTranslate="assoGestionApp.absence.home.createLabel"> Create a new Absence </span>
@@ -40,6 +40,9 @@
             <span jhiTranslate="assoGestionApp.absence.start">Start</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="end"><span jhiTranslate="assoGestionApp.absence.end">End</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="user.id">
+            <span jhiTranslate="assoGestionApp.absence.user">User</span> <fa-icon icon="sort"></fa-icon>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -51,11 +54,12 @@
           <td>{{ absence.motif }}</td>
           <td>{{ absence.start | formatMediumDate }}</td>
           <td>{{ absence.end | formatMediumDate }}</td>
+          <td>{{ absence?.user?.firstName }}&nbsp;{{ absence?.user?.lastName }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button
                 type="submit"
-                [routerLink]="['/absence', absence.id, 'view']"
+                [routerLink]="['/absence-admin', absence.id, 'view']"
                 class="btn btn-info btn-sm"
                 data-cy="entityDetailsButton"
               >
@@ -65,7 +69,7 @@
 
               <button
                 type="submit"
-                [routerLink]="['/absence', absence.id, 'edit']"
+                [routerLink]="['/absence-admin', absence.id, 'edit']"
                 class="btn btn-primary btn-sm"
                 data-cy="entityEditButton"
               >

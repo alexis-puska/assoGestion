@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import dayjs from 'dayjs/esm';
 
-import { IAbsence, Absence } from '../absence.model';
-import { AbsenceService } from '../service/absence.service';
+import { IAbsence, Absence } from '../../absence/absence.model';
+import { AbsenceService } from '../../absence/service/absence.service';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { MomentDateFormatter } from 'app/shared/util/dateformat';
 
@@ -24,6 +24,7 @@ export class AbsenceUpdateComponent implements OnInit {
     motif: [null, [Validators.maxLength(512)]],
     start: [null, [Validators.required]],
     end: [null, [Validators.required]],
+    user: [null, [Validators.required]],
   });
 
   constructor(protected absenceService: AbsenceService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -42,9 +43,9 @@ export class AbsenceUpdateComponent implements OnInit {
     this.isSaving = true;
     const absence = this.createFromForm();
     if (absence.id !== undefined) {
-      this.subscribeToSaveResponse(this.absenceService.update(absence));
+      this.subscribeToSaveResponse(this.absenceService.updateAdmin(absence));
     } else {
-      this.subscribeToSaveResponse(this.absenceService.create(absence));
+      this.subscribeToSaveResponse(this.absenceService.createAdmin(absence));
     }
   }
 
@@ -93,6 +94,7 @@ export class AbsenceUpdateComponent implements OnInit {
       motif: absence.motif,
       start: absence.start,
       end: absence.end,
+      user: absence.user,
     });
   }
 
@@ -103,6 +105,7 @@ export class AbsenceUpdateComponent implements OnInit {
       motif: this.editForm.get(['motif'])!.value,
       start: this.editForm.get(['start'])!.value,
       end: this.editForm.get(['end'])!.value,
+      user: this.editForm.get(['user'])!.value,
     };
   }
 }

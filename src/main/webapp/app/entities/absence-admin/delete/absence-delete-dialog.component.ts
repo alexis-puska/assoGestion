@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IAbsence } from '../absence.model';
-import { AbsenceService } from '../service/absence.service';
+import { IAbsence } from '../../absence/absence.model';
+import { AbsenceService } from '../../absence/service/absence.service';
 
 @Component({
   templateUrl: './absence-delete-dialog.component.html',
@@ -17,7 +17,7 @@ export class AbsenceDeleteDialogComponent {
   }
 
   confirmDelete(id: number): void {
-    this.absenceService.delete(id).subscribe(() => {
+    this.absenceService.deleteAdmin(id).subscribe(() => {
       this.activeModal.close('deleted');
     });
   }

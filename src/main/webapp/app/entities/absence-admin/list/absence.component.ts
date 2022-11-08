@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IAbsence } from '../absence.model';
+import { IAbsence } from '../../absence/absence.model';
 
 import { ASC, DESC, ITEMS_PER_PAGE } from 'app/config/pagination.constants';
-import { AbsenceService } from '../service/absence.service';
+import { AbsenceService } from '../../absence/service/absence.service';
 import { AbsenceDeleteDialogComponent } from '../delete/absence-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 
@@ -37,7 +37,7 @@ export class AbsenceComponent implements OnInit {
     this.isLoading = true;
 
     this.absenceService
-      .query({
+      .queryAdmin({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),

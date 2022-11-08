@@ -99,6 +99,21 @@
                   </small>
                 </div>
               </div>
+
+              <div class="row mb-3">
+                <label class="form-label" jhiTranslate="assoGestionApp.absence.user" for="field_user">Utilisateur</label>
+                <jhi-user-autocomplete-control formControlName="user" [multiple]="false" [authorities]="['ROLE_USER']">
+                </jhi-user-autocomplete-control>
+                <div *ngIf="editForm.get('user')!.invalid && (editForm.get('user')!.dirty || editForm.get('user')!.touched)">
+                  <small
+                    class="form-text text-danger"
+                    *ngIf="editForm.get('user')?.errors?.required"
+                    jhiTranslate="entity.validation.required"
+                  >
+                    This field is required.
+                  </small>
+                </div>
+              </div>
             </div>
           </div>
         </div>

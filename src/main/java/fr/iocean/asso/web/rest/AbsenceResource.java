@@ -63,7 +63,6 @@ public class AbsenceResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/absences")
-    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<AbsenceDTO> createAbsence(@Valid @RequestBody AbsenceDTO absenceDTO) throws URISyntaxException {
         log.debug("REST request to save Absence : {}", absenceDTO);
         if (absenceDTO.getId() != null) {

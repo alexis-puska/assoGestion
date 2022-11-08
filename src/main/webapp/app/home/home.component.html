@@ -130,6 +130,32 @@
                   </div>
                   <div class="card-body">
                     <h4>
+                      <a routerLink="absence-admin">
+                        <span jhiTranslate="global.menu.entities.absence">Absence</span>
+                      </a>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" *jhiHasAnyAuthority="['ROLE_USER']">
+          <div class="card-header">
+            <h1 class="text-center">Gestion</h1>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-md-center">
+              <div class="col-md-4 mb-3">
+                <div class="card text-center">
+                  <div class="card-header bg-success text-white">
+                    <h4>
+                      <span jhiTranslate="global.menu.entities.absence">Absence</span>
+                    </h4>
+                  </div>
+                  <div class="card-body">
+                    <h4>
                       <a routerLink="absence">
                         <span jhiTranslate="global.menu.entities.absence">Absence</span>
                       </a>
